@@ -4,26 +4,27 @@ using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
 {
     [ApiController]
-    [Route("api/departments")]
-    public class DepartmentController : Controller
+    [Route("api/users")]
+    public class UserController : Controller
     {
         private readonly ApplicationContext _dataBase;
 
-        public DepartmentController(ApplicationContext dataBase)
+        public UserController(ApplicationContext dataBase)
         {
-            this._dataBase = dataBase;
+            _dataBase = dataBase;
         }
 
         [HttpGet]
-        public IEnumerable<FactoryDepartment> Get()
+        public IEnumerable<User> Get()
         {
-            var departments = _dataBase.Departments.ToList();
+            List<User> users = _dataBase.Users.Include(u => u.FactoryDepartment).ToList();
 
-            return departments;
+            return users;
         }
     }
 }
