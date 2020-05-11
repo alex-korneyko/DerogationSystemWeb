@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Model.Configs
 {
-    public class ApplicationContext : DbContext
+    public sealed class ApplicationContext : DbContext
     {
         public DbSet<FactoryDepartment> Departments { get; set; }
         public DbSet<User> Users { get; set; }
