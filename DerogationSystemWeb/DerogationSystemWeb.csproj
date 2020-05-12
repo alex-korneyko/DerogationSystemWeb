@@ -13,6 +13,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
+	  <None Remove="ClientApp\src\app\view\departments\DepartmentComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\users\UsersComponent.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">

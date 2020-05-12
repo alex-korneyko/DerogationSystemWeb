@@ -1,0 +1,30 @@
+﻿<div class="m-3">
+    <h4>Departments list:</h4>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <td>Department</td>
+            <td>MAilStep</td>
+            <td>Mandatory</td>
+            <td>LtimeAccess</td>
+            <td>DCostAccess</td>
+            <td>AddDept</td>
+            <td>ToBeAdded</td>
+            <td>OnlyMail</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let d of departments">
+            <td><a [routerLink]="['department', d.department]" >{{d?.department}}</a></td>
+            <td>{{d?.mAilStep}}</td>
+            <td>{{d?.mandatory}}</td>
+            <td>{{d?.ltimeAccess}}</td>
+            <td>{{d?.dCostAccess}}</td>
+            <td>{{d?.addDept}}</td>
+            <td>{{d?.toBeAdded}}</td>
+            <td>{{d?.onlyMail}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary">Add new department</button>
+</div>
