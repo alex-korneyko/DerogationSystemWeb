@@ -41,7 +41,7 @@ namespace DerogationSystemWeb.Controllers
 
             _dataBase.Departments.Add(department);
             _dataBase.SaveChanges();
-
+            
             return Ok(department);
         }
 

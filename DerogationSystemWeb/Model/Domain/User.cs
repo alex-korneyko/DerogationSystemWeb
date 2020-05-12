@@ -13,7 +13,6 @@ namespace DerogationSystemWeb.Model.Domain
         public char CanApprove { get; set; }
         public char InMail { get; set; }
 
-        [JsonIgnore]
         public string Department { get; set; }
         public FactoryDepartment FactoryDepartment { get; set; }
     }

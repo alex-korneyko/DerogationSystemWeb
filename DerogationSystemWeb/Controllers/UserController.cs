@@ -29,7 +29,7 @@ namespace DerogationSystemWeb.Controllers
         [HttpGet("{id}")]
         public User GetUser(int id)
         {
-            User user = _dataBase.Users.FirstOrDefault(usr => usr.Id == id);
+            User user = _dataBase.Users.Include(u => u.FactoryDepartment).FirstOrDefault(usr => usr.Id == id);
 
             return user;
         }
