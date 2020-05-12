@@ -15,7 +15,8 @@
 	<ItemGroup>
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
-	  <None Remove="ClientApp\src\app\view\departments\DepartmentComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\departments\DepartmentEdtComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\departments\DepartmentFormComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />

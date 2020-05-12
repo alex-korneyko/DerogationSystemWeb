@@ -1,19 +1,19 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Department } from "../../model/domain/Department";
-import { ActivatedRoute } from "@angular/router"
+import { Router, ActivatedRoute } from "@angular/router";
 import { DepartmentApiService } from "../../controllers/DepartmentApiService";
 
 @Component({
-    templateUrl: "DepartmentComponent.html",
+    templateUrl: "DepartmentEdtComponent.html",
     providers: [DepartmentApiService]
 })
 
-export class DepartmentComponent implements OnInit {
+export class DepartmentEdtComponent implements OnInit {
 
     id: string;
     department: Department;
 
-    constructor(private apiService: DepartmentApiService, activeRoute: ActivatedRoute) {
+    constructor(private apiService: DepartmentApiService, activeRoute: ActivatedRoute, private  router: Router) {
         this.id = activeRoute.snapshot.params["id"];
     }
 
@@ -23,4 +23,6 @@ export class DepartmentComponent implements OnInit {
                 .subscribe((data: Department) => this.department = data);
         }
     }
+
+
 }
