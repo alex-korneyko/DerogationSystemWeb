@@ -1,6 +1,6 @@
 ﻿export class Department {
     constructor(
-        public department: string,
+        public department?: string,
         public mAilStep?: number,
         public mandatory?: string,
         public ltimeAccess?: string,

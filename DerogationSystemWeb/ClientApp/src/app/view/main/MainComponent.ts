@@ -2,7 +2,7 @@
 
 @Component({
     selector: "app",
-    templateUrl: "main.html"
+    templateUrl: "MainComponent.html"
 })
 
 export class MainComponent {

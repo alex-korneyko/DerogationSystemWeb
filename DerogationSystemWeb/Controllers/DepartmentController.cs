@@ -45,13 +45,30 @@ namespace DerogationSystemWeb.Controllers
             return Ok(department);
         }
 
-        [HttpPut]
-        public IActionResult UpdateDepartment(FactoryDepartment department)
+        [HttpPut("{id}")]
+        public IActionResult UpdateDepartment(string id, FactoryDepartment department)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _dataBase.Update(department);
+            if (id.Equals(department.Department))
+            {
+                _dataBase.Departments.Update(department);
+                _dataBase.SaveChanges();
+                return Ok(department);
+            }
+
+            _dataBase.Departments.Add(department);
+            _dataBase.SaveChanges();
+
+            List<User> departmentUsers = _dataBase.Users.Where(user => user.Department.Equals(id)).ToList();
+            departmentUsers.ForEach(user => user.Department = department.Department);
+            _dataBase.Users.UpdateRange(departmentUsers);
+            _dataBase.SaveChanges();
+
+            FactoryDepartment deptForDelete = _dataBase.Departments.FirstOrDefault(dept => dept.Department == id);
+            if (deptForDelete != null)
+                _dataBase.Departments.Remove(deptForDelete);
             _dataBase.SaveChanges();
 
             return Ok(department);

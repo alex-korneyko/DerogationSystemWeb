@@ -15,6 +15,8 @@
 	<ItemGroup>
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
+	  <None Remove="ClientApp\src\app\view\CommonComponents\TopNavBar\TopNavBarComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\departments\DepartmentCrtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentEdtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentFormComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />

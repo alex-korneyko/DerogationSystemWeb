@@ -24,6 +24,6 @@ export class DepartmentListComponent implements OnInit {
     }
 
     addNewClick() {
-        this.router.navigateByUrl("/departments/department/create");
+        this.router.navigateByUrl("/departments/newDepartment");
     }
 }
