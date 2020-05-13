@@ -23,7 +23,11 @@ export class UserListComponent implements OnInit{
     }
 
     addNewClick() {
+        this.router.navigateByUrl("/users/newUser");
+    }
 
+    deleteUser(id: number) {
+        this.apiService.deleteUser(id).subscribe(() => this.ngOnInit());
     }
 
     filterChange() {

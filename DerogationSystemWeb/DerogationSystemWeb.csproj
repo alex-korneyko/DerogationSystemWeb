@@ -23,6 +23,7 @@
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\users\UserCreate\UserCrtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserEdit\UserEdtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserForm\UserFormComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UsersComponent.ts" />
@@ -35,10 +36,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ClientApp\src\app\view\users\UserCreate\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

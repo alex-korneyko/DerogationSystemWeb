@@ -9,7 +9,7 @@ import { DepartmentApiService } from "../../../controllers/DepartmentApiService"
 })
 export class DepartmentCrtComponent {
 
-    department: Department = new Department();
+    department = new Department();
 
     constructor(private apiService: DepartmentApiService, private router: Router) { }
 
