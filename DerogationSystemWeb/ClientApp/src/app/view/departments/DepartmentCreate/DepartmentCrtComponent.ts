@@ -1,7 +1,7 @@
 ﻿import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { Department } from "../../model/domain/Department";
-import { DepartmentApiService } from "../../controllers/DepartmentApiService";
+import { Department } from "../../../model/domain/Department";
+import { DepartmentApiService } from "../../../controllers/DepartmentApiService";
 
 @Component({
     templateUrl: "DepartmentCrtComponent.html",

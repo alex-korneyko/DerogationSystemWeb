@@ -1,0 +1,38 @@
+﻿<div class="m-3">
+    <div class="row justify-content-between mx-0 mb-2">
+        <h4 class="col">List of Users:</h4>
+        <div class="input-group col-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input [(ngModel)]="filter"
+                   (ngModelChange)="filterChange()"
+                   type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <button class="btn btn-primary ml-5" (click)="addNewClick()">Add new user</button>
+    </div>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <td>derogationUser</td>
+            <td>Department</td>
+            <td>userMailBase</td>
+            <td>admin</td>
+            <td>canCreate</td>
+            <td>canApprove</td>
+            <td>inMail</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let u of users">
+            <td><a [routerLink]="['user', u.id]">{{u?.derogationUser}}</a></td>
+            <td><a [routerLink]="['/departments/department', u.department]">{{u?.department}}</a></td>
+            <td>{{u?.userMailBase}}</td>
+            <td>{{u?.admin}}</td>
+            <td>{{u?.canCreate}}</td>
+            <td>{{u?.canApprove}}</td>
+            <td>{{u?.inMail}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
