@@ -8,10 +8,10 @@ namespace DerogationSystemWeb.Model.Domain
         public int Id { get; set; }
         public string DerogationUser { get; set; }
         public string UserMailBase { get; set; }
-        public char Admin { get; set; }
-        public char CanCreate { get; set; }
-        public char CanApprove { get; set; }
-        public char InMail { get; set; }
+        public char Admin { get; set; } = '0';
+        public char CanCreate { get; set; } = '0';
+        public char CanApprove { get; set; } = '0';
+        public char InMail { get; set; } = '0';
 
         public string Department { get; set; }
         public FactoryDepartment FactoryDepartment { get; set; }

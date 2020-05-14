@@ -1,8 +1,10 @@
 ﻿<div *ngIf="loaded">
-    <h4 class="ml-3">Department edit page {{id}}</h4>
+    <h4 class="ml-3">Department edit page: {{id}}</h4>
     <department-form [(department)]="department"></department-form>
-    <div class="form-group ml-3">
-        <input type="button" value="Save" (click)="save()" class="btn btn-success mr-3" />
-        <a routerLink="/" class="btn btn-warning">Cancel</a>
+    <div class="form-group ml-3 mt-3">
+        <input (click)="save()"
+               [disabled]="disabled()"
+               type="button" value="Save" class="btn btn-success mr-3" />
+        <a routerLink="/departments" class="btn btn-warning">Cancel</a>
     </div>
 </div>

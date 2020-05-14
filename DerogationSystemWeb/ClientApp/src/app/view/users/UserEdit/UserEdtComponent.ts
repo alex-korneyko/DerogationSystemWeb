@@ -27,6 +27,13 @@ export class UserEdtComponent implements OnInit {
     }
 
     save() {
+        if (this.user.userMailBase === undefined) {
+            this.user.userMailBase = this.user.derogationUser;
+        }
         this.apiService.updateUser(this.user).subscribe(() => this.router.navigateByUrl("/users"));
+    }
+
+    disabled() {
+        return this.user.derogationUser === undefined || this.user.derogationUser === "";
     }
 }

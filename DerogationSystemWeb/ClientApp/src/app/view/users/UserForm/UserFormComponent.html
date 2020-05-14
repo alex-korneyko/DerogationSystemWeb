@@ -1,30 +1,23 @@
-﻿<div class="col-6">
+﻿<div class="col-5">
     <div class="form-group">
         <label>User:</label>
-        <input type="text" [(ngModel)]="user.derogationUser" class="form-control" />
+        <input [(ngModel)]="user.derogationUser"
+               type="text" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Department:</label>
-        <input type="text" [(ngModel)]="user.department" class="form-control" />
-    </div>
+
+    <label for="department_select">Department:</label>
+    <select [(ngModel)]="user.department"
+            class="custom-select" id="department_select" required>
+        <option *ngFor="let dept of departments" [ngValue]="dept.department">{{dept.department}}</option>>
+    </select>
+
     <div class="form-group">
         <label>MailBase:</label>
         <input type="text" [(ngModel)]="user.userMailBase" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>IsAdmin:</label>
-        <input type="text" [(ngModel)]="user.admin" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>CanCreate:</label>
-        <input type="text" [(ngModel)]="user.canCreate" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>CanApprove:</label>
-        <input type="text" [(ngModel)]="user.canApprove" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>InMail:</label>
-        <input type="text" [(ngModel)]="user.inMail" class="form-control" />
-    </div>
+
+    <str-checkbox [id]="'admin'" [(strCheckedValue)]="user.admin" [label]="'IsAdmin'"></str-checkbox>
+    <str-checkbox [id]="'canCreate'" [(strCheckedValue)]="user.canCreate" [label]="'CanCreate'"></str-checkbox>
+    <str-checkbox [id]="'canApprove'" [(strCheckedValue)]="user.canApprove" [label]="'CanApprove'"></str-checkbox>
+    <str-checkbox [id]="'inMail'" [(strCheckedValue)]="user.inMail" [label]="'InMail'"></str-checkbox>
 </div>

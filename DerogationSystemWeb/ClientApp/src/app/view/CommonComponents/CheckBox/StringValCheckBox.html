@@ -1,0 +1,9 @@
+﻿<div class="custom-control custom-checkbox">
+    <input [checked]="isChecked()"
+           [disabled]="isDisabled"
+           [id]="id"
+           [(ngModel)]="value"
+           (ngModelChange)="modelChange($event)"
+           type="checkbox" class="custom-control-input" id="customCheck1">
+    <label class="custom-control-label" [for]="id">{{label}}</label>
+</div>

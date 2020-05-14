@@ -29,7 +29,12 @@ export class DepartmentEdtComponent implements OnInit {
     }
 
     save() {
-        this.apiService.updateDepartment(this.id, this.department).subscribe(data => this.router.navigateByUrl("/departments"));
+//        console.log(this.department);
+        this.apiService.updateDepartment(this.id, this.department).subscribe(() => this.router.navigateByUrl("/departments"));
+    }
+
+    disabled() {
+        return this.department.department === undefined || this.department.department === "";
     }
 
 

@@ -2,6 +2,7 @@
 import { DepartmentApiService } from "../../../controllers/DepartmentApiService";
 import { Department } from "../../../model/domain/Department";
 import { Router } from "@angular/router";
+import { HttpResponse } from "@angular/common/http";
 
 @Component({
     templateUrl: "DepartmentListComponent.html",
@@ -15,7 +16,6 @@ export class DepartmentListComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadDepartments();
-
     }
 
     loadDepartments() {
@@ -25,5 +25,14 @@ export class DepartmentListComponent implements OnInit {
 
     addNewClick() {
         this.router.navigateByUrl("/departments/newDepartment");
+    }
+
+    deleteDepartment(department: string) {
+        this.apiService.deleteDepartment(department).subscribe((data: HttpResponse<string>) => {
+            if (data !== null && data["notEmpty"] !== undefined) {
+                console.log(data["notEmpty"].errors[0].errorMessage);
+            }
+            this.loadDepartments();
+        });
     }
 }

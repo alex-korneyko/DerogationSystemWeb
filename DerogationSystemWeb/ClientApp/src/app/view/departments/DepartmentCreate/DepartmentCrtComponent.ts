@@ -16,4 +16,8 @@ export class DepartmentCrtComponent {
     save() {
         this.apiService.saveDepartment(this.department).subscribe(() => this.router.navigateByUrl("/departments"));
     }
+
+    disabled() {
+        return this.department.department === undefined || this.department.department === "";
+    }
 }

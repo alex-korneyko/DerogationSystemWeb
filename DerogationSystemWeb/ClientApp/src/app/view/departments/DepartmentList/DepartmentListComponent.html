@@ -1,32 +1,37 @@
 ﻿<div class="m-3">
     <div class="row justify-content-between mx-0 mb-2">
         <h4>List of Departments:</h4>
+        
         <button class="btn btn-primary" (click)="addNewClick()">Add new department</button>
     </div>
     <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td>Department</td>
-            <td>MAilStep</td>
-            <td>Mandatory</td>
-            <td>LtimeAccess</td>
-            <td>DCostAccess</td>
-            <td>AddDept</td>
-            <td>ToBeAdded</td>
-            <td>OnlyMail</td>
+            <th>Department</th>
+            <th></th>
+            <th>MAilStep</th>
+            <th>Mandatory</th>
+            <th>LtimeAccess</th>
+            <th>DCostAccess</th>
+            <th>AddDept</th>
+            <th>ToBeAdded</th>
+            <th>OnlyMail</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let d of departments">
-            <td><a [routerLink]="['department', d.department]">{{d?.department}}</a></td>
-            <td>{{d?.mAilStep}}</td>
-            <td>{{d?.mandatory}}</td>
-            <td>{{d?.ltimeAccess}}</td>
-            <td>{{d?.dCostAccess}}</td>
-            <td>{{d?.addDept}}</td>
-            <td>{{d?.toBeAdded}}</td>
-            <td>{{d?.onlyMail}}</td>
-        </tr>
+            <tr *ngFor="let d of departments">
+                <td><a [routerLink]="['department', d.department]">{{d?.department}}</a></td>
+                <td>
+                    <span class="badge badge-danger" (click)="deleteDepartment(d.department)" style="cursor: default;" title="Delete">X</span>
+                </td>
+                <td>{{d?.mAilStep}}</td>
+                <td><str-checkbox [id]="d.department + '_ma'" [strCheckedValue]="d.mandatory" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="d.department + '_lt'" [strCheckedValue]="d.ltimeAccess" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="d.department + '_dc'" [strCheckedValue]="d.dCostAccess" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="d.department + '_ad'" [strCheckedValue]="d.addDept" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="d.department + '_to'" [strCheckedValue]="d.toBeAdded" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="d.department + '_on'" [strCheckedValue]="d.onlyMail" [isDisabled]="true"></str-checkbox></td>
+            </tr>
         </tbody>
     </table>
 </div>

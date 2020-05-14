@@ -9,16 +9,16 @@ import { User } from "../../../model/domain/User";
 
 export class UserListComponent implements OnInit{
 
-    users: User[];
-    usersTotalList: User[] = new Array<User>();
+    users = new Array<User>();
+    usersTotalList = new Array<User>();
     @Input() filter: string;
 
     constructor(private apiService: UserApiService, private router: Router) { }
 
     ngOnInit(): void {
         this.apiService.getUsers().subscribe((data: User[]) => {
-            this.users = data;
-            this.usersTotalList.push(...data);
+            this.users.splice(0, this.users.length, ...data);
+            this.usersTotalList.splice(0, this.usersTotalList.length, ...data);
         });
     }
 
@@ -27,6 +27,7 @@ export class UserListComponent implements OnInit{
     }
 
     deleteUser(id: number) {
+        this.filter = "";
         this.apiService.deleteUser(id).subscribe(() => this.ngOnInit());
     }
 

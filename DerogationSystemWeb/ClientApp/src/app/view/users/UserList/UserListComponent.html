@@ -1,9 +1,11 @@
 ﻿<div class="m-3">
     <div class="row justify-content-between mx-0 mb-2">
-        <h4 class="col">List of Users:</h4>
+        <h4 class="col">List of Users</h4>
         <div class="input-group col-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">@</span>
+                <span class="input-group-text" id="basic-addon1" title="Filter">
+                    <i class="fa fa-filter" aria-hidden="true"></i>
+                </span>
             </div>
             <input [(ngModel)]="filter"
                    (ngModelChange)="filterChange()"
@@ -25,20 +27,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let u of users">
-            <td>
-                <a [routerLink]="['user', u.id]">{{u?.derogationUser}}</a>
-            </td>
-            <td>
-                <span class="badge badge-danger" (click)="deleteUser(u.id)" style="cursor: default;" title="Delete">X</span>
-            </td>
-            <td><a [routerLink]="['/departments/department', u.department]">{{u?.department}}</a></td>
-            <td>{{u?.userMailBase}}</td>
-            <td>{{u?.admin}}</td>
-            <td>{{u?.canCreate}}</td>
-            <td>{{u?.canApprove}}</td>
-            <td>{{u?.inMail}}</td>
-        </tr>
+            <tr *ngFor="let u of users">
+                <td>
+                    <a [routerLink]="['user', u.id]">{{u?.derogationUser}}</a>
+                </td>
+                <td>
+                    <span class="badge badge-danger" (click)="deleteUser(u.id)" style="cursor: default;" title="Delete">X</span>
+                </td>
+                <td><a [routerLink]="['/departments/department', u.department]">{{u?.department}}</a></td>
+                <td>{{u?.userMailBase}}</td>
+                <td><str-checkbox [id]="u.id + '_admin'" [strCheckedValue]="u.admin" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="u.id + '_canCreate'" [strCheckedValue]="u.canCreate" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="u.id + '_canApprove'" [strCheckedValue]="u.canApprove" [isDisabled]="true"></str-checkbox></td>
+                <td><str-checkbox [id]="u.id + '_inMail'" [strCheckedValue]="u.inMail" [isDisabled]="true"></str-checkbox></td>
+            </tr>
         </tbody>
     </table>
 </div>

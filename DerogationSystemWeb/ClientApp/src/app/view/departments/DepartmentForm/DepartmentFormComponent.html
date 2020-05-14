@@ -7,28 +7,10 @@
         <label>MAilStep:</label>
         <input type="number" [(ngModel)]="department.mAilStep" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.mandatory" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.ltimeAccess" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.dCostAccess" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.addDept" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.toBeAdded" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Mandatory:</label>
-        <input type="text" [(ngModel)]="department.onlyMail" class="form-control" />
-    </div>
+    <str-checkbox [id]="'mandatory'" [(strCheckedValue)]="department.mandatory" [label]="'Mandatory'"></str-checkbox>
+    <str-checkbox [id]="'ltimeAccess'" [(strCheckedValue)]="department.ltimeAccess" [label]="'LtimeAccess'"></str-checkbox>
+    <str-checkbox [id]="'dCostAccess'" [(strCheckedValue)]="department.dCostAccess" [label]="'DCostAccess'"></str-checkbox>
+    <str-checkbox [id]="'addDept'" [(strCheckedValue)]="department.addDept" [label]="'AddDept'"></str-checkbox>
+    <str-checkbox [id]="'toBeAdded'" [(strCheckedValue)]="department.toBeAdded" [label]="'ToBeAdded'"></str-checkbox>
+    <str-checkbox [id]="'onlyMail'" [(strCheckedValue)]="department.onlyMail" [label]="'OnlyMail'"></str-checkbox>
 </div>

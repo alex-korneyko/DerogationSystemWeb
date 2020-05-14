@@ -25,7 +25,7 @@ export class DepartmentApiService {
         return this.http.put(this.apiUrl + "/" + edtDeptId, department);
     }
 
-    deleteDepartment(id: number) {
+    deleteDepartment(id: string) {
         return this.http.delete(this.apiUrl + "/" + id);
     }
 }

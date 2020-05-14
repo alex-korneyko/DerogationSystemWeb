@@ -3,6 +3,7 @@ using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
 {
@@ -77,9 +78,22 @@ namespace DerogationSystemWeb.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteDepartment(string id)
         {
-            FactoryDepartment department = _dataBase.Departments.FirstOrDefault(dept => dept.Department.Equals(id));
+            FactoryDepartment department = _dataBase.Departments
+                .Include(department => department.Users)
+                .FirstOrDefault(dept => dept.Department.Equals(id));
+
             if (department == null)
-                return Ok();
+            {
+                ModelState.AddModelError("notFound", $"Department \"{id}\" not found!");
+                return Ok(ModelState);
+            }
+
+            if (department.Users.Count > 0)
+            {
+                ModelState.AddModelError("notEmpty", $"Department \"{id}\" is not empty!");
+                return Ok(ModelState);
+            }
+
 
             _dataBase.Departments.Remove(department);
             _dataBase.SaveChanges();

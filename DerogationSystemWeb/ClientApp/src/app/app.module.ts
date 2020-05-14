@@ -5,6 +5,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
 
 import { UserApiService } from "./controllers/UserApiService";
+import { DepartmentApiService } from "./controllers/DepartmentApiService";
 
 import { MainComponent } from "./view/main/MainComponent";
 import { DepartmentListComponent } from "./view/departments/DepartmentList/DepartmentListComponent";
@@ -17,6 +18,7 @@ import { DerogationListComponent } from "./view/derogationList/DerogationListCom
 import { DepartmentCrtComponent } from "./view/departments/DepartmentCreate/DepartmentCrtComponent";
 import { DepartmentEdtComponent } from "./view/departments/DepartmentEdit/DepartmentEdtComponent";
 import { TopNavBarComponent } from "./view/CommonComponents/TopNavBar/TopNavBarComponent";
+import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValCheckBox";
 
 
 const appRoutes: Routes = [
@@ -32,11 +34,11 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
     declarations: [
-        MainComponent, DepartmentListComponent, DepartmentEdtComponent, DepartmentCrtComponent, TopNavBarComponent,
+        MainComponent, DepartmentListComponent, DepartmentEdtComponent, DepartmentCrtComponent, TopNavBarComponent, StringValCheckBox,
         DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent
     ],
     bootstrap: [MainComponent],
-    providers: [UserApiService]
+    providers: [UserApiService, DepartmentApiService]
 })
 export class AppModule {
 }

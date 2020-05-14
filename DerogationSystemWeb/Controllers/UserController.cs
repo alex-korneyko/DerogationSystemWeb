@@ -52,6 +52,16 @@ namespace DerogationSystemWeb.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            FactoryDepartment department = _dataBase.Departments.FirstOrDefault(dept => dept.Department.Equals(user.Department));
+            if (department != null)
+            {
+                user.FactoryDepartment = department;
+            }
+            else
+            {
+                user.Department = user.FactoryDepartment.Department;
+            }
+
             _dataBase.Users.Update(user);
             _dataBase.SaveChanges();
 
