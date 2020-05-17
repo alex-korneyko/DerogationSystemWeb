@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" routerLink="/">Home</a>
+                <a class="nav-link" routerLink="/derogations">Derogations</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="settingsDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -19,10 +19,10 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="username">
-            <input class="form-control form-control-sm mr-sm-2" type="password" placeholder="password">
-            <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-        </form>
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control form-control-sm mr-sm-2" type="text" [(ngModel)]="loginModel.Username" placeholder="username">
+            <input class="form-control form-control-sm mr-sm-2" type="password" [(ngModel)]="loginModel.Password" placeholder="password">
+            <button class="btn btn-sm btn-outline-success my-2 my-sm-0" (click)="login()">Login</button>
+        </div>
     </div>
 </nav>

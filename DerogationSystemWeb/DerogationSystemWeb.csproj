@@ -13,8 +13,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ClientApp\src\app\controllers\LoginApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\UserApiService.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\LoginModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\CheckBox\StringValCheckBox.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\TopNavBar\TopNavBarComponent.ts" />
@@ -23,6 +25,7 @@
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentFormComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserCreate\UserCrtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserEdit\UserEdtComponent.ts" />

@@ -17,6 +17,9 @@ namespace DerogationSystemWeb
             const string connectionString = "Server=ALEX-DEV-BOOK\\MSSQL;Database=Derogation_System;User ID=sa;Password=111";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddAuthentication("Cookie").AddCookie("Cookie");
+            services.AddAuthorization();
+
             services.AddControllers();
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -37,6 +40,10 @@ namespace DerogationSystemWeb
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

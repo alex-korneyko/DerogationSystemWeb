@@ -1,7 +1,7 @@
 ﻿<div *ngIf="loaded">
-    <h4 class="ml-3">User edit page: {{user.derogationUser}}</h4>
+    <h5>User edit page: {{user.derogationUser}}</h5>
     <user-form [(user)]="user"></user-form>
-    <div class="form-group ml-3 mt-3">
+    <div class="form-group">
         <input [disabled]="disabled()"
             type="button" value="Save" (click)="save()" class="btn btn-success mr-3" />
         <a routerLink="/users" class="btn btn-warning">Cancel</a>

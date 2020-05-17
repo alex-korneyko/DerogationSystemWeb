@@ -8,6 +8,7 @@ import { UserApiService } from "./controllers/UserApiService";
 import { DepartmentApiService } from "./controllers/DepartmentApiService";
 
 import { MainComponent } from "./view/main/MainComponent";
+import { IndexPageComponent } from './view/indexPage/IndexPageComponent';
 import { DepartmentListComponent } from "./view/departments/DepartmentList/DepartmentListComponent";
 import { DepartmentFormComponent } from "./view/departments/DepartmentForm/DepartmentFormComponent";
 import { UserListComponent } from "./view/users/UserList/UserListComponent";
@@ -22,7 +23,8 @@ import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValChe
 
 
 const appRoutes: Routes = [
-    { path: "", component: DerogationListComponent },
+    { path: "", component: IndexPageComponent },
+    { path: "derogations", component: DerogationListComponent },
     { path: "departments", component: DepartmentListComponent },
     { path: "departments/department/:id", component: DepartmentEdtComponent },
     { path: "departments/newDepartment", component: DepartmentCrtComponent },

@@ -1,7 +1,7 @@
 ﻿<div *ngIf="loaded">
-    <h4 class="ml-3">Department edit page: {{id}}</h4>
+    <h5 >Department edit page: {{id}}</h5>
     <department-form [(department)]="department"></department-form>
-    <div class="form-group ml-3 mt-3">
+    <div class="form-group">
         <input (click)="save()"
                [disabled]="disabled()"
                type="button" value="Save" class="btn btn-success mr-3" />
