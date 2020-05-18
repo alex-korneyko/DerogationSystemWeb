@@ -19,10 +19,20 @@
                 </div>
             </li>
         </ul>
-        <div class="form-inline my-2 my-lg-0">
-            <input class="form-control form-control-sm mr-sm-2" type="text" [(ngModel)]="loginModel.Username" placeholder="username">
-            <input class="form-control form-control-sm mr-sm-2" type="password" [(ngModel)]="loginModel.Password" placeholder="password">
+        <div *ngIf="user == null" class="form-inline my-2 my-lg-0">
+            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="username"
+                   [(ngModel)]="loginModel.Username"
+                   [ngClass]="{userError:userError}"
+                   (ngModelChange)="loginDataOnChange()">
+            <input class="form-control form-control-sm mr-sm-2" type="password" placeholder="password"
+                   [(ngModel)]="loginModel.Password"
+                   [ngClass]="{userError:userError}"
+                   (ngModelChange)="loginDataOnChange()">
             <button class="btn btn-sm btn-outline-success my-2 my-sm-0" (click)="login()">Login</button>
+        </div>
+        <div *ngIf="user != null" class="form-inline my-2 my-lg-0">
+            <h5 class="m-2 mr-4" [ngClass]="{username:true}" style="cursor: default">{{user.derogationUser}}</h5>
+            <button class="btn btn-sm btn-outline-warning my-2 my-sm-0" (click)="logout()">Logout</button>
         </div>
     </div>
 </nav>

@@ -1,0 +1,9 @@
+﻿.username {
+    color: lightgray;
+}
+
+.userError {
+    border-color: red;
+    border-width:2px;
+    background-color: lightcoral;
+}

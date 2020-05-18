@@ -2,12 +2,14 @@
 using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/users")]
     public class UserController : Controller
     {
