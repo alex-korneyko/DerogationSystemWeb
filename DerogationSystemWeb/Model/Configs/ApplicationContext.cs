@@ -8,6 +8,7 @@ namespace DerogationSystemWeb.Model.Configs
         public DbSet<FactoryDepartment> Departments { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<DerogationHeader> DerogationHeaders { get; set; }
+        public DbSet<DerogationDepartment> DerogationDepartments { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -38,7 +39,7 @@ namespace DerogationSystemWeb.Model.Configs
                 .HasPrincipalKey(user => user.DerogationUser);
 
             //------------ DerogationDepartment -------------------
-            modelBuilder.Entity<DerogationDepartment>().HasNoKey();
+            modelBuilder.Entity<DerogationDepartment>().HasKey(dDept => dDept.Id);
 
             modelBuilder.Entity<DerogationDepartment>()
                 .HasOne(dDepartment => dDepartment.FactoryDepartment)

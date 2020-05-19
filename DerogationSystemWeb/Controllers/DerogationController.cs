@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -23,16 +24,18 @@ namespace DerogationSystemWeb.Controllers
         [HttpGet]
         public IEnumerable<DerogationHeader> GetAll()
         {
-            List<DerogationHeader> derogationHeaders = _database.DerogationHeaders.Include(dHeader => dHeader.Author).ToList();
+            var derogationHeaders = _database.DerogationHeaders.Include(dHeader => dHeader.Author).ToList();
 
-            return derogationHeaders.GetRange(0, 3);
+            return derogationHeaders;
         }
 
         [HttpGet("getLast/{count}")]
         public IEnumerable<DerogationHeader> GetLast(int count)
         {
-            List<DerogationHeader> derogationHeaders = _database.DerogationHeaders
-                .Include(dHeader => dHeader.Author).ToList();
+            var derogationHeaders = _database.DerogationHeaders
+                .Include(dHeader => dHeader.Author)
+                .Include(dHeader => dHeader.FactoryDepartment)
+                .ToList();
 
             if (count == 0 || derogationHeaders.Count == 0)
                 return new List<DerogationHeader>();
@@ -40,7 +43,21 @@ namespace DerogationSystemWeb.Controllers
             if (count > derogationHeaders.Count)
                 count = derogationHeaders.Count;
 
-            return derogationHeaders.GetRange(derogationHeaders.Count - count, count);
+            var last = derogationHeaders.GetRange(derogationHeaders.Count - count, count);
+
+            return last;
+        }
+
+        [HttpGet("getOne/{id}")]
+        public async Task<DerogationHeader> getOne(long id)
+        {
+            var derogationHeader = await _database.DerogationHeaders
+                .Include(dh => dh.Author)
+                .Include(dh => dh.FactoryDepartment)
+                .Include(dh => dh.DerogationDepartments)
+                .FirstOrDefaultAsync(dh => dh.DerogationID == id);
+
+            return derogationHeader;
         }
     }
 }

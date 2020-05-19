@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace DerogationSystemWeb.Model.Domain
 {
     public class DerogationDepartment
     {
+        public long Id { get; set; }
+
         public long DerogationId { get; set; }
+
+        [JsonIgnore]
         public DerogationHeader DerogationHeader { get; set; }
 
         public string Department { get; set; }

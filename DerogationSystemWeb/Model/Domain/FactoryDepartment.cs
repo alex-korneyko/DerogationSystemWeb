@@ -20,14 +20,9 @@ namespace DerogationSystemWeb.Model.Domain
         public char OnlyMail { get; set; } = '0';
 
         [JsonIgnore]
-        public List<User> Users { get; set; }
+        public List<User> Users { get; set; } = new List<User>();
 
-        [JsonIgnore]
-        public List<DerogationHeader> DerogationHeaders { get; set; }
-
-        public FactoryDepartment()
-        {
-            this.Users = new List<User>();
-        }
+        [JsonIgnore] 
+        public List<DerogationHeader> DerogationHeaders { get; set; } = new List<DerogationHeader>();
     }
 }
