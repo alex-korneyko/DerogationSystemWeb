@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace DerogationSystemWeb.Model.Domain
@@ -15,5 +16,13 @@ namespace DerogationSystemWeb.Model.Domain
 
         public string Department { get; set; }
         public FactoryDepartment FactoryDepartment { get; set; }
+
+        [JsonIgnore]
+        public List<DerogationHeader> DerogationHeaders { get; set; }
+
+        public User()
+        {
+            this.DerogationHeaders = new List<DerogationHeader>();
+        }
     }
 }

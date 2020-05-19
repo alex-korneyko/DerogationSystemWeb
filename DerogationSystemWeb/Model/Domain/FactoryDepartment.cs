@@ -22,6 +22,9 @@ namespace DerogationSystemWeb.Model.Domain
         [JsonIgnore]
         public List<User> Users { get; set; }
 
+        [JsonIgnore]
+        public List<DerogationHeader> DerogationHeaders { get; set; }
+
         public FactoryDepartment()
         {
             this.Users = new List<User>();
