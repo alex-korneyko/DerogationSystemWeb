@@ -20,6 +20,7 @@ import { DepartmentCrtComponent } from "./view/departments/DepartmentCreate/Depa
 import { DepartmentEdtComponent } from "./view/departments/DepartmentEdit/DepartmentEdtComponent";
 import { TopNavBarComponent } from "./view/CommonComponents/TopNavBar/TopNavBarComponent";
 import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValCheckBox";
+import { LoginApiService } from "./controllers/LoginApiService";
 
 
 const appRoutes: Routes = [
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
         DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent
     ],
     bootstrap: [MainComponent],
-    providers: [UserApiService, DepartmentApiService]
+    providers: [LoginApiService, UserApiService, DepartmentApiService]
 })
 export class AppModule {
 }

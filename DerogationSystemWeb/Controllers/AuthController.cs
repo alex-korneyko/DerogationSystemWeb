@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
-using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,12 +28,6 @@ namespace DerogationSystemWeb.Controllers
 
             if (userFromDb == null)
                 return Ok(null);
-
-            var ldapResult = AuxiliaryUtils.CheckLdapUser("TPVAOC", model.Username, model.Password);
-            if (!ldapResult)
-            {
-                return Ok(null);
-            }
 
             var claims = new List<Claim>
             {

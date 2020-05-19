@@ -19,19 +19,21 @@
                 </div>
             </li>
         </ul>
-        <div *ngIf="user == null" class="form-inline my-2 my-lg-0">
+        <div *ngIf="loginApiService.loggedInUser == null" class="form-inline my-2 my-lg-0">
             <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="username"
                    [(ngModel)]="loginModel.Username"
-                   [ngClass]="{userError:userError}"
-                   (ngModelChange)="loginDataOnChange()">
+                   [ngClass]="{userError:loginApiService.logInError}"
+                   (ngModelChange)="loginDataOnChange()"
+                   (keydown.enter)="login()">
             <input class="form-control form-control-sm mr-sm-2" type="password" placeholder="password"
                    [(ngModel)]="loginModel.Password"
-                   [ngClass]="{userError:userError}"
-                   (ngModelChange)="loginDataOnChange()">
+                   [ngClass]="{userError:loginApiService.logInError}"
+                   (ngModelChange)="loginDataOnChange()"
+                   (keydown.enter)="login()">
             <button class="btn btn-sm btn-outline-success my-2 my-sm-0" (click)="login()">Login</button>
         </div>
-        <div *ngIf="user != null" class="form-inline my-2 my-lg-0">
-            <h5 class="m-2 mr-4" [ngClass]="{username:true}" style="cursor: default">{{user.derogationUser}}</h5>
+        <div *ngIf="loginApiService.loggedInUser != null" class="form-inline my-2 my-lg-0">
+            <h5 class="m-2 mr-4" [ngClass]="{username:true}" style="cursor: default">{{loginApiService.loggedInUser.derogationUser}}</h5>
             <button class="btn btn-sm btn-outline-warning my-2 my-sm-0" (click)="logout()">Logout</button>
         </div>
     </div>
