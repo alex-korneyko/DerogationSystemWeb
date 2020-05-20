@@ -13,10 +13,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ClientApp\src\app\controllers\DerogationApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\LoginApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\UserApiService.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\LoginModel.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\RequestDerogationStatus.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\CheckBox\StringValCheckBox.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\TopNavBar\TopNavBarComponent.ts" />
