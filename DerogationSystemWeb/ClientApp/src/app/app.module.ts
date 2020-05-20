@@ -21,6 +21,12 @@ import { DepartmentEdtComponent } from "./view/departments/DepartmentEdit/Depart
 import { TopNavBarComponent } from "./view/CommonComponents/TopNavBar/TopNavBarComponent";
 import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValCheckBox";
 import { LoginApiService } from "./controllers/LoginApiService";
+import { DataFilterComponent } from "./view/derogationList/components/leftPanel/dataFilter/DataFilterComponent";
+import { DateRangeComponent } from "./view/derogationList/components/leftPanel/dateRange/DateRangeComponent";
+import { StatusFilterComponent } from "./view/derogationList/components/leftPanel/statusFilter/StatusFilterComponent";
+import { LeftPanelComponent } from "./view/derogationList/components/leftPanel/leftPanelComponent/LeftPanelComponent";
+import { ShowLastCountComponent } from
+    "./view/derogationList/components/leftPanel/ShowLastCount/ShowLastCountComponent";
 
 
 const appRoutes: Routes = [
@@ -38,7 +44,8 @@ const appRoutes: Routes = [
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
     declarations: [
         MainComponent, DepartmentListComponent, DepartmentEdtComponent, DepartmentCrtComponent, TopNavBarComponent, StringValCheckBox,
-        DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent
+        DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent,
+        DataFilterComponent, DateRangeComponent, StatusFilterComponent, LeftPanelComponent, ShowLastCountComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService]

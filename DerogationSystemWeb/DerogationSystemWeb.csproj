@@ -24,6 +24,11 @@
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentEdtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentFormComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\dataFilter\DataFilterComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\dateRange\DateRangeComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\leftPanelComponent\LeftPanelComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\ShowLastCount\ShowLastCountComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\statusFilter\StatusFilterComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
@@ -41,6 +46,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ClientApp\src\app\view\derogationList\components\mainPanel\components\dHeaderRow\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
