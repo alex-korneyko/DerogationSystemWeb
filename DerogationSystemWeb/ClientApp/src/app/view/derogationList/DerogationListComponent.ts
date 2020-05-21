@@ -4,6 +4,7 @@
     templateUrl: "DerogationListComponent.html"
 })
 
-export class DerogationListComponent {
+export class DerogationListComponent{
+
     
 }

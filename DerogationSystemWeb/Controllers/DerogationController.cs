@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DerogationSystemWeb.Controllers.RequestModel;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +31,8 @@ namespace DerogationSystemWeb.Controllers
             return derogationHeaders;
         }
 
-        [HttpGet("getLast/{count}")]
-        public IEnumerable<DerogationHeader> GetLast(int count)
+        [HttpPost("getLast/{count}")]
+        public IEnumerable<DerogationHeader> GetLast(int count, DerogationListRequestModel request)
         {
             var derogationHeaders = _database.DerogationHeaders
                 .Include(dHeader => dHeader.Author)
@@ -44,6 +46,7 @@ namespace DerogationSystemWeb.Controllers
                 count = derogationHeaders.Count;
 
             var last = derogationHeaders.GetRange(derogationHeaders.Count - count, count);
+            last.Reverse();
 
             return last;
         }
@@ -55,7 +58,7 @@ namespace DerogationSystemWeb.Controllers
                 .Include(dh => dh.Author)
                 .Include(dh => dh.FactoryDepartment)
                 .Include(dh => dh.DerogationDepartments)
-                .FirstOrDefaultAsync(dh => dh.DerogationID == id);
+                .FirstOrDefaultAsync(dh => dh.DerogationId == id);
 
             return derogationHeader;
         }

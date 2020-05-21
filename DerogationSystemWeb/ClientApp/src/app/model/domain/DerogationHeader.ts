@@ -4,18 +4,18 @@ import { DerogationDepartment } from "./DerogationDepartment";
 
 export class DerogationHeader {
     constructor(
-        derogationId?: number,
-        createdDate?: Date,
-        factoryDepartment?: Department,
-        author?: User,
-        lTime?: number,
-        SLT?: number,
-        dCostP?: number,
-        dCostF?: number,
-        cancelled?: string,
-        approved?: string,
-        offline?: string,
-        cancellationReason?: string,
-        derogationDepartments = new Array<DerogationDepartment>()
-    ) {}
+        public derogationId?: number,
+        public createdDate?: Date,
+        public factoryDepartment?: Department,
+        public author?: User,
+        public ltime?: number,
+        public slt?: number,
+        public dcostP?: number,
+        public dcostF?: number,
+        public cancelled?: string,
+        public approved?: string,
+        public offline?: string,
+        public cancellationReason?: string,
+        public derogationDepartments = new Array<DerogationDepartment>()
+    ) { }
 }

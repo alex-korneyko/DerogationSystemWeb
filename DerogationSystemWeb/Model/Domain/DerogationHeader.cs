@@ -6,7 +6,7 @@ namespace DerogationSystemWeb.Model.Domain
 {
     public class DerogationHeader
     {
-        public long DerogationID { get; set; }
+        public long DerogationId { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

@@ -21,12 +21,16 @@ import { DepartmentEdtComponent } from "./view/departments/DepartmentEdit/Depart
 import { TopNavBarComponent } from "./view/CommonComponents/TopNavBar/TopNavBarComponent";
 import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValCheckBox";
 import { LoginApiService } from "./controllers/LoginApiService";
+import { DerogationApiService } from "./controllers/DerogationApiService";
 import { DataFilterComponent } from "./view/derogationList/components/leftPanel/dataFilter/DataFilterComponent";
 import { DateRangeComponent } from "./view/derogationList/components/leftPanel/dateRange/DateRangeComponent";
 import { StatusFilterComponent } from "./view/derogationList/components/leftPanel/statusFilter/StatusFilterComponent";
 import { LeftPanelComponent } from "./view/derogationList/components/leftPanel/leftPanelComponent/LeftPanelComponent";
 import { ShowLastCountComponent } from
     "./view/derogationList/components/leftPanel/ShowLastCount/ShowLastCountComponent";
+import { MainPanelComponent } from "./view/derogationList/components/mainPanel/MainPanelComponent";
+import { DerogationHeaderRow } from
+    "./view/derogationList/components/mainPanel/components/dHeaderRow/DerogationHeaderRow";
 
 
 const appRoutes: Routes = [
@@ -45,10 +49,11 @@ const appRoutes: Routes = [
     declarations: [
         MainComponent, DepartmentListComponent, DepartmentEdtComponent, DepartmentCrtComponent, TopNavBarComponent, StringValCheckBox,
         DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent,
-        DataFilterComponent, DateRangeComponent, StatusFilterComponent, LeftPanelComponent, ShowLastCountComponent
+        DataFilterComponent, DateRangeComponent, StatusFilterComponent, LeftPanelComponent, MainPanelComponent, ShowLastCountComponent,
+        DerogationHeaderRow
     ],
     bootstrap: [MainComponent],
-    providers: [LoginApiService, UserApiService, DepartmentApiService]
+    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService]
 })
 export class AppModule {
 }

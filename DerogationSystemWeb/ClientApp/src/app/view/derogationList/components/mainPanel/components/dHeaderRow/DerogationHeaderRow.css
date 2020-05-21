@@ -1,0 +1,14 @@
+﻿.dhRow {
+    font-size: small;
+    font-weight: 600;
+    border: 1px solid dimgray;
+    border-radius: 3px;
+    margin-bottom: 1px;
+    cursor: default;
+    user-select: none;
+}
+
+.dhRow:hover {
+    background-color: whitesmoke;
+    font-weight:800;
+}

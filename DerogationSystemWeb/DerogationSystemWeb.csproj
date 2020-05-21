@@ -20,7 +20,7 @@
 	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationRequestModel.ts" />
-	  <None Remove="ClientApp\src\app\model\domain\LoginModel.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\LoginRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\RequestDerogationStatus.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\CheckBox\StringValCheckBox.ts" />
@@ -34,6 +34,8 @@
 	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\leftPanelComponent\LeftPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\ShowLastCount\ShowLastCountComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\components\leftPanel\statusFilter\StatusFilterComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\mainPanel\components\dHeaderRow\DerogationHeaderRow.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationList\components\mainPanel\MainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
@@ -51,10 +53,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ClientApp\src\app\view\derogationList\components\mainPanel\components\dHeaderRow\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

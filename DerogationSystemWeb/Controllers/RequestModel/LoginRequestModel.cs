@@ -1,6 +1,6 @@
 ﻿namespace DerogationSystemWeb.Controllers
 {
-    public class LoginModel
+    public class LoginRequestModel
     {
         public string Username { get; set; }
 

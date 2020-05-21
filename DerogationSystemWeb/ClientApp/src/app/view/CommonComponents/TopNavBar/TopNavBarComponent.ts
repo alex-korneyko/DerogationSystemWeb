@@ -1,7 +1,7 @@
 ﻿import { Component } from "@angular/core";
 import { Router, NavigationStart } from "@angular/router";
-import { LoginModel } from '../../../model/domain/LoginModel';
-import { LoginApiService } from '../../../controllers/LoginApiService'
+import { LoginRequestModel } from "../../../model/requestModel/LoginRequestModel";
+import { LoginApiService } from "../../../controllers/LoginApiService"
 
 
 @Component({
@@ -11,7 +11,7 @@ import { LoginApiService } from '../../../controllers/LoginApiService'
 })
 export class TopNavBarComponent {
 
-    loginModel = new LoginModel;
+    loginModel = new LoginRequestModel;
 //    user: User;
     userError: boolean;
 

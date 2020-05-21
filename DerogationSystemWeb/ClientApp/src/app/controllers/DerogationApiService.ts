@@ -2,12 +2,17 @@
 import { HttpClient } from "@angular/common/http";
 import { DerogationHeader } from "../model/domain/DerogationHeader";
 import { DerogationDepartment } from "../model/domain/DerogationDepartment";
-import { DerogationRequestModel } from "../model/domain/DerogationRequestModel";
+import { DerogationRequestModel } from "../model/requestModel/DerogationRequestModel";
 
 @Injectable()
 export class DerogationApiService {
 
+    public derogationRequestModel = new DerogationRequestModel();
+
     public derogationList = new Array<DerogationHeader>();
+    public derogationListIsLoaded = false;
+
+    public currentDerogationIsLoaded = false;
     public currentDerogation: DerogationHeader;
 
     private apiUrl = "/api/derogations";
@@ -15,8 +20,13 @@ export class DerogationApiService {
     constructor(private http: HttpClient) { }
 
     getDerogationList(requestModel: DerogationRequestModel) {
-        this.http.post(this.apiUrl, requestModel)
-            .subscribe((data: DerogationHeader[]) => this.derogationList = data);
+        this.currentDerogationIsLoaded = false;
+        this.http.post(this.apiUrl + "/getLast/" + requestModel.lastCount, requestModel)
+            .subscribe((data: DerogationHeader[]) => {
+                this.derogationList = data;
+                this.derogationListIsLoaded = true;
+                console.log(this.derogationList);
+            });
     }
 
     getDerogation(id: number) {

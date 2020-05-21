@@ -19,7 +19,7 @@ namespace DerogationSystemWeb.Model.Configs
         {
             modelBuilder.Entity<FactoryDepartment>().HasKey(d => d.Department);
 
-            modelBuilder.Entity<DerogationHeader>().HasKey(dHeader => dHeader.DerogationID);
+            modelBuilder.Entity<DerogationHeader>().HasKey(dHeader => dHeader.DerogationId);
 
             modelBuilder.Entity<User>()
                 .HasOne(user => user.FactoryDepartment)

@@ -22,16 +22,16 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginRequestModel requestModel)
         {
-            User userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == model.Username);
+            User userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == requestModel.Username);
 
             if (userFromDb == null)
                 return Ok(null);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Username)
+                new Claim(ClaimTypes.Name, requestModel.Username)
             };
             var claimsIdentity = new ClaimsIdentity(claims, "Cookie");
             ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(claimsIdentity);
