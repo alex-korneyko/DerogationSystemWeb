@@ -13,6 +13,6 @@ export class MainPanelComponent implements OnInit {
     ngOnInit(): void {
         let requestModel = new DerogationRequestModel();
 
-        this.apiService.getDerogationList(requestModel);
+        this.apiService.getDerogationList();
     }
 }

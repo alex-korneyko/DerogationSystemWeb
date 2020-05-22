@@ -7,6 +7,7 @@ export class DerogationHeader {
         public derogationId?: number,
         public createdDate?: Date,
         public factoryDepartment?: Department,
+        public owner?: string,
         public author?: User,
         public ltime?: number,
         public slt?: number,

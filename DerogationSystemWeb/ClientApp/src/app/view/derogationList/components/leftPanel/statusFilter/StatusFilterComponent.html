@@ -1,43 +1,50 @@
 ﻿<div class="m-1">
     <span style="font-weight: bold; color: rgb(79, 79, 79); font-size: .9rem; text-decoration: underline">By status:</span>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="allDer" value="allDer" checked>
+        <input class="form-check-input " type="radio" name="exampleRadios" id="allDer" value="All"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="allDer">
             All Derogations
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="newForMe" value="newForMe">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="newForMe" value="NewForMe"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="newForMe">
             New for me only
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="myTurn" value="myTurn">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="myTurn" value="MyTurnForApproval"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="myTurn">
             My turn for approval only
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="inProgress" value="inProgress">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="inProgress" value="InProgress"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="inProgress">
             In progress only
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="approved" value="approved">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="approved" value="Approved"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="approved">
             Approved only
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="cancelled" value="cancelled">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="cancelled" value="Cancelled"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="cancelled">
             Cancelled only
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="offline" value="option3">
+        <input class="form-check-input " type="radio" name="exampleRadios" id="offline" value="Offline"
+               [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
         <label class="form-check-label " style="font-size: 0.875rem" for="offline">
             Offline only
         </label>

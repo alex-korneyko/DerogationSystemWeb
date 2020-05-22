@@ -5,7 +5,8 @@
     <div class="row">
         <label class="col-3 col-form-label col-form-label-sm" for="fromDate">From:</label>
         <div class="col-9">
-            <input type="date" class="form-control form-control-sm" style="font-size: 0.7rem" id="fromDate">
+            <input type="date" class="form-control form-control-sm" style="font-size: 0.7rem" id="fromDate"
+                   [(ngModel)]="derogationApiService.derogationRequestModel.fromDate">
         </div>
     </div>
     <div class="row">

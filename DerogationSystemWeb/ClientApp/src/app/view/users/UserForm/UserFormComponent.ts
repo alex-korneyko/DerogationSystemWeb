@@ -13,9 +13,9 @@ export class UserFormComponent implements OnInit {
 
     departments: string[];
 
-    constructor(private departmentApiService: DepartmentApiService) {}
+    constructor(public  departmentApiService: DepartmentApiService) {}
 
     ngOnInit(): void {
-        this.departmentApiService.getDepartments().subscribe((data: string[]) => this.departments = data);
+        this.departmentApiService.getDepartments();
     }
 }

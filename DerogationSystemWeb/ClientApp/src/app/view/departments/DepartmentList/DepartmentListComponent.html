@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let d of departments">
+            <tr *ngFor="let d of departmentApiService.departments">
                 <td><a [routerLink]="['department', d.department]">{{d?.department}}</a></td>
                 <td>
                     <span class="badge badge-danger" (click)="deleteDepartment(d.department)" style="cursor: default;" title="Delete">X</span>

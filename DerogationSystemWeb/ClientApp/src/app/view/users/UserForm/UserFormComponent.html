@@ -8,7 +8,7 @@
     <label for="department_select">Department:</label>
     <select [(ngModel)]="user.department"
             class="custom-select" id="department_select" required>
-        <option *ngFor="let dept of departments" [ngValue]="dept.department">{{dept.department}}</option>>
+        <option *ngFor="let dept of departmentApiService.departments" [ngValue]="dept.department">{{dept.department}}</option>>
     </select>
 
     <div class="form-group">

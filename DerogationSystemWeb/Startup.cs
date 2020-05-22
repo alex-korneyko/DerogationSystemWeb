@@ -1,4 +1,5 @@
 using DerogationSystemWeb.Model.Configs;
+using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -16,6 +17,8 @@ namespace DerogationSystemWeb
         {
             const string connectionString = "Server=ALEX-DEV-BOOK\\MSSQL;Database=Derogation_System;User ID=sa;Password=111";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddTransient<DerogationService>();
 
             services.AddAuthentication("Cookie").AddCookie("Cookie");
             services.AddAuthorization();

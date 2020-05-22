@@ -31,6 +31,7 @@ import { ShowLastCountComponent } from
 import { MainPanelComponent } from "./view/derogationList/components/mainPanel/MainPanelComponent";
 import { DerogationHeaderRow } from
     "./view/derogationList/components/mainPanel/components/dHeaderRow/DerogationHeaderRow";
+import { DerogationRequestModel } from "./model/requestModel/DerogationRequestModel";
 
 
 const appRoutes: Routes = [
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
         DerogationHeaderRow
     ],
     bootstrap: [MainComponent],
-    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService]
+    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel]
 })
 export class AppModule {
 }

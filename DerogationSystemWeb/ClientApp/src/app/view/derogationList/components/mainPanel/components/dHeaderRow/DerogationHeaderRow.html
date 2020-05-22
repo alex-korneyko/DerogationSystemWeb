@@ -6,7 +6,7 @@
         <span>{{derogation.createdDate | date:"dd-MM-yyyy hh:mm:ss"}}</span>
     </div>
     <div style="display: inline-block; width: 11%">
-        <span>{{derogation.author.derogationUser}}</span>
+        <span>{{derogation.author ? derogation.author.derogationUser : derogation.owner}}</span>
     </div>
     <div style="display: inline-block; width: 7%">
         <span>{{derogation.factoryDepartment.department}}</span>

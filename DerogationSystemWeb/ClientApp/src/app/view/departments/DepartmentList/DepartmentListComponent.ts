@@ -12,15 +12,10 @@ export class DepartmentListComponent implements OnInit {
 
     departments: Department[];
 
-    constructor(private apiService: DepartmentApiService, private router: Router) {}
+    constructor(public departmentApiService: DepartmentApiService, private router: Router) {}
 
     ngOnInit(): void {
-        this.loadDepartments();
-    }
-
-    loadDepartments() {
-        this.apiService.getDepartments()
-            .subscribe((data: Department[]) => this.departments = data);
+        this.departmentApiService.getDepartments();
     }
 
     addNewClick() {
@@ -28,11 +23,11 @@ export class DepartmentListComponent implements OnInit {
     }
 
     deleteDepartment(department: string) {
-        this.apiService.deleteDepartment(department).subscribe((data: HttpResponse<string>) => {
+        this.departmentApiService.deleteDepartment(department).subscribe((data: HttpResponse<string>) => {
             if (data !== null && data["notEmpty"] !== undefined) {
                 console.log(data["notEmpty"].errors[0].errorMessage);
             }
-            this.loadDepartments();
+            this.departmentApiService.getDepartments();
         });
     }
 }

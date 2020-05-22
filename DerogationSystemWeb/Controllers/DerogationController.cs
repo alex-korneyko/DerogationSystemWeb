@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DerogationSystemWeb.Controllers.RequestModel;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
+using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +16,15 @@ namespace DerogationSystemWeb.Controllers
     [ApiController]
     [Authorize]
     [Route("/api/derogations")]
-    public class DerogationController
+    public class DerogationController : Controller
     {
         private readonly ApplicationContext _database;
+        private readonly DerogationService _derogationService;
 
-        public DerogationController(ApplicationContext database)
+        public DerogationController(ApplicationContext database, DerogationService derogationService)
         {
             _database = database;
+            _derogationService = derogationService;
         }
 
         [HttpGet]
@@ -31,24 +35,16 @@ namespace DerogationSystemWeb.Controllers
             return derogationHeaders;
         }
 
-        [HttpPost("getLast/{count}")]
-        public IEnumerable<DerogationHeader> GetLast(int count, DerogationListRequestModel request)
+        [HttpPost("getLast")]
+        public IEnumerable<DerogationHeader> GetLast(DerogationListRequestModel requestModel)
         {
-            var derogationHeaders = _database.DerogationHeaders
-                .Include(dHeader => dHeader.Author)
-                .Include(dHeader => dHeader.FactoryDepartment)
-                .ToList();
+            var authUser = _database.Users.First(usr => usr.DerogationUser == this.User.Identity.Name);
 
-            if (count == 0 || derogationHeaders.Count == 0)
-                return new List<DerogationHeader>();
+            var filteredList = _derogationService.GetFilteredList(requestModel, authUser);
 
-            if (count > derogationHeaders.Count)
-                count = derogationHeaders.Count;
+            filteredList.Reverse();
 
-            var last = derogationHeaders.GetRange(derogationHeaders.Count - count, count);
-            last.Reverse();
-
-            return last;
+            return filteredList;
         }
 
         [HttpGet("getOne/{id}")]

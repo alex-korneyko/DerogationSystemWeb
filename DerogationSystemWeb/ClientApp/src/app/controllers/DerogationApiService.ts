@@ -7,30 +7,37 @@ import { DerogationRequestModel } from "../model/requestModel/DerogationRequestM
 @Injectable()
 export class DerogationApiService {
 
-    public derogationRequestModel = new DerogationRequestModel();
+    derogationRequestModel: DerogationRequestModel;
 
-    public derogationList = new Array<DerogationHeader>();
-    public derogationListIsLoaded = false;
+    derogationList = new Array<DerogationHeader>();
+    derogationListIsLoaded = false;
 
-    public currentDerogationIsLoaded = false;
-    public currentDerogation: DerogationHeader;
+    currentDerogationIsLoaded = false;
+    currentDerogation: DerogationHeader;
 
     private apiUrl = "/api/derogations";
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.derogationRequestModel = new DerogationRequestModel();
+    }
 
-    getDerogationList(requestModel: DerogationRequestModel) {
+    getDerogationList() {
         this.currentDerogationIsLoaded = false;
-        this.http.post(this.apiUrl + "/getLast/" + requestModel.lastCount, requestModel)
+        console.log(this.derogationRequestModel);
+        this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {
                 this.derogationList = data;
                 this.derogationListIsLoaded = true;
-                console.log(this.derogationList);
+//                console.log(this.derogationList);
             });
     }
 
     getDerogation(id: number) {
         this.http.get(this.apiUrl + "/getOne/" + id)
             .subscribe((data: DerogationHeader) => this.currentDerogation = data);
+    }
+
+    resetRequestModel() {
+        this.derogationRequestModel = new DerogationRequestModel();
     }
 }
