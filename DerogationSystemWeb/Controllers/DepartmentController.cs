@@ -2,8 +2,10 @@
 using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
+using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
@@ -14,10 +16,12 @@ namespace DerogationSystemWeb.Controllers
     public class DepartmentController : Controller
     {
         private readonly ApplicationContext _dataBase;
+        private readonly IHubContext<HubService> _hubContext;
 
-        public DepartmentController(ApplicationContext dataBase)
+        public DepartmentController(ApplicationContext dataBase, IHubContext<HubService> hubContext)
         {
             this._dataBase = dataBase;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -44,6 +48,8 @@ namespace DerogationSystemWeb.Controllers
 
             _dataBase.Departments.Add(department);
             _dataBase.SaveChanges();
+
+            _hubContext.Clients.All.SendAsync("department", department, SendActionType.Create.ToString());
             
             return Ok(department);
         }

@@ -2,15 +2,18 @@
 import { HttpClient } from "@angular/common/http";
 import { LoginRequestModel } from "../model/requestModel/LoginRequestModel";
 import { User } from "../model/domain/User";
+import { WebsocketService } from '../model/services/WebsocketService';
 
 @Injectable()
 export class LoginApiService {
+
+    public loggedInUserIsReceives: boolean;
 
     private apiUrl = "/api/auth";
     private user: User;
     private loginError: boolean;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private wsService: WebsocketService) {
         this.getAuthUser();
     }
 
@@ -23,16 +26,28 @@ export class LoginApiService {
                 this.loginError = true;
             }
             this.user = user;
+            if (this.user != null && !this.wsService.isConnected) {
+                this.wsService.connect();
+            }
         });
         return this.user;
     }
 
     logout() {
         this.http.get(this.apiUrl + "/logout").subscribe(() => this.user = null);
+        this.wsService.disconnect();
         this.loginError = false;
     }
 
     private getAuthUser() {
-        this.http.get(this.apiUrl + "/user").subscribe((user: User) => this.user = user);
+        
+        this.http.get(this.apiUrl + "/user").subscribe((user: User) => {
+            this.loggedInUserIsReceives = false;
+            this.user = user;
+            if (this.user != null && !this.wsService.isConnected) {
+                this.wsService.connect();
+            }
+            this.loggedInUserIsReceives = true;
+        });
     }
 }

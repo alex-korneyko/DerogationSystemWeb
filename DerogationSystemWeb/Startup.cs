@@ -19,10 +19,12 @@ namespace DerogationSystemWeb
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             services.AddTransient<DerogationService>();
+            services.AddTransient<NotificationSenderService>();
 
             services.AddAuthentication("Cookie").AddCookie("Cookie");
             services.AddAuthorization();
 
+            services.AddSignalR();
             services.AddControllers();
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -45,13 +47,12 @@ namespace DerogationSystemWeb
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<HubService>("/interactive");
                 endpoints.MapControllers();
-
             });
 
             app.UseSpa(spa =>

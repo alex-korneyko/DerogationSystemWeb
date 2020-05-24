@@ -32,6 +32,7 @@ import { MainPanelComponent } from "./view/derogationList/components/mainPanel/M
 import { DerogationHeaderRow } from
     "./view/derogationList/components/mainPanel/components/dHeaderRow/DerogationHeaderRow";
 import { DerogationRequestModel } from "./model/requestModel/DerogationRequestModel";
+import { WebsocketService } from './model/services/WebsocketService';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
         DerogationHeaderRow
     ],
     bootstrap: [MainComponent],
-    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel]
+    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]
 })
 export class AppModule {
 }

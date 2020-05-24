@@ -9,7 +9,7 @@ export class DepartmentApiService {
 
     private apiUrl = "/api/departments";
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getDepartments() {
         this.http.get(this.apiUrl).subscribe((data: Department[]) => this.departments = data);

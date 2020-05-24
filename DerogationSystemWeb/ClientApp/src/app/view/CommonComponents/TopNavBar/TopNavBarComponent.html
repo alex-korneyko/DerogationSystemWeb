@@ -24,12 +24,14 @@
                    [(ngModel)]="loginModel.Username"
                    [ngClass]="{userError:loginApiService.logInError}"
                    (ngModelChange)="loginDataOnChange()"
-                   (keydown.enter)="login()">
+                   (keydown.enter)="login()"
+                   [disabled]="!loginApiService.loggedInUserIsReceives">
             <input class="form-control form-control-sm mr-sm-2" type="password" placeholder="password"
                    [(ngModel)]="loginModel.Password"
                    [ngClass]="{userError:loginApiService.logInError}"
                    (ngModelChange)="loginDataOnChange()"
-                   (keydown.enter)="login()">
+                   (keydown.enter)="login()"
+                   [disabled]="!loginApiService.loggedInUserIsReceives">
             <button class="btn btn-sm btn-outline-success my-2 my-sm-0" (click)="login()">Login</button>
         </div>
         <div *ngIf="loginApiService.loggedInUser != null" class="form-inline my-2 my-lg-0">

@@ -23,12 +23,10 @@ export class DerogationApiService {
 
     getDerogationList() {
         this.currentDerogationIsLoaded = false;
-        console.log(this.derogationRequestModel);
         this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {
                 this.derogationList = data;
                 this.derogationListIsLoaded = true;
-//                console.log(this.derogationList);
             });
     }
 
