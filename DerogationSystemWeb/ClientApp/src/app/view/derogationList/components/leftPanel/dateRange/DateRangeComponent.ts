@@ -7,6 +7,6 @@ import { DerogationApiService } from "../../../../../controllers/DerogationApiSe
 })
 export class DateRangeComponent {
 
-    constructor(public derogationApiService: DerogationApiService) { }
+    constructor(public derogationApiService: DerogationApiService) {}
 
 }

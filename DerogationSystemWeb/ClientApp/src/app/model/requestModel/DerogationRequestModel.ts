@@ -12,8 +12,8 @@ export class DerogationRequestModel {
 
     public byStatus?: string;
 
-    public fromDate?: Date;
-    public toDate?: Date;
+    public fromDate?: string;
+    public toDate?: string;
 
     constructor() {
         this.lastCount = 100;
@@ -26,12 +26,21 @@ export class DerogationRequestModel {
 
         this.byStatus = "All";
 
-        this.fromDate = this.minusDate(new Date(), 30);
-        this.toDate = new Date();
+        this.toDate = this.formatDate(new Date());
+        this.fromDate = this.formatDate(this.minusDate(new Date(), 30));
     }
 
     private minusDate(date: Date, days: number): Date {
         date.setDate(date.getDate() - days);
         return date;
+    }
+
+    private formatDate(date: Date): string {
+        let year = date.getFullYear().toString();
+        let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+        let day = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
+        let result = year + "-" + month + "-" + day;
+        console.log(result);
+        return result;
     }
 }

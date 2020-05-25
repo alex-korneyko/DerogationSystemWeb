@@ -38,11 +38,10 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost("getLast")]
         public IEnumerable<DerogationHeader> GetLast(DerogationListRequestModel requestModel)
         {
+            if (requestModel.ToDate != null) requestModel.ToDate = requestModel.ToDate.AddDays(1);
             var authUser = _database.Users.First(usr => usr.DerogationUser == this.User.Identity.Name);
 
             var filteredList = _derogationService.GetFilteredList(requestModel, authUser);
-
-            filteredList.Reverse();
 
             return filteredList;
         }

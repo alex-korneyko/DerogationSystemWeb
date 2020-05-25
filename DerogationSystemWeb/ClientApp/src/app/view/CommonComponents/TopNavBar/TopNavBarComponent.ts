@@ -16,7 +16,7 @@ export class TopNavBarComponent {
     userError: boolean;
 
     constructor(public loginApiService: LoginApiService, private router: Router) {}
-    
+
     login() {
         this.loginApiService.login(this.loginModel);
         this.userError = this.loginApiService.loggedInUser == null;

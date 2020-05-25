@@ -20,7 +20,7 @@
      *ngIf="apiService.derogationListIsLoaded">
 
 
-    <derogation-row *ngFor="let derogation of apiService.derogationList"
+    <derogation-row *ngFor="let derogation of apiService.derogations"
                     [derogation]="derogation">
 
     </derogation-row>

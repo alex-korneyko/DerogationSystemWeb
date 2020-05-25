@@ -10,12 +10,20 @@ var DerogationRequestModel = /** @class */ (function () {
         this.partNumber = "";
         this.departmentOwner = RequestDerogationStatus_1.RequestDerogationStatus[RequestDerogationStatus_1.RequestDerogationStatus.All];
         this.byStatus = "All";
-        this.fromDate = this.minusDate(new Date(), 30);
-        this.toDate = new Date();
+        this.toDate = this.formatDate(new Date());
+        this.fromDate = this.formatDate(this.minusDate(new Date(), 30));
     }
     DerogationRequestModel.prototype.minusDate = function (date, days) {
         date.setDate(date.getDate() - days);
         return date;
+    };
+    DerogationRequestModel.prototype.formatDate = function (date) {
+        var year = date.getFullYear().toString();
+        var month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+        var day = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
+        var result = year + "-" + month + "-" + day;
+        console.log(result);
+        return result;
     };
     return DerogationRequestModel;
 }());

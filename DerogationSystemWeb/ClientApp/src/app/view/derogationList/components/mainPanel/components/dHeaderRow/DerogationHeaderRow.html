@@ -11,11 +11,11 @@
     <div style="display: inline-block; width: 7%">
         <span>{{derogation.factoryDepartment.department}}</span>
     </div>
-    <div style="display: inline-block; width: 10%">
-        <span></span>
+    <div class="mb-0" style="display: inline-block; width: 10%; overflow: hidden">
+        <span *ngIf="derogation.derogationDepartments.length != 0" title="{{getDeptsNamesInQueue(derogation)}}">{{getDeptsNamesInQueue(derogation)}}</span>
     </div>
-    <div style="display: inline-block; width: 3%">
-        <span>{{derogation.ltime}}</span>
+    <div style="display: inline-block; width: 3%; padding-left: 5px">
+        <span style="">{{derogation.ltime}}</span>
     </div>
     <div style="display: inline-block; width: 5%">
         <span>{{derogation.slt | number: "1.4-4"}}</span>
