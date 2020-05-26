@@ -1,7 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { DerogationHeader } from "../model/domain/DerogationHeader";
-import { DerogationDepartment } from "../model/domain/DerogationDepartment";
 import { DerogationRequestModel } from "../model/requestModel/DerogationRequestModel";
 
 @Injectable()
@@ -17,7 +16,7 @@ export class DerogationApiService {
     }
 
     currentDerogationIsLoaded = false;
-    currentDerogation: DerogationHeader;
+    currentDerogation: DerogationHeader = null;
 
     private apiUrl = "/api/derogations";
 
@@ -26,7 +25,6 @@ export class DerogationApiService {
     }
 
     getDerogationList() {
-        console.log(this.derogationRequestModel);
         this.derogationListIsLoaded = false;
         this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {

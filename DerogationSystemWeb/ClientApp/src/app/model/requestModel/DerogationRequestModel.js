@@ -22,7 +22,6 @@ var DerogationRequestModel = /** @class */ (function () {
         var month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
         var day = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
         var result = year + "-" + month + "-" + day;
-        console.log(result);
         return result;
     };
     return DerogationRequestModel;

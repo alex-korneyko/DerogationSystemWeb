@@ -40,7 +40,6 @@ export class DerogationRequestModel {
         let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
         let day = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
         let result = year + "-" + month + "-" + day;
-        console.log(result);
         return result;
     }
 }

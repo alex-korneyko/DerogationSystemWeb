@@ -38,7 +38,7 @@ namespace DerogationSystemWeb.Model.Configs
                 .HasForeignKey(dHeader => dHeader.Owner)
                 .HasPrincipalKey(user => user.DerogationUser);
 
-            //------------ DerogationDepartment -------------------
+            //-------------- DerogationDepartment ------------------
             modelBuilder.Entity<DerogationDepartment>().HasKey(dDept => dDept.Id);
 
             modelBuilder.Entity<DerogationDepartment>()
@@ -56,6 +56,14 @@ namespace DerogationSystemWeb.Model.Configs
                 .HasOne(dDept => dDept.DerogationHeader)
                 .WithMany(dHeader => dHeader.DerogationDepartments)
                 .HasForeignKey(dDept => dDept.DerogationId);
+
+            //--------------- DerogationItem ----------------------
+            modelBuilder.Entity<DerogationItem>().ToTable("DerogationHeadersItems").HasKey(dItem => dItem.Id);
+
+            modelBuilder.Entity<DerogationItem>()
+                .HasOne(dItem => dItem.DerogationHeader)
+                .WithMany(dHeader => dHeader.DerogationItems)
+                .HasForeignKey(dItem => dItem.DerogationId);
         }
     }
 }

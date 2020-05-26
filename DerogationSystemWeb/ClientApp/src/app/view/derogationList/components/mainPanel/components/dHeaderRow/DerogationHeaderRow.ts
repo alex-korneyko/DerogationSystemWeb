@@ -1,6 +1,8 @@
 ﻿import { Component, Input } from "@angular/core";
+import { Router } from "@angular/router";
 import { DerogationHeader } from "../../../../../../model/domain/DerogationHeader";
 import { DerogationDepartment } from "../../../../../../model/domain/DerogationDepartment";
+import { DerogationApiService } from "../../../../../../controllers/DerogationApiService";
 
 @Component({
     selector: "derogation-row",
@@ -10,6 +12,8 @@ import { DerogationDepartment } from "../../../../../../model/domain/DerogationD
 export class DerogationHeaderRow {
 
     @Input() derogation: DerogationHeader;
+
+    constructor(public derogationApiService: DerogationApiService, private router: Router) {}
 
     getDeptsNamesInQueue(): string {
 
@@ -32,5 +36,13 @@ export class DerogationHeaderRow {
         deptsForApproval.forEach(dept => result += ("/" + dept["department"]));
 
         return result;
+    }
+
+    derogationClick() {
+        this.derogationApiService.getDerogation(this.derogation.derogationId, true);
+    }
+
+    derogationDoubleClick() {
+        this.router.navigateByUrl("/derogations/derogation/" + this.derogation.derogationId);
     }
 }

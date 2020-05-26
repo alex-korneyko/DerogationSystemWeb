@@ -36,5 +36,7 @@ namespace DerogationSystemWeb.Model.Domain
         public string CancellationReason { get; set; }
 
         public List<DerogationDepartment> DerogationDepartments { get; set; } = new List<DerogationDepartment>();
+
+        public List<DerogationItem> DerogationItems { get; set; } = new List<DerogationItem>();
     }
 }

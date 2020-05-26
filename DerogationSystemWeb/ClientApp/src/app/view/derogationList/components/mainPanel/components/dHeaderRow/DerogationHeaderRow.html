@@ -1,4 +1,7 @@
-﻿<div class="dhRow">
+﻿<div class="dhRow"
+     (click)="derogationClick()"
+     (dblclick)="derogationDoubleClick()"
+     [ngClass]="{selected: derogationApiService.currentDerogation !== null && derogationApiService.currentDerogation.derogationId == derogation.derogationId}">
     <div style="display: inline-block; width: 5%">
         <span>{{derogation.derogationId}}</span>
     </div>

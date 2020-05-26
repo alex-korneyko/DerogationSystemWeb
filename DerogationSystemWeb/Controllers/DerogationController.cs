@@ -53,6 +53,7 @@ namespace DerogationSystemWeb.Controllers
                 .Include(dh => dh.Author)
                 .Include(dh => dh.FactoryDepartment)
                 .Include(dh => dh.DerogationDepartments)
+                .Include(dh => dh.DerogationItems)
                 .FirstOrDefaultAsync(dh => dh.DerogationId == id);
 
             return derogationHeader;

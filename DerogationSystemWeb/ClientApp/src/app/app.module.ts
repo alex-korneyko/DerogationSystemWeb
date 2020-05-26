@@ -33,6 +33,16 @@ import { DerogationHeaderRow } from
     "./view/derogationList/components/mainPanel/components/dHeaderRow/DerogationHeaderRow";
 import { DerogationRequestModel } from "./model/requestModel/DerogationRequestModel";
 import { WebsocketService } from './model/services/WebsocketService';
+import { DerogationComponent } from "./view/derogationPage/DerogationComponent";
+import { DergLeftPanelComponent } from "./view/derogationPage/leftPanel/DergLeftPanelComponent";
+import { DergMainPanelComponent } from "./view/derogationPage/mainPanel/DergMainPanelComponent";
+import { DerogationItemsListComponent } from
+    "./view/derogationPage/mainPanel/derogationItemsList/DerogationItemsListComponent";
+import { InvolvedDepartmentsListComponent } from
+    "./view/derogationPage/mainPanel/involvedDepartmentsList/InvolvedDepartmentsListComponent";
+import { DerogationDocsListComponent } from
+    "./view/derogationPage/mainPanel/derogationDocs/DerogationDocsListComponent";
+import { DerogationMailListComponent } from "./view/derogationPage/mainPanel/mailList/DerogationMailListComponent";
 
 
 const appRoutes: Routes = [
@@ -43,7 +53,8 @@ const appRoutes: Routes = [
     { path: "departments/newDepartment", component: DepartmentCrtComponent },
     { path: "users/user/:id", component: UserEdtComponent },
     { path: "users/newUser", component: UserCrtComponent},
-    { path: "users", component: UserListComponent }
+    { path: "users", component: UserListComponent },
+    { path: "derogations/derogation/:id", component: DerogationComponent}
 ];
 
 @NgModule({
@@ -52,7 +63,8 @@ const appRoutes: Routes = [
         MainComponent, DepartmentListComponent, DepartmentEdtComponent, DepartmentCrtComponent, TopNavBarComponent, StringValCheckBox,
         DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent,
         DataFilterComponent, DateRangeComponent, StatusFilterComponent, LeftPanelComponent, MainPanelComponent, ShowLastCountComponent,
-        DerogationHeaderRow
+        DerogationHeaderRow, DerogationComponent, DergLeftPanelComponent, DergMainPanelComponent, DerogationItemsListComponent,
+        InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]

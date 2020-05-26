@@ -9,5 +9,9 @@
 }
 
 .dhRow:hover {
-    background-color: whitesmoke;
+     background-color: rgb(235, 234, 234);
+}
+
+.dhRow.selected {
+     background-color: rgb(245, 244, 244);
 }
