@@ -19,6 +19,7 @@
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationItem.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\LoginRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\RequestDerogationStatus.ts" />
@@ -42,8 +43,10 @@
 	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\DergLeftPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\DergMainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationDocs\DerogationDocsListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\derogationItemRow\DerogationItemRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\DerogationItemsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\InvolvedDepartmentsListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\involvedDerpartmentRow\InvolvedDepartmentRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\mailList\DerogationMailListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />

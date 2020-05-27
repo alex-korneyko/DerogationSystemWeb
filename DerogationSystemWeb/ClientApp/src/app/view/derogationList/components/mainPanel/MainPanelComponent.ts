@@ -4,7 +4,8 @@ import { DerogationRequestModel } from "../../../../model/requestModel/Derogatio
 
 @Component({
     selector: "main-panel",
-    templateUrl: "MainPanelComponent.html"
+    templateUrl: "MainPanelComponent.html",
+    styleUrls: ["MainPanelComponent.css"]
 })
 export class MainPanelComponent implements OnInit {
 

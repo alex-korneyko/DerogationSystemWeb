@@ -1,0 +1,9 @@
+﻿.mpHeader {
+    font-weight: 600;
+    font-size: small;
+    border-radius: 3px;
+    background-color: dimgray;
+    color: white;
+    cursor: default;
+    text-align: center;
+}

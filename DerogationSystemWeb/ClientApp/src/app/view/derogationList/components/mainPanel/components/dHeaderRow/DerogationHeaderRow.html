@@ -2,46 +2,46 @@
      (click)="derogationClick()"
      (dblclick)="derogationDoubleClick()"
      [ngClass]="{selected: derogationApiService.currentDerogation !== null && derogationApiService.currentDerogation.derogationId == derogation.derogationId}">
-    <div style="display: inline-block; width: 5%">
+    <div class="dhRowCell" style="width: 5%">
         <span>{{derogation.derogationId}}</span>
     </div>
-    <div style="display: inline-block; width: 12%">
+    <div class="dhRowCell" style="width: 12%">
         <span>{{derogation.createdDate | date:"dd-MM-yyyy hh:mm:ss"}}</span>
     </div>
-    <div style="display: inline-block; width: 11%">
+    <div class="dhRowCell" style="width: 11%">
         <span>{{derogation.author ? derogation.author.derogationUser : derogation.owner}}</span>
     </div>
-    <div style="display: inline-block; width: 7%">
+    <div class="dhRowCell" style="width: 7%">
         <span>{{derogation.factoryDepartment.department}}</span>
     </div>
-    <div class="mb-0" style="display: inline-block; width: 10%; overflow: hidden">
+    <div class="dhRowCell" style="width: 10%">
         <span *ngIf="derogation.derogationDepartments.length != 0" title="{{getDeptsNamesInQueue(derogation)}}">{{getDeptsNamesInQueue(derogation)}}</span>
     </div>
-    <div style="display: inline-block; width: 3%; padding-left: 5px">
+    <div class="dhRowCell" style="width: 3%">
         <span style="">{{derogation.ltime}}</span>
     </div>
-    <div style="display: inline-block; width: 5%">
+    <div class="dhRowCell" style="width: 5%">
         <span>{{derogation.slt | number: "1.4-4"}}</span>
     </div>
-    <div style="display: inline-block; width: 4%">
+    <div class="dhRowCell" style="width: 4%">
         <span>{{derogation.dcostP | number: "1.2-2"}}</span>
     </div>
-    <div style="display: inline-block; width: 4%">
+    <div class="dhRowCell" style="width: 4%">
         <span>{{derogation.dcostF | number: "1.2-2"}}</span>
     </div>
-    <div style="display: inline-block; width: 3%">
+    <div class="dhRowCell" style="width: 3%">
         <str-checkbox [id]="derogation.derogationId + '_appr'" [strCheckedValue]="derogation.approved" [isDisabled]="true"></str-checkbox>
     </div>
-    <div style="display: inline-block; width: 3%">
+    <div class="dhRowCell" style="width: 3%">
         <str-checkbox [id]="derogation.derogationId + '_canc'" [strCheckedValue]="derogation.cancelled" [isDisabled]="true"></str-checkbox>
     </div>
-    <div style="display: inline-block; width: 25%">
+    <div class="dhRowCell" style="width: 25%">
         <span>{{derogation.cancellationReason}}</span>
     </div>
-    <div style="display: inline-block; width: 4%">
+    <div class="dhRowCell" style="width: 4%">
         <str-checkbox [id]="derogation.derogationId + '_offl'" [strCheckedValue]="derogation.offline" [isDisabled]="true"></str-checkbox>
     </div>
-    <div style="display: inline-block; width: 4%">
+    <div class="dhRowCell" style="width: 4%">
         <span></span>
     </div>
 </div>

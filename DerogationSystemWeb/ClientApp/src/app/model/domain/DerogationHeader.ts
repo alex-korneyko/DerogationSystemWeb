@@ -1,6 +1,7 @@
 ﻿import { Department } from "./Department";
 import { User } from "./User";
 import { DerogationDepartment } from "./DerogationDepartment";
+import { DerogationItem } from "./DerogationItem";
 
 export class DerogationHeader {
     constructor(
@@ -17,6 +18,7 @@ export class DerogationHeader {
         public approved?: string,
         public offline?: string,
         public cancellationReason?: string,
-        public derogationDepartments = new Array<DerogationDepartment>()
+        public derogationDepartments = new Array<DerogationDepartment>(),
+        public derogationItems = new Array<DerogationItem>()
     ) { }
 }

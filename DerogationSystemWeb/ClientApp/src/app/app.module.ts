@@ -43,6 +43,10 @@ import { InvolvedDepartmentsListComponent } from
 import { DerogationDocsListComponent } from
     "./view/derogationPage/mainPanel/derogationDocs/DerogationDocsListComponent";
 import { DerogationMailListComponent } from "./view/derogationPage/mainPanel/mailList/DerogationMailListComponent";
+import { InvolvedDepartmentRowComponent } from
+    "./view/derogationPage/mainPanel/involvedDepartmentsList/involvedDerpartmentRow/InvolvedDepartmentRowComponent";
+import { DerogationItemRowComponent } from
+    "./view/derogationPage/mainPanel/derogationItemsList/derogationItemRow/DerogationItemRowComponent";
 
 
 const appRoutes: Routes = [
@@ -64,7 +68,8 @@ const appRoutes: Routes = [
         DepartmentFormComponent, UserListComponent, DerogationListComponent, UserFormComponent, UserEdtComponent, UserCrtComponent,
         DataFilterComponent, DateRangeComponent, StatusFilterComponent, LeftPanelComponent, MainPanelComponent, ShowLastCountComponent,
         DerogationHeaderRow, DerogationComponent, DergLeftPanelComponent, DergMainPanelComponent, DerogationItemsListComponent,
-        InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent
+        InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent, InvolvedDepartmentRowComponent,
+        DerogationItemRowComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]
