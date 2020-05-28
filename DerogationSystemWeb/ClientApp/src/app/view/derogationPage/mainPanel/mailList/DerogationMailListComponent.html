@@ -1,3 +1,21 @@
-﻿<div class="mt-2" style="height: 100%; background-color: rgb(237, 237, 237)">
-    <h5>Derogation Mail List</h5>
+﻿<div class="mt-2 panel" style="height: 370px; padding: 3px">
+    <h5 class="mb-1">
+        <span class="badge" style="color: white; background-color: dimgray">Derogation Mail List</span>
+    </h5>
+
+    <div>
+        <div class="mb-1 mr-3 tableHeader">
+            <div class="tableHeaderCell" style="width: 40%">User</div>
+            <div class="tableHeaderCell" style="width: 40%">Department</div>
+            <div class="tableHeaderCell" style="width: 20%; border-right: none">Can appr.</div>
+        </div>
+    </div>
+
+    <div style="overflow-y: scroll; height: calc(100% - 60px)"
+         *ngIf="userApiService.usersListIsReceived">
+        <mail-list-row *ngFor="let user of userApiService.usersList"
+                       [user]="user">
+        </mail-list-row>
+    </div>
+
 </div>

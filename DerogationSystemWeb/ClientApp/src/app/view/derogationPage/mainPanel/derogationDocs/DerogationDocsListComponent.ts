@@ -3,6 +3,7 @@ import { DerogationApiService } from  "../../../../controllers/DerogationApiServ
 
 @Component({
     templateUrl: "DerogationDocsListComponent.html",
+    styleUrls: ["../../../../StyleSheet.css"],
     selector: "derogation-docs-list"
 })
 export class DerogationDocsListComponent {

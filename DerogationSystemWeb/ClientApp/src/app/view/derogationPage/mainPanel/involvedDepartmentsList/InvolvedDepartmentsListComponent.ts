@@ -4,7 +4,7 @@ import { DerogationDepartment } from "../../../../model/domain/DerogationDepartm
 
 @Component({
     templateUrl: "./InvolvedDepartmentsListComponent.html",
-    styleUrls: ["./InvolvedDepartmentsListComponent.css"],
+    styleUrls: ["./InvolvedDepartmentsListComponent.css", "../../../../StyleSheet.css"],
     selector: "involved-departments-list"
 })
 export class InvolvedDepartmentsListComponent {

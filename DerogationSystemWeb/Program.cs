@@ -21,10 +21,11 @@ namespace DerogationSystemWeb
         public static IWebHost CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Any, 8080);
-                    options.Listen(IPAddress.Any, 8443, listenOptions => listenOptions.UseHttps());
-                }).Build();
+                // .UseKestrel(options =>
+                // {
+                //     options.Listen(IPAddress.Any, 8080);
+                //     options.Listen(IPAddress.Any, 8443, listenOptions => listenOptions.UseHttps());
+                // })
+                .Build();
     }
 }

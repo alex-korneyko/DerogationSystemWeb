@@ -15,11 +15,12 @@
 }
 
 .idRowCell {
+    height: inherit;
     display: inline-block;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 24px;
-    /* border-left: dimgray solid 1px */
+    border-left: dimgray solid 1px
 }

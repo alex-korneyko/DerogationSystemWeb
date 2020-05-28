@@ -21,7 +21,7 @@ namespace DerogationSystemWeb
             services.AddTransient<DerogationService>();
             services.AddTransient<NotificationSenderService>();
 
-            services.AddHttpsRedirection(options => options.HttpsPort = 8443);
+            // services.AddHttpsRedirection(options => options.HttpsPort = 8443);
 
             services.AddAuthentication("Cookie").AddCookie("Cookie");
             services.AddAuthorization();

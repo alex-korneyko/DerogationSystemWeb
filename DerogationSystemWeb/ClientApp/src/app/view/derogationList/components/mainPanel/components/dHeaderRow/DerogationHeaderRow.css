@@ -15,10 +15,12 @@
 .dhRow.selected { background-color: rgb(250, 250, 250); }
 
 .dhRowCell {
+    height: inherit;
     display: inline-block;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 24px;
+    border-right: dimgray solid 1px
 }

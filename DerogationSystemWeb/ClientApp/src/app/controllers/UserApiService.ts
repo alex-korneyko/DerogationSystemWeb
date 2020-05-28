@@ -5,12 +5,21 @@ import { User } from "../model/domain/User";
 @Injectable()
 export class UserApiService {
 
+    public usersList: User[];
+    public usersListIsReceived = false;
+
     private apiUrl = "/api/users";
 
     constructor(private http: HttpClient) { }
 
     getUsers() {
-        return this.http.get(this.apiUrl);
+        const getResult = this.http.get(this.apiUrl);
+        getResult.subscribe((data: User[]) => {
+            this.usersList = data;
+            this.usersListIsReceived = true;
+        });
+
+        return getResult;
     }
 
     getUser(id: number) {

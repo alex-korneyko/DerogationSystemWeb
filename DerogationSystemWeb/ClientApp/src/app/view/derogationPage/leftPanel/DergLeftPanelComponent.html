@@ -1,5 +1,24 @@
 ﻿<div style="width: 250px; background-color: lightgray; padding: 10px; border-right: 2px solid gray; height: 100%">
-    <h6 *ngIf="derogationApiService.currentDerogationIsLoaded">
-        Derogation Id {{derogationApiService.currentDerogation.derogationId}}
-    </h6>
+    <a class="btn btn-sm btn-outline-secondary" style="width: 100%; font-weight: 800"
+       routerLink="/derogations">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        Back to list
+    </a>
+    <hr class="m-2"/>
+    <div class="panel"
+         *ngIf="derogationApiService.currentDerogationIsLoaded">
+        <h5 class="mb-1">
+            Derogation Id 
+            <span class="badge" style="color: white; background-color: dimgray">
+                {{derogationApiService.currentDerogation.derogationId}}
+            </span>
+        </h5>
+    </div>
+
+    <approval-dashboard></approval-dashboard>
+    <cancel-dashboard></cancel-dashboard>
+    <hr class="m-2"/>
+    <eng-fi-options></eng-fi-options>
 </div>

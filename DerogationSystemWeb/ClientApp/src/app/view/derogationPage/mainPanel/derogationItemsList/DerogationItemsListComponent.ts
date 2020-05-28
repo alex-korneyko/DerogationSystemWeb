@@ -5,7 +5,7 @@ import { DerogationDepartment } from "../../../../model/domain/DerogationDepartm
 
 @Component({
     templateUrl: "DerogationItemsListComponent.html",
-    styleUrls: ["DerogationItemsListComponent.css"],
+    styleUrls: ["DerogationItemsListComponent.css", "../../../../StyleSheet.css"],
     selector: "derogation-items-list"
 })
 export class DerogationItemsListComponent {

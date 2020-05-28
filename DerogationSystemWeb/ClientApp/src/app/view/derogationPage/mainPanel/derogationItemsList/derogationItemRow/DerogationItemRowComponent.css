@@ -15,6 +15,7 @@
 }
 
 .diRowCell {
+    height: inherit;
     display: inline-block;
     text-align: center;
     white-space: nowrap;

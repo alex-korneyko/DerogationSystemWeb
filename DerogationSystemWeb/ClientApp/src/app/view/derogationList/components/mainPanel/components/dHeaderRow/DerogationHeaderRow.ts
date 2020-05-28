@@ -7,7 +7,7 @@ import { DerogationApiService } from "../../../../../../controllers/DerogationAp
 @Component({
     selector: "derogation-row",
     templateUrl: "DerogationHeaderRow.html",
-    styleUrls: ["./DerogationHeaderRow.css"]
+    styleUrls: ["../../../../../../StyleSheet.css"]
 })
 export class DerogationHeaderRow {
 

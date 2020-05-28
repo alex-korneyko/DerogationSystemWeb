@@ -40,14 +40,19 @@
 	  <None Remove="ClientApp\src\app\view\derogationList\components\mainPanel\MainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationList\DerogationListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\DerogationComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\approval\ApprovalComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\cancellation\CancellationComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\DergLeftPanelComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\engAndFiOptions\EngAndFiOptionsComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\DergMainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationDocs\DerogationDocsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\derogationItemRow\DerogationItemRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\DerogationItemsListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\engOperatorBox\EngOperatorBoxComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\InvolvedDepartmentsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\involvedDerpartmentRow\InvolvedDepartmentRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\mailList\DerogationMailListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\mailList\mailListRow\MailListRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserCreate\UserCrtComponent.ts" />
@@ -67,10 +72,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ClientApp\src\app\view\derogationPage\leftPanel\engAndFiOptions\" />
-	  <Folder Include="ClientApp\src\app\view\derogationPage\leftPanel\approval\" />
-	  <Folder Include="ClientApp\src\app\view\derogationPage\leftPanel\cancellation\" />
-	  <Folder Include="ClientApp\src\app\view\derogationPage\leftPanel\engOperatorBox\" />
 	  <Folder Include="ClientApp\src\app\view\derogationPage\components\" />
 	</ItemGroup>
 

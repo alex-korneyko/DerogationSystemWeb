@@ -4,6 +4,7 @@ import { Router, ActivatedRoute} from "@angular/router";
  
 @Component({
     templateUrl: "./DergLeftPanelComponent.html",
+    styleUrls: ["../../../StyleSheet.css"],
     selector: "derogation-left-panel"
 })
 export class DergLeftPanelComponent {
