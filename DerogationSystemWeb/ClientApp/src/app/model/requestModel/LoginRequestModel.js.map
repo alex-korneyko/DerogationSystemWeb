@@ -1,1 +1,1 @@
-{"version":3,"file":"LoginModel.js","sourceRoot":"","sources":["LoginModel.ts"],"names":[],"mappings":";;AAAA;IACI,oBACW,QAAiB,EACjB,QAAiB;QADjB,aAAQ,GAAR,QAAQ,CAAS;QACjB,aAAQ,GAAR,QAAQ,CAAS;IACzB,CAAC;IACR,iBAAC;AAAD,CAAC,AALD,IAKC;AALY,gCAAU"}
+{"version":3,"file":"LoginRequestModel.js","sourceRoot":"","sources":["LoginRequestModel.ts"],"names":[],"mappings":";;AAAA;IACI,2BACW,QAAiB,EACjB,QAAiB;QADjB,aAAQ,GAAR,QAAQ,CAAS;QACjB,aAAQ,GAAR,QAAQ,CAAS;IACzB,CAAC;IACR,wBAAC;AAAD,CAAC,AALD,IAKC;AALY,8CAAiB"}

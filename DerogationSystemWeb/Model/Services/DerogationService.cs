@@ -78,6 +78,28 @@ namespace DerogationSystemWeb.Model.Services
             return croppedResult;
         }
 
+        public List<FactoryDepartment> GetNextDeptsForApproval(DerogationHeader derogation)
+        {
+            var departments = derogation.DerogationDepartments;
+            var currentMinStepForApprove = 1000;
+
+            departments.ForEach(dept =>
+            {
+                if (dept.Approved == '0' && dept.MailStep < currentMinStepForApprove)
+                    currentMinStepForApprove = dept.MailStep;
+            });
+
+            var curApproveDepts = departments
+                .FindAll(dept => dept.MailStep == currentMinStepForApprove)
+                .ToList();
+
+            //TODO
+            var factoryDepartments = curApproveDepts.Select(dDepts => dDepts.FactoryDepartment);
+            var list = new List<FactoryDepartment>(factoryDepartments);
+
+            return list;
+        }
+
         private List<DerogationHeader> DerogationsOnlyForMe(User user)
         {
             var result = _db.DerogationHeaders

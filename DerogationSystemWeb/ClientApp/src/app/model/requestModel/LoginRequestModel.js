@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var LoginModel = /** @class */ (function () {
-    function LoginModel(Username, Password) {
+var LoginRequestModel = /** @class */ (function () {
+    function LoginRequestModel(Username, Password) {
         this.Username = Username;
         this.Password = Password;
     }
-    return LoginModel;
+    return LoginRequestModel;
 }());
-exports.LoginModel = LoginModel;
-//# sourceMappingURL=LoginModel.js.map
+exports.LoginRequestModel = LoginRequestModel;
+//# sourceMappingURL=LoginRequestModel.js.map

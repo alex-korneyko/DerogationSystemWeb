@@ -13,7 +13,7 @@ export class DerogationComponent {
     constructor(public derogationApiService: DerogationApiService, activatedRoute: ActivatedRoute, router: Router) {
         this.id = activatedRoute.snapshot.params["id"];
         if (this.derogationApiService.currentDerogation === null || this.derogationApiService.currentDerogation.derogationId !== this.id) {
-            this.derogationApiService.getDerogation(this.id, true);
+            this.derogationApiService.getDerogation(this.id, true, false);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpGet("getOne/{id}")]
-        public async Task<DerogationHeader> getOne(long id)
+        public async Task<DerogationHeader> GetOne(long id)
         {
             var derogationHeader = await _database.DerogationHeaders
                 .Include(dh => dh.Author)
@@ -57,6 +57,52 @@ namespace DerogationSystemWeb.Controllers
                 .FirstOrDefaultAsync(dh => dh.DerogationId == id);
 
             return derogationHeader;
+        }
+
+        [HttpPost("approveDerogation/{id}")]
+        public IActionResult ApproveDerogation(long id, ApprovalRequestModel requestModel)
+        {
+            User authUser;
+
+            if (requestModel.UserId == 0)
+            {
+                authUser = _database.Users.First(usr => usr.DerogationUser == this.User.Identity.Name);
+            }
+            else
+            {
+                authUser = _database.Users
+                    .Include(user => user.FactoryDepartment)
+                    .First(user => user.Id == requestModel.UserId);
+            }
+            var derogation = _database.DerogationHeaders
+                .Include(dh => dh.Author)
+                .Include(dh => dh.FactoryDepartment)
+                .Include(dh => dh.DerogationDepartments)
+                .Include(dh => dh.DerogationItems)
+                .First(derg => derg.DerogationId == id);
+
+            if (authUser == null || derogation == null) return Ok();
+
+            var nextDeptsForApproval = _derogationService.GetNextDeptsForApproval(derogation);
+
+            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment)) return Ok();
+
+            var derogationDepartment = derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+
+            derogationDepartment.Comment = requestModel.Comment;
+            derogationDepartment.DerogationUser = authUser.DerogationUser;
+            derogationDepartment.OperationDate = DateTime.Now;
+
+            if (requestModel.ApproveValue == "approve")
+            {
+                derogationDepartment.Approved = '1';
+                derogationDepartment.Training = requestModel.NeedTraining ? '1' : '0';
+            }
+
+            derogationDepartment.Rejected = '1';
+
+            _database.SaveChanges();
+            return Ok(derogation);
         }
     }
 }

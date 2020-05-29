@@ -14,7 +14,7 @@ export class DergLeftPanelComponent {
     constructor(public derogationApiService: DerogationApiService, private activatedRoute: ActivatedRoute, private router: Router) {
         this.id = this.activatedRoute.snapshot.params["id"];
         if (this.derogationApiService.currentDerogation === null || this.derogationApiService.currentDerogation.derogationId !== this.id) {
-            this.derogationApiService.getDerogation(this.id, true);
+            this.derogationApiService.getDerogation(this.id, true, false);
         }
     }
 }

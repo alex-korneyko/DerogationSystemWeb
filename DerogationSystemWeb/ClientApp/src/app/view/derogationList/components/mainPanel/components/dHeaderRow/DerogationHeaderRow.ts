@@ -39,7 +39,7 @@ export class DerogationHeaderRow {
     }
 
     derogationClick() {
-        this.derogationApiService.getDerogation(this.derogation.derogationId, true);
+        this.derogationApiService.getDerogation(this.derogation.derogationId, true, false);
     }
 
     derogationDoubleClick() {

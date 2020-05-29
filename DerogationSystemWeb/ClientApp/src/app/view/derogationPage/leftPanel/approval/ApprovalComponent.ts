@@ -1,4 +1,5 @@
 ﻿import { Component } from "@angular/core";
+import { DerogationApiService } from "../../../../controllers/DerogationApiService";
 
 @Component({
     templateUrl: "ApprovalComponent.html",
@@ -7,4 +8,9 @@
 })
 export class ApprovalComponent {
 
+    constructor(public derogationApiService: DerogationApiService) { }
+
+    approveClick() {
+        this.derogationApiService.sendApprove();
+    }
 }

@@ -2,11 +2,13 @@
 import { HttpClient } from "@angular/common/http";
 import { DerogationHeader } from "../model/domain/DerogationHeader";
 import { DerogationRequestModel } from "../model/requestModel/DerogationRequestModel";
+import { ApprovalRequestModel } from "../model/requestModel/ApprovalRequestModel";
 
 @Injectable()
 export class DerogationApiService {
 
     derogationRequestModel: DerogationRequestModel;
+    approvalRequestModel: ApprovalRequestModel;
 
     derogationListIsLoaded = false;
     private derogationList = new Array<DerogationHeader>();
@@ -22,6 +24,7 @@ export class DerogationApiService {
 
     constructor(private http: HttpClient) {
         this.derogationRequestModel = new DerogationRequestModel();
+        this.approvalRequestModel = new ApprovalRequestModel();
     }
 
     getDerogationList() {
@@ -33,13 +36,13 @@ export class DerogationApiService {
 
                 this.derogationList.forEach(derogation => {
                     if (derogation.approved === "0") {
-                        this.getDerogation(derogation.derogationId, false);
+                        this.getDerogation(derogation.derogationId, false, true);
                     }
                 });
             });
     }
 
-    getDerogation(id: number, setAsCurrent: boolean) {
+    getDerogation(id: number, setAsCurrent: boolean, replaceInList: boolean) {
         this.currentDerogationIsLoaded = false;
         this.http.get(this.apiUrl + "/getOne/" + id)
             .subscribe((data: DerogationHeader) => {
@@ -47,7 +50,7 @@ export class DerogationApiService {
                     this.currentDerogation = data;
                 }
                 let index = this.getIndex(this.derogationList, data);
-                if (index !== -1) {
+                if (replaceInList && index !== -1) {
                     this.derogationList.splice(index, 1, data);
                 }
                 this.currentDerogationIsLoaded = true;
@@ -56,6 +59,15 @@ export class DerogationApiService {
 
     resetRequestModel() {
         this.derogationRequestModel = new DerogationRequestModel();
+    }
+
+    sendApprove() {
+        console.log(this.approvalRequestModel);
+
+        this.http.post(this.apiUrl + "/approveDerogation/" + this.currentDerogation.derogationId, this.approvalRequestModel)
+            .subscribe((data: DerogationHeader) => {
+                this.currentDerogation = data;
+            });
     }
 
     private getIndex(derogationList: Array<DerogationHeader>, derogation: DerogationHeader): number {
