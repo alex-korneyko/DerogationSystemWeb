@@ -3,7 +3,8 @@ import { DerogationApiService } from "../../../../../controllers/DerogationApiSe
 
 @Component({
     selector: "left-panel",
-    templateUrl: "./LeftPanelComponent.html"
+    templateUrl: "./LeftPanelComponent.html",
+    styleUrls: ["../../../../../StyleSheet.css"]
 })
 export class LeftPanelComponent {
 

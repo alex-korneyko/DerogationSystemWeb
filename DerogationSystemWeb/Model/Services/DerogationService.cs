@@ -93,11 +93,14 @@ namespace DerogationSystemWeb.Model.Services
                 .FindAll(dept => dept.MailStep == currentMinStepForApprove)
                 .ToList();
 
-            //TODO
-            var factoryDepartments = curApproveDepts.Select(dDepts => dDepts.FactoryDepartment);
-            var list = new List<FactoryDepartment>(factoryDepartments);
-
-            return list;
+            var factoryDepartments = new List<FactoryDepartment>();
+            curApproveDepts.ForEach(dDept =>
+            {
+                var factoryDeptForApproval = _db.Departments.First(fDept => fDept.Department == dDept.Department);
+                if (factoryDeptForApproval != null) factoryDepartments.Add(factoryDeptForApproval);
+            });
+            
+            return factoryDepartments;
         }
 
         private List<DerogationHeader> DerogationsOnlyForMe(User user)

@@ -15,7 +15,8 @@ namespace DerogationSystemWeb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            const string connectionString = "Server=172.26.60.70;Database=Derogation_System;User ID=sa;Password=8armagloT";
+            // const string connectionString = "Server=172.26.60.70;Database=Derogation_System;User ID=sa;Password=8armagloT";
+            const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Derogation_System;Trusted_Connection=True";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             services.AddTransient<DerogationService>();

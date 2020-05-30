@@ -20,7 +20,7 @@
     <div class="tableRowCell" style="width: 4%">
         <str-checkbox [id]="involvedDepartment.department + '_crqt'" [strCheckedValue]="involvedDepartment.cancellationRequest" [isDisabled]="true"></str-checkbox>
     </div>
-    <div class="tableRowCell" style="width: 15%">
+    <div class="tableRowCell" style="width: 20%">
         <span>{{involvedDepartment.cancellationReason}}</span>
     </div>
     <div class="tableRowCell" style="width: 4%">
@@ -29,7 +29,7 @@
     <div class="tableRowCell" style="width: 10%">
         <span>{{involvedDepartment.derogationUser}}</span>
     </div>
-    <div class="tableRowCell" style="width: 15%">
-        {{getOperationDate() | date:"dd-MM-yyyy hh:mm:ss"}}
+    <div class="tableRowCell" style="width: 10%">
+        {{getOperationDate() | date:"dd-MM-yyyy HH:mm"}}
     </div>
 </div>

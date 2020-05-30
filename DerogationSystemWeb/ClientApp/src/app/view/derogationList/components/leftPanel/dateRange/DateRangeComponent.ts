@@ -3,7 +3,8 @@ import { DerogationApiService } from "../../../../../controllers/DerogationApiSe
 
 @Component({
     selector: "date-range",
-    templateUrl: "DateRangeComponent.html"
+    templateUrl: "DateRangeComponent.html",
+    styleUrls: ["../../../../../StyleSheet.css"]
 })
 export class DateRangeComponent {
 

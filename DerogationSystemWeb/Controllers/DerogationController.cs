@@ -66,7 +66,9 @@ namespace DerogationSystemWeb.Controllers
 
             if (requestModel.UserId == 0)
             {
-                authUser = _database.Users.First(usr => usr.DerogationUser == this.User.Identity.Name);
+                authUser = _database.Users
+                    .Include(user => user.FactoryDepartment)
+                    .First(usr => usr.DerogationUser == this.User.Identity.Name);
             }
             else
             {
@@ -74,6 +76,7 @@ namespace DerogationSystemWeb.Controllers
                     .Include(user => user.FactoryDepartment)
                     .First(user => user.Id == requestModel.UserId);
             }
+
             var derogation = _database.DerogationHeaders
                 .Include(dh => dh.Author)
                 .Include(dh => dh.FactoryDepartment)
@@ -98,8 +101,10 @@ namespace DerogationSystemWeb.Controllers
                 derogationDepartment.Approved = '1';
                 derogationDepartment.Training = requestModel.NeedTraining ? '1' : '0';
             }
-
-            derogationDepartment.Rejected = '1';
+            else
+            {
+                derogationDepartment.Rejected = '1';
+            }
 
             _database.SaveChanges();
             return Ok(derogation);

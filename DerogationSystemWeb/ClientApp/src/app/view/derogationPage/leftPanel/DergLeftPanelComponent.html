@@ -6,19 +6,19 @@
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
         Back to list
     </a>
-    <hr class="m-2"/>
+    <hr class="m-2" />
     <div class="panel"
          *ngIf="derogationApiService.currentDerogationIsLoaded">
         <h5 class="mb-1">
-            Derogation Id 
+            Derogation Id
             <span class="badge" style="color: white; background-color: dimgray">
                 {{derogationApiService.currentDerogation.derogationId}}
             </span>
         </h5>
     </div>
-
+    <hr class="m-2" />
     <approval-dashboard></approval-dashboard>
     <cancel-dashboard></cancel-dashboard>
-    <hr class="m-2"/>
+    <hr class="m-2" />
     <eng-fi-options></eng-fi-options>
 </div>

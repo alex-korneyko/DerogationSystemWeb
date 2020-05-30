@@ -1,4 +1,11 @@
-﻿.panel {
+﻿hr {
+    color: rgb(160, 160, 160);
+    background-color: rgb(160, 160, 160);
+    border: none;
+    height: 1px
+}
+
+.panel {
     width: 100%;
     border: dimgray solid 2px;
     border-radius: 3px;
@@ -78,4 +85,13 @@
     font-weight: bold;
     line-height: 1;
     border-radius: 0.2rem
+}
+
+.input-group-xsm > .input-group-prepend > .input-group-text,
+.input-group-xsm > .form-control {
+    padding: 0 2px;
+    height: 22px;
+    font-size: small;
+    font-weight: bold;
+    border: dimgray solid 1px;
 }

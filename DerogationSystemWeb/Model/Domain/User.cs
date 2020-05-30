@@ -6,7 +6,7 @@ namespace DerogationSystemWeb.Model.Domain
 {
     public class User
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string DerogationUser { get; set; }
         public string UserMailBase { get; set; }
         public char Admin { get; set; } = '0';

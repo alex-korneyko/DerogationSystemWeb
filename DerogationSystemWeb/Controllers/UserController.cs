@@ -29,7 +29,7 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpGet("{id}")]
-        public User GetUser(int id)
+        public User GetUser(long id)
         {
             User user = _dataBase.Users.Include(u => u.FactoryDepartment).FirstOrDefault(usr => usr.Id == id);
 
@@ -71,7 +71,7 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteUser(long id)
         {
             User user = _dataBase.Users.FirstOrDefault(usr => usr.Id == id);
             if (user == null) return Ok();
