@@ -38,5 +38,7 @@ namespace DerogationSystemWeb.Model.Domain
         public List<DerogationDepartment> DerogationDepartments { get; set; } = new List<DerogationDepartment>();
 
         public List<DerogationItem> DerogationItems { get; set; } = new List<DerogationItem>();
+
+        public List<DerogationOperator> Operators { get; set; } = new List<DerogationOperator>();
     }
 }

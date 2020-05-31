@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DerogationSystemWeb.Controllers;
 using DerogationSystemWeb.Controllers.RequestModel;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
@@ -136,6 +137,45 @@ namespace DerogationSystemWeb.Model.Services
                 .Count > 0);
 
             return result;
+        }
+
+        public DerogationHeader GetDerogation(long id)
+        {
+            var derogation = _db.DerogationHeaders
+                .Include(dh => dh.Author)
+                .Include(dh => dh.FactoryDepartment)
+                .Include(dh => dh.DerogationDepartments)
+                .Include(dh => dh.DerogationItems)
+                .Include(dh => dh.Operators)
+                .First(derg => derg.DerogationId == id);
+            return derogation;
+        }
+
+        public void ChangeDergDeptStatusByUser(DerogationHeader derogation, User authUser, ApprovalRequestModel requestModel)
+        {
+            var derogationDepartment =
+                derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+
+            derogationDepartment.Comment = requestModel.Comment;
+            derogationDepartment.DerogationUser = authUser.DerogationUser;
+            derogationDepartment.OperationDate = DateTime.Now;
+
+            if (requestModel.ApproveValue == "approve")
+            {
+                derogationDepartment.Approved = '1';
+                derogationDepartment.Training = requestModel.NeedTraining ? '1' : '0';
+                requestModel.Operators.ForEach(operatorBox =>
+                {
+                    operatorBox.InsertedDate = DateTime.Now;
+                    derogation.Operators.Add(operatorBox);
+                });
+            }
+            else
+            {
+                derogationDepartment.Rejected = '1';
+            }
+
+            _db.SaveChanges();
         }
     }
 }

@@ -20,11 +20,13 @@ namespace DerogationSystemWeb.Controllers
     {
         private readonly ApplicationContext _database;
         private readonly DerogationService _derogationService;
+        private readonly UserService _userService;
 
-        public DerogationController(ApplicationContext database, DerogationService derogationService)
+        public DerogationController(ApplicationContext database, DerogationService derogationService, UserService userService)
         {
             _database = database;
             _derogationService = derogationService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -47,66 +49,31 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpGet("getOne/{id}")]
-        public async Task<DerogationHeader> GetOne(long id)
+        public IActionResult GetOne(long id)
         {
-            var derogationHeader = await _database.DerogationHeaders
-                .Include(dh => dh.Author)
-                .Include(dh => dh.FactoryDepartment)
-                .Include(dh => dh.DerogationDepartments)
-                .Include(dh => dh.DerogationItems)
-                .FirstOrDefaultAsync(dh => dh.DerogationId == id);
+            var derogationHeader = _derogationService.GetDerogation(id);
 
-            return derogationHeader;
+            return Ok(derogationHeader);
         }
 
         [HttpPost("approveDerogation/{id}")]
         public IActionResult ApproveDerogation(long id, ApprovalRequestModel requestModel)
         {
-            User authUser;
+            var authUser = _userService.GetUserByName(this.User.Identity.Name);
 
-            if (requestModel.UserId == 0)
-            {
-                authUser = _database.Users
-                    .Include(user => user.FactoryDepartment)
-                    .First(usr => usr.DerogationUser == this.User.Identity.Name);
-            }
-            else
-            {
-                authUser = _database.Users
-                    .Include(user => user.FactoryDepartment)
-                    .First(user => user.Id == requestModel.UserId);
-            }
+            var derogation = _derogationService.GetDerogation(id);
 
-            var derogation = _database.DerogationHeaders
-                .Include(dh => dh.Author)
-                .Include(dh => dh.FactoryDepartment)
-                .Include(dh => dh.DerogationDepartments)
-                .Include(dh => dh.DerogationItems)
-                .First(derg => derg.DerogationId == id);
-
-            if (authUser == null || derogation == null) return Ok();
+            if (authUser == null || derogation == null) 
+                return BadRequest();
 
             var nextDeptsForApproval = _derogationService.GetNextDeptsForApproval(derogation);
+            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment)) 
+                return BadRequest();
 
-            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment)) return Ok();
+            _derogationService.ChangeDergDeptStatusByUser(derogation, authUser, requestModel);
 
-            var derogationDepartment = derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+            // _database.SaveChanges();
 
-            derogationDepartment.Comment = requestModel.Comment;
-            derogationDepartment.DerogationUser = authUser.DerogationUser;
-            derogationDepartment.OperationDate = DateTime.Now;
-
-            if (requestModel.ApproveValue == "approve")
-            {
-                derogationDepartment.Approved = '1';
-                derogationDepartment.Training = requestModel.NeedTraining ? '1' : '0';
-            }
-            else
-            {
-                derogationDepartment.Rejected = '1';
-            }
-
-            _database.SaveChanges();
             return Ok(derogation);
         }
     }

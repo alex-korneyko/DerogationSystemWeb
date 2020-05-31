@@ -8,8 +8,16 @@
 
 	<ItemGroup>
 		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="ClientApp\src\app\view\derogationPage\components\**" />
 		<None Remove="$(SpaRoot)**" />
+		<None Remove="ClientApp\src\app\view\derogationPage\components\**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="ClientApp\src\app\view\derogationPage\components\**" />
+	  <EmbeddedResource Remove="ClientApp\src\app\view\derogationPage\components\**" />
+	  <TypeScriptCompile Remove="ClientApp\src\app\view\derogationPage\components\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,11 +28,14 @@
 	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationItem.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationOperator.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\LoginRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\RequestDerogationStatus.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\ApprovalRequestModel.ts" />
+	  <None Remove="ClientApp\src\app\model\requestModel\DergAddOperatorRequestModel.ts" />
+	  <None Remove="ClientApp\src\app\model\services\Utils.ts" />
 	  <None Remove="ClientApp\src\app\model\services\WebsocketService.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\CheckBox\StringValCheckBox.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\TopNavBar\TopNavBarComponent.ts" />
@@ -50,6 +61,7 @@
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\derogationItemRow\DerogationItemRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\DerogationItemsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\engOperatorBox\EngOperatorBoxComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\engOperatorBox\operatorRow\OperatorRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\InvolvedDepartmentsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\involvedDepartmentsList\involvedDerpartmentRow\InvolvedDepartmentRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\mailList\DerogationMailListComponent.ts" />
@@ -70,10 +82,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ClientApp\src\app\view\derogationPage\components\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

@@ -1,0 +1,20 @@
+﻿<div class="tableRow">
+    <div class="tableRowCell" style="width: 20%">
+        <span>{{derogationOperator.stationName}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 5%">
+        <span>{{derogationOperator.hc}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 35%">
+        <span>{{derogationOperator.derogationUser}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 35%">
+        <span>{{derogationOperator.insertedDate | date:"dd-MM-yyyy HH:mm"}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 5%">
+        <span class="fa fa-times-circle" aria-hidden="true"
+              style="color: red"
+              *ngIf="derogationOperator.isNew"
+              (click)="deleteOperatorClick()"></span>
+    </div>
+</div>

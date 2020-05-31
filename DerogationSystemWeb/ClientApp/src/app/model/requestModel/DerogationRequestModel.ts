@@ -1,4 +1,4 @@
-﻿import { RequestDerogationStatus } from "../domain/RequestDerogationStatus";
+﻿import { RequestDerogationStatus } from "../requestModel/RequestDerogationStatus";
 
 export class DerogationRequestModel {
 

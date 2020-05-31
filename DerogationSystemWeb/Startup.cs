@@ -19,6 +19,7 @@ namespace DerogationSystemWeb
             const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Derogation_System;Trusted_Connection=True";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();
             services.AddTransient<NotificationSenderService>();
 

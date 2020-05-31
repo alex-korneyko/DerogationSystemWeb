@@ -52,6 +52,7 @@ import { CancellationComponent } from "./view/derogationPage/leftPanel/cancellat
 import { EngAndFiOptionsComponent } from "./view/derogationPage/leftPanel/engAndFiOptions/EngAndFiOptionsComponent";
 import { EngOperatorBoxComponent } from "./view/derogationPage/mainPanel/engOperatorBox/EngOperatorBoxComponent";
 import { MailListRowComponent } from "./view/derogationPage/mainPanel/mailList/mailListRow/MailListRowComponent";
+import { OperatorRowComponent } from './view/derogationPage/mainPanel/engOperatorBox/operatorRow/OperatorRowComponent';
 
 
 const appRoutes: Routes = [
@@ -75,7 +76,7 @@ const appRoutes: Routes = [
         DerogationHeaderRow, DerogationComponent, DergLeftPanelComponent, DergMainPanelComponent, DerogationItemsListComponent,
         InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent, InvolvedDepartmentRowComponent,
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
-        MailListRowComponent
+        MailListRowComponent, OperatorRowComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]

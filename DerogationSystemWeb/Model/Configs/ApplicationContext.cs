@@ -9,6 +9,7 @@ namespace DerogationSystemWeb.Model.Configs
         public DbSet<User> Users { get; set; }
         public DbSet<DerogationHeader> DerogationHeaders { get; set; }
         public DbSet<DerogationDepartment> DerogationDepartments { get; set; }
+        public DbSet<DerogationOperator> DerogationOperators { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -64,6 +65,20 @@ namespace DerogationSystemWeb.Model.Configs
                 .HasOne(dItem => dItem.DerogationHeader)
                 .WithMany(dHeader => dHeader.DerogationItems)
                 .HasForeignKey(dItem => dItem.DerogationId);
+
+            //--------------- DerogationItem ----------------------
+            modelBuilder.Entity<DerogationOperator>().ToTable("DerogationOperators").HasKey(dOper => dOper.Id);
+
+            modelBuilder.Entity<DerogationOperator>()
+                .HasOne(dOper => dOper.DerogationHeader)
+                .WithMany(dHeader => dHeader.Operators)
+                .HasForeignKey(dOper => dOper.DerogationId);
+
+            modelBuilder.Entity<DerogationOperator>()
+                .HasOne(dOper => dOper.Author)
+                .WithMany()
+                .HasForeignKey(dOper => dOper.DerogationUser)
+                .HasPrincipalKey(user => user.DerogationUser);
         }
     }
 }

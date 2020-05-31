@@ -46,6 +46,7 @@ export class DerogationApiService {
         this.currentDerogationIsLoaded = false;
         this.http.get(this.apiUrl + "/getOne/" + id)
             .subscribe((data: DerogationHeader) => {
+                console.log(data);
                 if (setAsCurrent) {
                     this.currentDerogation = data;
                 }
@@ -62,10 +63,18 @@ export class DerogationApiService {
     }
 
     sendApprove() {
+        this.currentDerogation.operators.forEach(operatorBox => {
+            if (operatorBox.isNew) {
+                this.approvalRequestModel.operators.push(operatorBox);
+            }
+        });
+        this.currentDerogation.operators = [];
         console.log(this.approvalRequestModel);
 
         this.http.post(this.apiUrl + "/approveDerogation/" + this.currentDerogation.derogationId, this.approvalRequestModel)
             .subscribe((data: DerogationHeader) => {
+                console.log("Response: ");
+                console.log(data);
                 this.currentDerogation = data;
             });
     }
