@@ -18,6 +18,8 @@ namespace DerogationSystemWeb.Controllers.RequestModel
 
         public string ByStatus { get; set; }
 
+        public bool UseDateRange { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

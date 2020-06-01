@@ -1,21 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var DerogationDepartment = /** @class */ (function () {
-    //    derogationId?: number;
-    //    derogationHeader?: DerogationHeader;
-    //    department?: string;
-    //    factoryDepartment?: Department;
-    //    mailStep?: number;
-    //    training?: string;
-    //    approved?: string;
-    //    comment?: string;
-    //    rejected?: string;
-    //    cancellationRequest?: string;
-    //    cancellationReason?: string;
-    //    derogationUser?: string;
-    //    user?: User;
-    //    operationDate?: Date;
-    //    checked?: string;
     function DerogationDepartment(derogationId, derogationHeader, department, factoryDepartment, mailStep, training, approved, comment, rejected, cancellationRequest, cancellationReason, derogationUser, user, operationDate, checked) {
         this.derogationId = derogationId;
         this.derogationHeader = derogationHeader;

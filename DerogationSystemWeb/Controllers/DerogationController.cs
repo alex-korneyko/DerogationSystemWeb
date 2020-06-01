@@ -60,9 +60,7 @@ namespace DerogationSystemWeb.Controllers
         public IActionResult ApproveDerogation(long id, ApprovalRequestModel requestModel)
         {
             var authUser = _userService.GetUserByName(this.User.Identity.Name);
-
             var derogation = _derogationService.GetDerogation(id);
-
             if (authUser == null || derogation == null) 
                 return BadRequest();
 
@@ -72,7 +70,40 @@ namespace DerogationSystemWeb.Controllers
 
             _derogationService.ChangeDergDeptStatusByUser(derogation, authUser, requestModel);
 
-            // _database.SaveChanges();
+            return Ok(derogation);
+        }
+
+        [HttpPost("cancellationRequest/{id}")]
+        public IActionResult CancellationRequest(long id, Dictionary<string, object> reason)
+        {
+            var authUser = _userService.GetUserByName(this.User.Identity.Name);
+            var derogation = _derogationService.GetDerogation(id);
+            if (authUser == null || derogation == null)
+                return BadRequest();
+
+            var nextDeptsForApproval = _derogationService.GetNextDeptsForApproval(derogation);
+            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment))
+                return BadRequest();
+
+            _derogationService.CancellationRequest(derogation, authUser, reason["reason"].ToString());
+
+            return Ok(derogation);
+        }
+
+        [HttpPost("cancellation/{id}")]
+        public IActionResult Cancellation(long id, Dictionary<string, string> reason)
+        {
+            var authUser = _userService.GetUserByName(this.User.Identity.Name);
+            var derogation = _derogationService.GetDerogation(id);
+            if (authUser == null || derogation == null)
+                return BadRequest();
+
+            if (derogation.Owner != authUser.DerogationUser)
+            {
+                return BadRequest();
+            }
+
+            _derogationService.Cancellation(derogation, reason["reason"]);
 
             return Ok(derogation);
         }

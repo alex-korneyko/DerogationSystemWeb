@@ -11,7 +11,8 @@ import { DerogationApiService } from "../../../../../../controllers/DerogationAp
 })
 export class DerogationHeaderRow {
 
-    @Input() derogation: DerogationHeader;
+    @Input()
+    derogation: DerogationHeader;
 
     constructor(public derogationApiService: DerogationApiService, private router: Router) {}
 
@@ -21,8 +22,12 @@ export class DerogationHeaderRow {
         let minStep = 1000;
         let result = "";
 
+        if (this.derogation.cancelled === "1") {
+            return result;
+        }
+
         this.derogation.derogationDepartments.forEach(dept => {
-            if (dept["approved"] === "0") {
+            if (dept["approved"] === "0" && dept["rejected"] === "0" && dept["cancellationRequest"] === "0") {
                 if (dept["mailStep"] < minStep) {
                     deptsForApproval = [];
                     deptsForApproval.push(dept);
@@ -36,6 +41,13 @@ export class DerogationHeaderRow {
         deptsForApproval.forEach(dept => result += ("/" + dept["department"]));
 
         return result;
+    }
+
+    getOperatorsCount(): string {
+        let result = 0;
+        this.derogation.operators.forEach(opBox => result += opBox.hc);
+
+        return result === 0 ? "" : result.toString();
     }
 
     derogationClick() {

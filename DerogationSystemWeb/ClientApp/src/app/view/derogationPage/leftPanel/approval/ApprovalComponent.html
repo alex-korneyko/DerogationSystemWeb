@@ -4,28 +4,33 @@
     <div class="form-group mb-0">
         <textarea class="form-control p-1" style="font-size: small; resize: none"
                   id="commentApprTextarea" rows="3" placeholder="Comment..."
-                  [(ngModel)]="derogationApiService.approvalRequestModel.comment">
+                  [(ngModel)]="derogationApiService.approvalRequestModel.comment"
+                  [disabled]="disabled">
         </textarea>
     </div>
 
     <div class="form-check form-check-inline mr-2">
         <input class="form-check-input mr-0" type="radio" name="radioApprove" id="radioApprove" value="approve"
-               [(ngModel)]="derogationApiService.approvalRequestModel.approveValue">
+               [(ngModel)]="derogationApiService.approvalRequestModel.approveValue"
+               [disabled]="disabled">
         <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioApprove">Approve</label>
     </div>
     <div class="form-check form-check-inline mr-2">
         <input class="form-check-input mr-0" type="radio" name="radioApprove" id="radioReject" value="reject"
-               [(ngModel)]="derogationApiService.approvalRequestModel.approveValue">
+               [(ngModel)]="derogationApiService.approvalRequestModel.approveValue"
+               [disabled]="disabled">
         <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioReject">Reject</label>
     </div>
 
     <div class="form-check form-check-inline mr-2">
         <input class="form-check-input mr-0" type="checkbox" id="needTrain" value="needTrain"
-               [(ngModel)]="derogationApiService.approvalRequestModel.needTraining">
+               [(ngModel)]="derogationApiService.approvalRequestModel.needTraining"
+               [disabled]="disabled">
         <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="needTrain">Training</label>
     </div>
 
     <button class="btn btn-xsm btn-outline-success" style="width: 100%; font-weight: bold"
+            [disabled]="disabled"
             (click)="approveClick()">
         Approve
     </button>

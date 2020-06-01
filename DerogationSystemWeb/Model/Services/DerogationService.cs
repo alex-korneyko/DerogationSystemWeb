@@ -21,11 +21,18 @@ namespace DerogationSystemWeb.Model.Services
 
         public List<DerogationHeader> GetFilteredList(DerogationListRequestModel model, User user)
         {
+            if (!model.UseDateRange)
+            {
+                model.FromDate = DateTime.MinValue;
+                model.ToDate = DateTime.MaxValue;
+            }
+
             if (model.DerogationId != 0)
             {
                 var derogation = _db.DerogationHeaders
                     .Include(dHeader => dHeader.Author)
                     .Include(dHeader => dHeader.FactoryDepartment)
+                    .Include(dHeader => dHeader.Operators)
                     .FirstOrDefault(derg => derg.DerogationId == model.DerogationId);
 
                 return new List<DerogationHeader>{derogation};
@@ -52,8 +59,24 @@ namespace DerogationSystemWeb.Model.Services
                         result = DerogationsOnlyForMe(user);
                         break;
                     case "MyTurnForApproval":
-                        result = DerogationsOnlyForMe(user);
-                        result = OnlyForMyApproval(user, result);
+                        result = new List<DerogationHeader>();
+                        derogationList.ForEach(derogation =>
+                        {
+                            if (derogation.Approved == '0' && derogation.Cancelled == '0')
+                            {
+                                derogation = GetDerogation(derogation.DerogationId);
+                            }
+
+                            GetNextDeptsForApproval(derogation).ForEach(fDept =>
+                            {
+                                if (fDept.Equals(user.FactoryDepartment))
+                                {
+                                    //TODO
+                                    result.Add(derogation);
+                                }
+                            });
+                        });
+
                         break;
                     case "InProgress":
                         result = result.FindAll(derg =>
@@ -71,10 +94,10 @@ namespace DerogationSystemWeb.Model.Services
                 }
             }
 
-            result.Sort(((derg1, derg2) => derg1.CreatedDate < derg2.CreatedDate ? 1 : 0));
+            result.Sort(((derg1, derg2) => derg1.CreatedDate < derg2.CreatedDate ? 1 : -1));
 
             var count = model.LastCount > result.Count ? result.Count : model.LastCount;
-            var croppedResult = result.GetRange(result.Count - count, count);
+            var croppedResult = result.GetRange(0, count);
 
             return croppedResult;
         }
@@ -122,23 +145,6 @@ namespace DerogationSystemWeb.Model.Services
             return result;
         }
 
-        private List<DerogationHeader> OnlyForMyApproval(User user, List<DerogationHeader> derogations)
-        {
-            var step = user.FactoryDepartment.MAilStep;
-
-            var result = derogations.FindAll(derogation => derogation.DerogationDepartments
-                .FindAll(dDept =>
-                    dDept.MailStep < step && dDept.Approved == '1')
-                .Count > 0);
-
-            result = result.FindAll(derogation => derogation.DerogationDepartments
-                .FindAll(dDept =>
-                    dDept.MailStep == step && dDept.Approved == '0')
-                .Count > 0);
-
-            return result;
-        }
-
         public DerogationHeader GetDerogation(long id)
         {
             var derogation = _db.DerogationHeaders
@@ -174,6 +180,25 @@ namespace DerogationSystemWeb.Model.Services
             {
                 derogationDepartment.Rejected = '1';
             }
+
+            _db.SaveChanges();
+        }
+
+        public void CancellationRequest(DerogationHeader derogation, User authUser, string reason)
+        {
+            var derogationDepartment =
+                derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+
+            derogationDepartment.CancellationReason = reason;
+            derogationDepartment.CancellationRequest = '1';
+
+            _db.SaveChanges();
+        }
+
+        public void Cancellation(DerogationHeader derogation, string reason)
+        {
+            derogation.Cancelled = '1';
+            derogation.CancellationReason = reason;
 
             _db.SaveChanges();
         }

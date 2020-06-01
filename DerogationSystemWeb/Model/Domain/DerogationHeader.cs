@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DerogationSystemWeb.Model.Domain
 {
-    public class DerogationHeader
+    public class DerogationHeader : IEqualityComparer<DerogationHeader>
     {
         public long DerogationId { get; set; }
 
@@ -40,5 +40,17 @@ namespace DerogationSystemWeb.Model.Domain
         public List<DerogationItem> DerogationItems { get; set; } = new List<DerogationItem>();
 
         public List<DerogationOperator> Operators { get; set; } = new List<DerogationOperator>();
+        public bool Equals(DerogationHeader x, DerogationHeader y)
+        {
+            if (x == null || y == null)
+                return false;
+
+            return x.DerogationId == y.DerogationId;
+        }
+
+        public int GetHashCode(DerogationHeader obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

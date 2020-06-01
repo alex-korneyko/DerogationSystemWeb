@@ -6,7 +6,7 @@ import { ApprovalRequestModel } from "../model/requestModel/ApprovalRequestModel
 
 @Injectable()
 export class DerogationApiService {
-
+    
     derogationRequestModel: DerogationRequestModel;
     approvalRequestModel: ApprovalRequestModel;
 
@@ -46,7 +46,6 @@ export class DerogationApiService {
         this.currentDerogationIsLoaded = false;
         this.http.get(this.apiUrl + "/getOne/" + id)
             .subscribe((data: DerogationHeader) => {
-                console.log(data);
                 if (setAsCurrent) {
                     this.currentDerogation = data;
                 }
@@ -73,8 +72,21 @@ export class DerogationApiService {
 
         this.http.post(this.apiUrl + "/approveDerogation/" + this.currentDerogation.derogationId, this.approvalRequestModel)
             .subscribe((data: DerogationHeader) => {
-                console.log("Response: ");
-                console.log(data);
+                this.currentDerogation = data;
+            });
+    }
+
+    sendCancelRequest(reason: string) {
+        this.http.post(this.apiUrl + "/cancellationRequest/" + this.currentDerogation.derogationId, {"reason": reason })
+            .subscribe((data: DerogationHeader) => {
+                this.currentDerogation = data;
+            });
+    }
+
+    sendCancel(reason: string) {
+        console.log("Reason: " + reason);
+        this.http.post(this.apiUrl + "/cancellation/" + this.currentDerogation.derogationId, { "reason": reason })
+            .subscribe((data: DerogationHeader) => {
                 this.currentDerogation = data;
             });
     }

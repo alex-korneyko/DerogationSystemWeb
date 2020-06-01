@@ -3,21 +3,6 @@ import { Department } from "./Department";
 import { User } from "./User";
 
 export class DerogationDepartment {
-//    derogationId?: number;
-//    derogationHeader?: DerogationHeader;
-//    department?: string;
-//    factoryDepartment?: Department;
-//    mailStep?: number;
-//    training?: string;
-//    approved?: string;
-//    comment?: string;
-//    rejected?: string;
-//    cancellationRequest?: string;
-//    cancellationReason?: string;
-//    derogationUser?: string;
-//    user?: User;
-//    operationDate?: Date;
-//    checked?: string;
 
     constructor(
         public derogationId?: number,

@@ -1,4 +1,4 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, Input } from "@angular/core";
 import { DerogationApiService } from "../../../../controllers/DerogationApiService";
 
 @Component({
@@ -9,6 +9,9 @@ import { DerogationApiService } from "../../../../controllers/DerogationApiServi
 export class ApprovalComponent {
 
     constructor(public derogationApiService: DerogationApiService) { }
+
+    @Input()
+    disabled: boolean;
 
     approveClick() {
         this.derogationApiService.sendApprove();

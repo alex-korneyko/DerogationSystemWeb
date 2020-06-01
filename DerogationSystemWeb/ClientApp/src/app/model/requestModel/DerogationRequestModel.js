@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RequestDerogationStatus_1 = require("../domain/RequestDerogationStatus");
+var RequestDerogationStatus_1 = require("../requestModel/RequestDerogationStatus");
 var DerogationRequestModel = /** @class */ (function () {
     function DerogationRequestModel() {
+        this.useDateRange = false;
         this.lastCount = 100;
         this.derogationId = undefined;
         this.workOrder = undefined;
@@ -10,6 +11,7 @@ var DerogationRequestModel = /** @class */ (function () {
         this.partNumber = "";
         this.departmentOwner = RequestDerogationStatus_1.RequestDerogationStatus[RequestDerogationStatus_1.RequestDerogationStatus.All];
         this.byStatus = "All";
+        this.useDateRange = false;
         this.toDate = this.formatDate(new Date());
         this.fromDate = this.formatDate(this.minusDate(new Date(), 30));
     }

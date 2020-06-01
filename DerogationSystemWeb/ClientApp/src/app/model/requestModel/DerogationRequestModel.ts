@@ -12,6 +12,7 @@ export class DerogationRequestModel {
 
     public byStatus?: string;
 
+    public useDateRange = false;
     public fromDate?: string;
     public toDate?: string;
 
@@ -26,6 +27,7 @@ export class DerogationRequestModel {
 
         this.byStatus = "All";
 
+        this.useDateRange = false;
         this.toDate = this.formatDate(new Date());
         this.fromDate = this.formatDate(this.minusDate(new Date(), 30));
     }

@@ -9,16 +9,24 @@
     <hr class="m-2" />
     <div class="panel"
          *ngIf="derogationApiService.currentDerogationIsLoaded">
-        <h5 class="mb-1">
-            Derogation Id
-            <span class="badge" style="color: white; background-color: dimgray">
+        <h6 class="mb-1">
+            Derogation:
+            <span class="badge" style="color: white; background-color: dimgray; cursor: default">
                 {{derogationApiService.currentDerogation.derogationId}}
             </span>
-        </h5>
+            <span class="ml-1 badge" style="cursor: default"
+                  [ngClass]="{
+                  'badge-success': status() === 'Approved',
+                  'badge-info': status() === 'Ongoing',
+                  'badge-danger': status() === 'Cancelled'
+                  }">
+                {{status()}}
+            </span>
+        </h6>
     </div>
     <hr class="m-2" />
-    <approval-dashboard></approval-dashboard>
-    <cancel-dashboard></cancel-dashboard>
+    <approval-dashboard [disabled]="!availableForActions()"></approval-dashboard>
+    <cancel-dashboard [disabled]="!availableForActions()"></cancel-dashboard>
     <hr class="m-2" />
     <eng-fi-options></eng-fi-options>
 </div>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DerogationSystemWeb.Model.Domain
 {
-    public class FactoryDepartment
+    public class FactoryDepartment : IEqualityComparer<FactoryDepartment>
     {
         public string Department { get; set; }
         public int MAilStep { get; set; }
@@ -24,5 +24,18 @@ namespace DerogationSystemWeb.Model.Domain
 
         [JsonIgnore] 
         public List<DerogationHeader> DerogationHeaders { get; set; } = new List<DerogationHeader>();
+
+        public bool Equals(FactoryDepartment x, FactoryDepartment y)
+        {
+            if (x == null || y == null)
+                return false;
+
+            return x.Department == y.Department;
+        }
+
+        public int GetHashCode(FactoryDepartment obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
