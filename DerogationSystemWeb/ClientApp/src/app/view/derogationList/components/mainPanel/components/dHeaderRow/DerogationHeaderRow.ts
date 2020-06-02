@@ -18,7 +18,7 @@ export class DerogationHeaderRow {
 
     getDeptsNamesInQueue(): string {
 
-        let deptsForApproval: DerogationDepartment[];
+        let deptsForApproval = new Array<DerogationDepartment>();
         let minStep = 1000;
         let result = "";
 

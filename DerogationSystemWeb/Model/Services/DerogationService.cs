@@ -38,6 +38,27 @@ namespace DerogationSystemWeb.Model.Services
                 return new List<DerogationHeader>{derogation};
             }
 
+            if (model.WorkOrder != 0)
+            {
+                var derogationsByWorkOrder = GetDerogationsByWorkOrder(model.WorkOrder.ToString());
+
+                return derogationsByWorkOrder;
+            }
+
+            if (model.ModelName != "")
+            {
+                var derogationsByModelName = GetDerogationsByModelName(model.ModelName);
+
+                return derogationsByModelName;
+            }
+
+            if (model.PartNumber != "")
+            {
+                var derogationsByPartNumber = GetDerogationsByPartNumber(model.PartNumber);
+
+                return derogationsByPartNumber;
+            }
+
             var derogationList = _db.DerogationHeaders
                 .Where(derg => derg.CreatedDate >= model.FromDate && derg.CreatedDate <= model.ToDate)
                 .Include(dHeader => dHeader.Author)
@@ -56,7 +77,24 @@ namespace DerogationSystemWeb.Model.Services
                 switch (model.ByStatus)
                 {
                     case "NewForMe":
-                        result = DerogationsOnlyForMe(user);
+                        result = new List<DerogationHeader>();
+                        derogationList.ForEach(derogation =>
+                        {
+                            if (derogation.Approved == '0' && derogation.Cancelled == '0')
+                            {
+                                derogation = GetDerogation(derogation.DerogationId);
+                            }
+
+                            derogation.DerogationDepartments.ForEach(dDept =>
+                            {
+                                if (dDept.Department != user.Department) return;
+
+                                if (dDept.Approved == '0' && dDept.Rejected == '0' & dDept.CancellationRequest == '0')
+                                {
+                                    result.Add(derogation);
+                                }
+                            });
+                        });
                         break;
                     case "MyTurnForApproval":
                         result = new List<DerogationHeader>();
@@ -69,9 +107,11 @@ namespace DerogationSystemWeb.Model.Services
 
                             GetNextDeptsForApproval(derogation).ForEach(fDept =>
                             {
-                                if (fDept.Equals(user.FactoryDepartment))
+                                if (!fDept.Equals(user.FactoryDepartment)) return;
+
+                                var dDepartment = GetDergDeptByDepartmentName(derogation, fDept.Department);
+                                if (dDepartment.Approved != '1' && dDepartment.Rejected != '1' && dDepartment.CancellationRequest != '1')
                                 {
-                                    //TODO
                                     result.Add(derogation);
                                 }
                             });
@@ -127,24 +167,6 @@ namespace DerogationSystemWeb.Model.Services
             return factoryDepartments;
         }
 
-        private List<DerogationHeader> DerogationsOnlyForMe(User user)
-        {
-            var result = _db.DerogationHeaders
-                .Where(derg =>
-                    derg.Approved != '1' && derg.Cancelled != '1' && derg.Offline != '1')
-                .Include(dHeader => dHeader.Author)
-                .Include(dHeader => dHeader.FactoryDepartment)
-                .Include(dHeader => dHeader.DerogationDepartments)
-                .ToList();
-
-            result = result
-                .FindAll(derg =>
-                    derg.DerogationDepartments
-                        .FindAll(dDept => (dDept.Department == user.Department && dDept.Approved == '0')).Count > 0);
-
-            return result;
-        }
-
         public DerogationHeader GetDerogation(long id)
         {
             var derogation = _db.DerogationHeaders
@@ -155,6 +177,60 @@ namespace DerogationSystemWeb.Model.Services
                 .Include(dh => dh.Operators)
                 .First(derg => derg.DerogationId == id);
             return derogation;
+        }
+
+        private List<DerogationHeader> GetDerogationsByWorkOrder(string workOrder)
+        {
+            var result = new List<DerogationHeader>();
+            var derogationItems = _db.DerogationItems
+                .Where(di => di.WorkOrder == workOrder).ToList();
+
+            derogationItems.ForEach(dItem =>
+            {
+                var derogation = GetDerogation(dItem.DerogationId);
+                if (result.FirstOrDefault(dHeader => dHeader.DerogationId == derogation.DerogationId) == null)
+                {
+                    result.Add(derogation);
+                }
+            });
+
+            return result;
+        }
+
+        private List<DerogationHeader> GetDerogationsByModelName(string modelName)
+        {
+            var result = new List<DerogationHeader>();
+            var derogationItems = _db.DerogationItems
+                .Where(di => di.ModelName == modelName).ToList();
+
+            derogationItems.ForEach(dItem =>
+            {
+                var derogation = GetDerogation(dItem.DerogationId);
+                if (result.FirstOrDefault(dHeader => dHeader.DerogationId == derogation.DerogationId) == null)
+                {
+                    result.Add(derogation);
+                }
+            });
+
+            return result;
+        }
+
+        private List<DerogationHeader> GetDerogationsByPartNumber(string partNumber)
+        {
+            var result = new List<DerogationHeader>();
+            var derogationItems = _db.DerogationItems
+                .Where(di => di.PartNo == partNumber || di.APartNo == partNumber).ToList();
+
+            derogationItems.ForEach(dItem =>
+            {
+                var derogation = GetDerogation(dItem.DerogationId);
+                if (result.FirstOrDefault(dHeader => dHeader.DerogationId == derogation.DerogationId) == null)
+                {
+                    result.Add(derogation);
+                }
+            });
+
+            return result;
         }
 
         public void ChangeDergDeptStatusByUser(DerogationHeader derogation, User authUser, ApprovalRequestModel requestModel)
@@ -201,6 +277,11 @@ namespace DerogationSystemWeb.Model.Services
             derogation.CancellationReason = reason;
 
             _db.SaveChanges();
+        }
+
+        private DerogationDepartment GetDergDeptByDepartmentName(DerogationHeader derogation, string departmentName)
+        {
+            return derogation.DerogationDepartments.FirstOrDefault(derogationDepartment => derogationDepartment.Department == departmentName);
         }
     }
 }

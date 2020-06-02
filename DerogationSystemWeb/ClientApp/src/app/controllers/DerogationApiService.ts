@@ -29,6 +29,11 @@ export class DerogationApiService {
 
     getDerogationList() {
         this.derogationListIsLoaded = false;
+
+        if (this.derogationRequestModel.workOrder === null) this.derogationRequestModel.workOrder = undefined;
+        if (this.derogationRequestModel.derogationId === null) this.derogationRequestModel.derogationId = undefined;
+
+        console.log(this.derogationRequestModel);
         this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {
                 this.derogationList = data;

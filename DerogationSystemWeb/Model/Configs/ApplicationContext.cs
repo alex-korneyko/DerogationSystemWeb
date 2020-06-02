@@ -10,6 +10,7 @@ namespace DerogationSystemWeb.Model.Configs
         public DbSet<DerogationHeader> DerogationHeaders { get; set; }
         public DbSet<DerogationDepartment> DerogationDepartments { get; set; }
         public DbSet<DerogationOperator> DerogationOperators { get; set; }
+        public DbSet<DerogationItem> DerogationItems { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

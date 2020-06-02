@@ -76,7 +76,7 @@ const appRoutes: Routes = [
         DerogationHeaderRow, DerogationComponent, DergLeftPanelComponent, DergMainPanelComponent, DerogationItemsListComponent,
         InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent, InvolvedDepartmentRowComponent,
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
-        MailListRowComponent, OperatorRowComponent
+        MailListRowComponent, OperatorRowComponent, IndexPageComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]

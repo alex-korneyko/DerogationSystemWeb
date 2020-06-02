@@ -8,16 +8,16 @@
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input " type="radio" name="exampleRadios" id="newForMe" value="NewForMe" disabled="disabled" 
+        <input class="form-check-input " type="radio" name="exampleRadios" id="newForMe" value="NewForMe" 
                [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
-        <label class="form-check-label " style="font-size: 0.875rem" for="newForMe" title="Currently not working">
+        <label class="form-check-label " style="font-size: 0.875rem" for="newForMe">
             New for me only
         </label>
     </div>
     <div class="form-check">
         <input class="form-check-input " type="radio" name="exampleRadios" id="myTurn" value="MyTurnForApproval"
                [(ngModel)]="derogationApiService.derogationRequestModel.byStatus">
-        <label class="form-check-label " style="font-size: 0.875rem" for="myTurn" title="Currently not working">
+        <label class="form-check-label " style="font-size: 0.875rem" for="myTurn">
             My turn for approval only
         </label>
     </div>
