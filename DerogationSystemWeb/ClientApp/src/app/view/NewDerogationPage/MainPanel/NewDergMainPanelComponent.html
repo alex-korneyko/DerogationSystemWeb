@@ -1,0 +1,12 @@
+﻿<div class="py-3" style="height: calc(100% - 520px)">
+    <derogation-items-list
+        [dergItems]="derogationApiService.newDerogation.derogationItems"
+        [disableActions]="false">
+    </derogation-items-list>
+
+    <div class="row" style="height: 100%">
+        <depts-involve-box class="col-4 pr-0"></depts-involve-box>
+        <derogation-docs-list class="col-5 pl-2 pr-2"></derogation-docs-list>
+        <derogation-mail-list class="col-3 pl-0"></derogation-mail-list>
+    </div>
+</div>

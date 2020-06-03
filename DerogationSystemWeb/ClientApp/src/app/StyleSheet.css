@@ -5,12 +5,22 @@
     height: 1px
 }
 
+textarea {
+    border: dimgray solid 1px;
+    font-size: small;
+    resize: none
+}
+
 .panel {
     width: 100%;
-    border: dimgray solid 2px;
+    border: dimgray solid 1px;
     border-radius: 3px;
     padding-left: 3px
 }
+
+    .panel.panel-gray {
+        background-color: rgb(180, 180, 180)
+    }
 
 .tableHeader {
     height: 24px;
@@ -88,10 +98,13 @@
 }
 
 .input-group-xsm > .input-group-prepend > .input-group-text,
+.input-group-xsm > .input-group-append > .input-group-text,
+.input-group-xsm > .input-group-append > .btn,
 .input-group-xsm > .form-control {
     padding: 0 2px;
     height: 22px;
     font-size: small;
     font-weight: bold;
     border: dimgray solid 1px;
+    cursor: default;
 }

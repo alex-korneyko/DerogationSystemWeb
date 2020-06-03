@@ -1,9 +1,17 @@
-﻿<div class="mt-1" style="border: 1px solid gray; border-radius: 5px; padding: 4px">
-    <div class="row">
-        <label for="ShowLast" class="col-6 col-form-label col-form-label-sm" style="font-weight: bold">Show last:</label>
-        <div class="col-6">
-            <input type="number" class="form-control form-control-sm" id="ShowLast" 
-                   [(ngModel)]="derogationApiService.derogationRequestModel.lastCount">
+﻿<div class="mt-1 panel panel-gray"style="padding: 3px">
+    <!-- <div class="row"> -->
+    <!--     <label for="ShowLast" class="col-6 col-form-label col-form-label-sm" style="font-weight: bold">Show last:</label> -->
+    <!--     <div class="col-6"> -->
+    <!--         <input type="number" class="form-control form-control-sm" id="ShowLast" -->
+    <!--                [(ngModel)]="derogationApiService.derogationRequestModel.lastCount"> -->
+    <!--     </div> -->
+    <!-- </div> -->
+
+    <div class="input-group input-group-xsm mt-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="width: 100px">Show last:</span>
         </div>
+        <input type="number" class="form-control"
+               [(ngModel)]="derogationApiService.derogationRequestModel.lastCount">
     </div>
 </div>

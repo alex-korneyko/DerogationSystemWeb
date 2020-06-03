@@ -1,5 +1,6 @@
 ﻿import { Component } from "@angular/core";
 import { DerogationApiService } from "../../../controllers/DerogationApiService";
+import { DerogationItem } from "../../../model/domain/DerogationItem";
 
 
 @Component({
@@ -8,6 +9,6 @@ import { DerogationApiService } from "../../../controllers/DerogationApiService"
 })
 export class DergMainPanelComponent {
 
-    constructor(derogationApiService: DerogationApiService) { }
+    constructor(public derogationApiService: DerogationApiService) {}
 
 }

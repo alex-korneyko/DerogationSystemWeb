@@ -68,6 +68,12 @@
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\mailList\mailListRow\MailListRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\indexPage\IndexPageComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\main\MainComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\NewDergLeftPanelComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\PartNumberDashboard\PartNumberDashboardComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderDashboardComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptsInvolvingComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\NewDergMainPanelComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\NewDerogationComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserCreate\UserCrtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserEdit\UserEdtComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\users\UserForm\UserFormComponent.ts" />
@@ -82,6 +88,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptInvolvedRow\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

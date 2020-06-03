@@ -1,4 +1,4 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, Input } from "@angular/core";
 import {DerogationApiService} from  "../../../../controllers/DerogationApiService";
 import { DerogationItem } from "../../../../model/domain/DerogationItem";
 import { DerogationDepartment } from "../../../../model/domain/DerogationDepartment";
@@ -9,6 +9,9 @@ import { DerogationDepartment } from "../../../../model/domain/DerogationDepartm
     selector: "derogation-items-list"
 })
 export class DerogationItemsListComponent {
+
+    @Input() dergItems: DerogationItem[];
+    @Input() disableActions = true;
 
     constructor(public derogationApiService: DerogationApiService) { }
 

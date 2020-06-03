@@ -26,14 +26,26 @@
     <div class="tableRowCell" style="width: 4%">
         <span title="{{derogationItem.aQuantity}}">{{derogationItem.aQuantity}}</span>
     </div>
-    <div class="tableRowCell" style="width: 18%">
+    <div class="tableRowCell" style="width: 17%">
         <span title="{{derogationItem.reason}}">{{derogationItem.reason}}</span>
     </div>
-    <div class="tableRowCell" style="width: 18%">
+    <div class="tableRowCell" style="width: 16%">
         <span title="{{derogationItem.action}}">{{derogationItem.action}}</span>
     </div>
     <div class="tableRowCell" style="width: 5%">
         <span title="{{derogationItem.supplier}}">{{derogationItem.supplier}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 3%">
+        <span *ngIf="!disableActions">
+            <i class="fa fa-pencil-square-o" aria-hidden="true" style="cursor: pointer; color: rgb(197, 110, 25)" title="Edit"
+               (click)="actionEditClick()"></i>
+            <i class="fa fa-times-circle ml-1" aria-hidden="true" style="cursor: pointer; color: red" title="Delete"
+               (click)="actionDeleteClick()"></i>
+        </span>
+        <span *ngIf="disableActions">
+            <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: dimgray" title="Edit"></i>
+            <i class="fa fa-times-circle ml-1" aria-hidden="true" style="color: dimgray" title="Delete"></i>
+        </span>
     </div>
 
 </div>

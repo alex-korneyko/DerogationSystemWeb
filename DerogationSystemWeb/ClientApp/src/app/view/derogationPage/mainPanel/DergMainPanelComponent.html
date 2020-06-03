@@ -1,5 +1,8 @@
 ﻿<div class="py-3" style="height: calc(100% - 520px)">
-    <derogation-items-list></derogation-items-list>
+    <derogation-items-list 
+        *ngIf="derogationApiService.currentDerogationIsLoaded"
+        [dergItems]="derogationApiService.currentDerogation.derogationItems"
+        [disableActions]="true"></derogation-items-list>
     <involved-departments-list></involved-departments-list>
     
     <div class="row" style="height: 100%">

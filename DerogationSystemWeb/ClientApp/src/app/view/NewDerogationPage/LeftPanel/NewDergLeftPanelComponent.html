@@ -1,0 +1,31 @@
+﻿<div style="width: 250px; padding: 10px; border-right: 2px solid gray; height: 100%">
+    <a class="btn btn-sm btn-secondary" style="width: 100%; font-weight: 800"
+       routerLink="/derogations">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        Back to list
+    </a>
+    <hr class="m-2" style="height: 2px"/>
+    <span class="badge badge-success" style="font-weight: bold; font-size: medium; width: 100%">New derogation</span>
+
+    <div class="panel mt-2" style="padding: 3px">
+        <span class="badge badge-primary" style="font-weight: 600; font-size: small">Derogation item params:</span>
+        <workorder-dashboard></workorder-dashboard>
+        <partnumber-dashboard [dashboardName]="'Part number'"></partnumber-dashboard>
+        <partnumber-dashboard [dashboardName]="'Alt. part number'"></partnumber-dashboard>
+
+        <hr class="m-2" style="height: 2px" />
+        <span class="badge badge-primary" style="font-weight: 600; font-size: small">Item description:</span>
+        <div class="form-group mb-0">
+            <textarea class="form-control p-1" rows="2" placeholder="Reason..."></textarea>
+            <textarea class="form-control p-1 mt-1" rows="2" placeholder="Action..."></textarea>
+        </div>
+
+        <div class="mt-2 form-inline">
+            <button class="btn btn-sm btn-primary">Insert item</button>
+            <button class="btn btn-sm btn-warning ml-2">Clear form</button>
+        </div>
+    </div>
+    <button class="btn btn-sm btn-success mt-2" style="width: 100%; font-weight: bold">Release Derogation</button>
+</div>

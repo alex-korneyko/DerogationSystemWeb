@@ -1,9 +1,12 @@
+using System;
+using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -11,13 +14,27 @@ namespace DerogationSystemWeb
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public IConfiguration Configuration { get; set; }
+
+        public Startup()
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("config.json");
+            Configuration = builder.Build();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            const string connectionString = "Server=172.26.60.70;Database=Derogation_System;User ID=sa;Password=8armagloT";
-            // const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Derogation_System;Trusted_Connection=True";
+            var connectionString = $"Server={Configuration["Databases:MainDb:ServerAddress"]}\\{Configuration["Databases:MainDb:ServerName"]};" +
+                                   $"Database={Configuration["Databases:MainDb:DatabaseName"]};" +
+                                   $"User ID={Configuration["Databases:MainDb:UserId"]};" +
+                                   $"Password={Configuration["Databases:MainDb:Password"]}";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+            var secondConnectionString = $"Server={Configuration["Databases:SecondDb:ServerAddress"]}\\{Configuration["Databases:SecondDb:ServerName"]};" +
+                                         $"Database={Configuration["Databases:SecondDb:DatabaseName"]};" +
+                                         $"User ID={Configuration["Databases:SecondDb:UserId"]};" +
+                                         $"Password={Configuration["Databases:SecondDb:Password"]}";
+            services.AddDbContext<SecondAppContext>(options => options.UseSqlServer(secondConnectionString));
 
             services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();

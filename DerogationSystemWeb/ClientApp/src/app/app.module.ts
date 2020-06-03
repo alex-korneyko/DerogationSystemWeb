@@ -53,6 +53,14 @@ import { EngAndFiOptionsComponent } from "./view/derogationPage/leftPanel/engAnd
 import { EngOperatorBoxComponent } from "./view/derogationPage/mainPanel/engOperatorBox/EngOperatorBoxComponent";
 import { MailListRowComponent } from "./view/derogationPage/mainPanel/mailList/mailListRow/MailListRowComponent";
 import { OperatorRowComponent } from './view/derogationPage/mainPanel/engOperatorBox/operatorRow/OperatorRowComponent';
+import { NewDergLeftPanelComponent } from "./view/NewDerogationPage/LeftPanel/NewDergLeftPanelComponent";
+import { NewDerogationComponent } from "./view/NewDerogationPage/NewDerogationComponent";
+import { WorkOrderDashboardComponent } from
+    "./view/NewDerogationPage/LeftPanel/WorkOrderDashboard/WorkOrderDashboardComponent";
+import { PartNumberDashboardComponent } from
+    "./view/NewDerogationPage/LeftPanel/PartNumberDashboard/PartNumberDashboardComponent";
+import { NewDergMainPanelComponent } from "./view/NewDerogationPage/MainPanel/NewDergMainPanelComponent";
+import { DeptsInvolvingComponent } from "./view/NewDerogationPage/MainPanel/DeptsIvolvingList/DeptsInvolvingComponent";
 
 
 const appRoutes: Routes = [
@@ -64,7 +72,8 @@ const appRoutes: Routes = [
     { path: "users/user/:id", component: UserEdtComponent },
     { path: "users/newUser", component: UserCrtComponent},
     { path: "users", component: UserListComponent },
-    { path: "derogations/derogation/:id", component: DerogationComponent}
+    { path: "derogations/derogation/:id", component: DerogationComponent },
+    { path: "derogations/new", component: NewDerogationComponent}
 ];
 
 @NgModule({
@@ -76,7 +85,8 @@ const appRoutes: Routes = [
         DerogationHeaderRow, DerogationComponent, DergLeftPanelComponent, DergMainPanelComponent, DerogationItemsListComponent,
         InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent, InvolvedDepartmentRowComponent,
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
-        MailListRowComponent, OperatorRowComponent, IndexPageComponent
+        MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
+        WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]

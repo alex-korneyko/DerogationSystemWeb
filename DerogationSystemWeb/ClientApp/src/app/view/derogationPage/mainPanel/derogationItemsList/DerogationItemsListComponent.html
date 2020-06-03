@@ -11,15 +11,17 @@
         <div class="tableHeaderCell" style="width: 7%">APart No desc.</div>
         <div class="tableHeaderCell" style="width: 4%">Quantity</div>
         <div class="tableHeaderCell" style="width: 4%">AQuantity</div>
-        <div class="tableHeaderCell" style="width: 18%">Reason</div>
-        <div class="tableHeaderCell" style="width: 18%">Action</div>
+        <div class="tableHeaderCell" style="width: 17%">Reason</div>
+        <div class="tableHeaderCell" style="width: 16%">Action</div>
         <div class="tableHeaderCell" style="width: 5%">Supplier</div>
+        <div class="tableHeaderCell" style="width: 3%">Action</div>
     </div>
 
     <div style="overflow-y: scroll; height: 150px"
          *ngIf="derogationApiService.currentDerogationIsLoaded">
-        <derogation-item-row *ngFor="let dergItem of derogationApiService.currentDerogation.derogationItems"
-                             [derogationItem]="dergItem">
+        <derogation-item-row *ngFor="let dergItem of dergItems"
+                             [derogationItem]="dergItem"
+                             [disableActions]="disableActions">
 
         </derogation-item-row>
     </div>

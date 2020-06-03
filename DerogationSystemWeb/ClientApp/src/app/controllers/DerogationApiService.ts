@@ -20,11 +20,14 @@ export class DerogationApiService {
     currentDerogationIsLoaded = false;
     currentDerogation: DerogationHeader = null;
 
+    newDerogation: DerogationHeader;
+
     private apiUrl = "/api/derogations";
 
     constructor(private http: HttpClient) {
         this.derogationRequestModel = new DerogationRequestModel();
         this.approvalRequestModel = new ApprovalRequestModel();
+        this.newDerogation = new DerogationHeader();
     }
 
     getDerogationList() {
@@ -33,7 +36,6 @@ export class DerogationApiService {
         if (this.derogationRequestModel.workOrder === null) this.derogationRequestModel.workOrder = undefined;
         if (this.derogationRequestModel.derogationId === null) this.derogationRequestModel.derogationId = undefined;
 
-        console.log(this.derogationRequestModel);
         this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {
                 this.derogationList = data;

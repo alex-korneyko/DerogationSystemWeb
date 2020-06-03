@@ -10,4 +10,15 @@ export class DerogationItemRowComponent {
 
     @Input()
     derogationItem: DerogationItem;
+
+    @Input()
+    disableActions = true;
+
+    actionEditClick() {
+        console.log("Edit click");
+    }
+
+    actionDeleteClick() {
+        console.log("Delete click");
+    }
 }

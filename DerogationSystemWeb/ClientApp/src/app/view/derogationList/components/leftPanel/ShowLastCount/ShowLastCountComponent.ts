@@ -3,6 +3,7 @@ import { DerogationApiService } from "../../../../../controllers/DerogationApiSe
 
 @Component({
     selector: "show-last-count",
+    styleUrls: ["../../../../../StyleSheet.css"],
     templateUrl: "ShowLastCountComponent.html"
 })
 export class ShowLastCountComponent {

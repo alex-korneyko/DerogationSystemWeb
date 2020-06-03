@@ -4,6 +4,7 @@ import { DepartmentApiService } from "../../../../../controllers/DepartmentApiSe
 
 @Component({
     templateUrl: "./DataFilterComponent.html",
+    styleUrls: ["../../../../../StyleSheet.css"],
     selector: "data-filter"
 })
 export class DataFilterComponent implements OnInit {
