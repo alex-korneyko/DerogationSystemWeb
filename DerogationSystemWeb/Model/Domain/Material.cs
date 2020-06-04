@@ -1,8 +1,8 @@
 ﻿namespace DerogationSystemWeb.Model.Domain
 {
-    public class Part
+    public class Material
     {
-        public long Id { get; set; }
+        public long MaterialId { get; set; }
         public string PartNo { get; set; }
         public string Description { get; set; }
     }

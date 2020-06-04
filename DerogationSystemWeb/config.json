@@ -1,18 +1,27 @@
 {
-  "Databases" : {
+  "Databases": {
     "MainDb": {
       "ServerAddress": "172.26.60.70",
       "ServerName": "",
       "DatabaseName": "Derogation_System",
       "UserId": "sa",
       "Password": "8armagloT"
-    },
-    "SecondDb": {
-      "ServerAddress": "ALEX-DEV-BOOK",
-      "ServerName": "MSSQL",
-      "DatabaseName": "Parts_System",
-      "UserId": "sa",
-      "Password": "111"
+    }
+  },
+
+  "FileStore": {
+    "Upload": {
+      "Path": "",
+      "MaxSizeMb": ""
+    }
+  },
+
+  "Mail": {
+    "SMTP": {
+      "SMTPServer": "",
+      "Port": "",
+      "Username": "",
+      "Password":  "" 
     }
   } 
 }

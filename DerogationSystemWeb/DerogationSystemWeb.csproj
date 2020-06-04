@@ -24,6 +24,7 @@
 	  <None Remove="ClientApp\src\app\controllers\DerogationApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\LoginApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\UserApiService.ts" />
+	  <None Remove="ClientApp\src\app\controllers\WorkOrderApiService.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
@@ -31,8 +32,10 @@
 	  <None Remove="ClientApp\src\app\model\domain\DerogationOperator.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\LoginRequestModel.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\Material.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\RequestDerogationStatus.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\User.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\WorkOrder.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\ApprovalRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\DergAddOperatorRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\services\Utils.ts" />
@@ -71,6 +74,8 @@
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\NewDergLeftPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\PartNumberDashboard\PartNumberDashboardComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderDashboardComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderList\WorkOrderListComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderList\WorkOrderListRow\WorkOrderListRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptsInvolvingComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\NewDergMainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\NewDerogationComponent.ts" />

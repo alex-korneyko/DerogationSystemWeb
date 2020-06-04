@@ -30,12 +30,6 @@ namespace DerogationSystemWeb
                                    $"Password={Configuration["Databases:MainDb:Password"]}";
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
-            var secondConnectionString = $"Server={Configuration["Databases:SecondDb:ServerAddress"]}\\{Configuration["Databases:SecondDb:ServerName"]};" +
-                                         $"Database={Configuration["Databases:SecondDb:DatabaseName"]};" +
-                                         $"User ID={Configuration["Databases:SecondDb:UserId"]};" +
-                                         $"Password={Configuration["Databases:SecondDb:Password"]}";
-            services.AddDbContext<SecondAppContext>(options => options.UseSqlServer(secondConnectionString));
-
             services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();
             services.AddTransient<NotificationSenderService>();
@@ -51,7 +45,6 @@ namespace DerogationSystemWeb
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

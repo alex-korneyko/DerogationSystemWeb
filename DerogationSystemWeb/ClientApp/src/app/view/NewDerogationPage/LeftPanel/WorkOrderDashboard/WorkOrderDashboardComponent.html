@@ -7,7 +7,7 @@
         </div>
         <input type="number" class="form-control">
         <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2" title="Search in database">
+            <button class="btn btn-outline-primary" type="button" title="Search in database" data-toggle="modal" data-target="#workOrdersModal">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
         </div>
@@ -23,5 +23,28 @@
             <span class="input-group-text" style="width: 60px">P.code:</span>
         </div>
         <input type="text" class="form-control">
+    </div>
+
+    <!-- ------------MODAL------------ -->
+
+    <div class="modal fade" id="workOrdersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background-color: lightgray">
+                <div class="modal-header p-1">
+                    <span class="badge badge-secondary" style="font-weight: bold; font-size: medium" id="exampleModalLabel">WorkOrders</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <workorder-list></workorder-list>
+
+                </div>
+                <div class="modal-footer p-1">
+                    <span style="font-weight: bold; font-size: small; color: dimgray">*Double click for select</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

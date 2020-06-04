@@ -251,6 +251,8 @@ namespace DerogationSystemWeb.Model.Services
                     operatorBox.InsertedDate = DateTime.Now;
                     derogation.Operators.Add(operatorBox);
                 });
+
+                DerogationFullyApproveCheckAndSet(derogation);
             }
             else
             {
@@ -282,6 +284,13 @@ namespace DerogationSystemWeb.Model.Services
         private DerogationDepartment GetDergDeptByDepartmentName(DerogationHeader derogation, string departmentName)
         {
             return derogation.DerogationDepartments.FirstOrDefault(derogationDepartment => derogationDepartment.Department == departmentName);
+        }
+
+        private void DerogationFullyApproveCheckAndSet(DerogationHeader derogation)
+        {
+            var isAllApprove = true;
+            derogation.DerogationDepartments.ForEach(dDept => isAllApprove &= dDept.Approved == '1');
+            derogation.Approved = isAllApprove ? '1' : '0';
         }
     }
 }

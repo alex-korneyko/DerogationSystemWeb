@@ -61,6 +61,11 @@ import { PartNumberDashboardComponent } from
     "./view/NewDerogationPage/LeftPanel/PartNumberDashboard/PartNumberDashboardComponent";
 import { NewDergMainPanelComponent } from "./view/NewDerogationPage/MainPanel/NewDergMainPanelComponent";
 import { DeptsInvolvingComponent } from "./view/NewDerogationPage/MainPanel/DeptsIvolvingList/DeptsInvolvingComponent";
+import { WorkOrderListComponent } from
+    "./view/NewDerogationPage/LeftPanel/WorkOrderDashboard/WorkOrderList/WorkOrderListComponent";
+import { WorkOrderListRowComponent } from
+    "./view/NewDerogationPage/LeftPanel/WorkOrderDashboard/WorkOrderList/WorkOrderListRow/WorkOrderListRowComponent";
+import { WorkOrderApiService } from "./controllers/WorkOrderApiService";
 
 
 const appRoutes: Routes = [
@@ -86,10 +91,12 @@ const appRoutes: Routes = [
         InvolvedDepartmentsListComponent, DerogationDocsListComponent, DerogationMailListComponent, InvolvedDepartmentRowComponent,
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
-        WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent
+        WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
+        WorkOrderListComponent, WorkOrderListRowComponent
     ],
     bootstrap: [MainComponent],
-    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService]
+    providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,
+        WorkOrderApiService]
 })
 export class AppModule {
 }

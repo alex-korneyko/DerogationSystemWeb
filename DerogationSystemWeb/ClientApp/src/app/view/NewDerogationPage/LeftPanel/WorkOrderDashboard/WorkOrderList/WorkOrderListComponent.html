@@ -1,0 +1,32 @@
+﻿<div style="display: inline-block">
+    <div class="input-group input-group-xsm mb-2" style="width: 200px">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                Search:
+            </span>
+        </div>
+        <input type="number" class="form-control">
+
+    </div>
+</div>
+<div class="ml-1" style="display: inline-block; font-weight: bold; font-size: x-small; color: dimgray">
+    <span>*(Order No, Model, Product Code)</span>
+</div>
+
+<div class="panel" style="height: 500px; padding: 3px">
+    <div class="mb-1 mr-3 tableHeader">
+        <div class="tableHeaderCell" style="width: 10%">Order No</div>
+        <div class="tableHeaderCell" style="width: 15%">Order date</div>
+        <div class="tableHeaderCell" style="width: 30%">Model</div>
+        <div class="tableHeaderCell" style="width: 35%">Product code</div>
+        <div class="tableHeaderCell" style="width: 10%; border-right: none">Target</div>
+    </div>
+    
+    <div style="overflow-y: scroll; height: 465px"
+         *ngIf="workOrderApiService.workOrdersIsLoaded">
+        <workorder-row *ngFor="let workOrder of workOrderApiService.workOrders"
+                       [workOrder]="workOrder">
+        </workorder-row>
+    </div>
+
+</div>

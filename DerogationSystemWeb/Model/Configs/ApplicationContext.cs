@@ -11,6 +11,8 @@ namespace DerogationSystemWeb.Model.Configs
         public DbSet<DerogationDepartment> DerogationDepartments { get; set; }
         public DbSet<DerogationOperator> DerogationOperators { get; set; }
         public DbSet<DerogationItem> DerogationItems { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -80,6 +82,18 @@ namespace DerogationSystemWeb.Model.Configs
                 .WithMany()
                 .HasForeignKey(dOper => dOper.DerogationUser)
                 .HasPrincipalKey(user => user.DerogationUser);
+
+            //------------------ Material -------------------------
+            modelBuilder.Entity<Material>().ToTable("Materials").HasKey(material => material.MaterialId);
+
+            //------------------ WorkOrder ------------------------
+            modelBuilder.Entity<WorkOrder>().ToTable("WorkOrders").HasKey(order => order.WorkOrderId);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasOne(order => order.Material)
+                .WithMany()
+                .HasForeignKey(order => order.SkdPartNo)
+                .HasPrincipalKey(material => material.PartNo);
         }
     }
 }

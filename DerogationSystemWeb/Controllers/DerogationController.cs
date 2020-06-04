@@ -19,14 +19,12 @@ namespace DerogationSystemWeb.Controllers
     public class DerogationController : Controller
     {
         private readonly ApplicationContext _database;
-        private readonly SecondAppContext _db2;
         private readonly DerogationService _derogationService;
         private readonly UserService _userService;
 
-        public DerogationController(ApplicationContext database, SecondAppContext db2, DerogationService derogationService, UserService userService)
+        public DerogationController(ApplicationContext database, DerogationService derogationService, UserService userService)
         {
             _database = database;
-            _db2 = db2;
             _derogationService = derogationService;
             _userService = userService;
         }
