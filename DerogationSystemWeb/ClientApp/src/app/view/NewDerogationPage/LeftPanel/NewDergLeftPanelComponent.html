@@ -12,8 +12,14 @@
     <div class="panel mt-2" style="padding: 3px">
         <span class="badge badge-primary" style="font-weight: 600; font-size: small">Derogation item params:</span>
         <workorder-dashboard></workorder-dashboard>
-        <partnumber-dashboard [dashboardName]="'Part number'"></partnumber-dashboard>
-        <partnumber-dashboard [dashboardName]="'Alt. part number'"></partnumber-dashboard>
+        <partnumber-dashboard
+            [dashboardName]="'Part number'"
+            [materialRequestModel]="materialsApiService.selectedMaterial">
+        </partnumber-dashboard>
+        <partnumber-dashboard
+            [dashboardName]="'Alt. part number'"
+            [materialRequestModel]="materialsApiService.selectedAltMaterial">
+        </partnumber-dashboard>
 
         <hr class="m-2" style="height: 2px" />
         <span class="badge badge-primary" style="font-weight: 600; font-size: small">Item description:</span>
@@ -27,5 +33,6 @@
             <button class="btn btn-sm btn-warning ml-2">Clear form</button>
         </div>
     </div>
-    <button class="btn btn-sm btn-success mt-2" style="width: 100%; font-weight: bold">Release Derogation</button>
+    <button class="btn btn-sm btn-success mt-2" style="width: 100%; font-weight: bold"
+            (click)="releaseNewDergClick()">Release Derogation</button>
 </div>

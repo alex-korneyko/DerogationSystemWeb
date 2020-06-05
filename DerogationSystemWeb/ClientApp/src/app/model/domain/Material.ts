@@ -2,7 +2,8 @@
     constructor(
         public materialId?: number,
         public partNo?: string,
-        public description?: string
+        public description?: string,
+        public createDate?: Date
     ) {
     }
 }

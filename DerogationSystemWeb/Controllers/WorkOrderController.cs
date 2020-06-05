@@ -29,7 +29,17 @@ namespace DerogationSystemWeb.Controllers
 
             var nowMinus30Days = DateTime.Now.AddDays(-30);
 
-            var workOrders = _db.WorkOrders.Include(wo => wo.Material).Where(wo => wo.OrderDate > nowMinus30Days).ToList();
+            var workOrders = _db.WorkOrders
+                .Include(wo => wo.Material)
+                .Where(wo => wo.OrderDate > nowMinus30Days)
+                .ToList();
+
+            workOrders.ForEach(wo =>
+            {
+                wo.OrderNo = wo.OrderNo.Trim(' ');
+                wo.SkdPartNo = wo.SkdPartNo.Trim(' ');
+            });
+
             workOrders.Sort((wo1, wo2) =>
             {
                 if (wo1.OrderDate < wo2.OrderDate)

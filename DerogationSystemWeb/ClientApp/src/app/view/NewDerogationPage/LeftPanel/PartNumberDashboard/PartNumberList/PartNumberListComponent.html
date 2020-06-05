@@ -1,0 +1,32 @@
+﻿<div style="display: inline-block">
+    <div class="input-group input-group-xsm mb-2" style="width: 200px">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                Search:
+            </span>
+        </div>
+        <input type="number" class="form-control">
+
+    </div>
+</div>
+<div class="ml-1" style="display: inline-block; font-weight: bold; font-size: x-small; color: dimgray">
+    <span>*(Order No, Model, Product Code)</span>
+</div>
+
+<div class="panel" style="height: 500px; padding: 3px">
+    <div class="mb-1 mr-3 tableHeader">
+        <div class="tableHeaderCell" style="width: 20%">Part No</div>
+        <div class="tableHeaderCell" style="width: 65%">Part No</div>
+        <div class="tableHeaderCell" style="width: 15%; border-right: none">Order date</div>
+    </div>
+
+    <div style="overflow-y: scroll; height: 465px"
+         *ngIf="materialsApiService.materialsIsLoaded">
+        <partnumber-row *ngFor="let material of materialsApiService.materials"
+                        [material]="material"
+                        [(materialRequestModel)]="materialRequestModel"
+                        [windowIdentId]="windowIdentId">
+        </partnumber-row>
+    </div>
+
+</div>

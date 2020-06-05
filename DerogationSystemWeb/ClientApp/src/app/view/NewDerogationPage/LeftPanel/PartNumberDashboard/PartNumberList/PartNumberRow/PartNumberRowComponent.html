@@ -1,0 +1,12 @@
+﻿<div class="tableRow" style="user-select: none"
+     (dblclick)="materialDblClick()">
+    <div class="tableRowCell" style="width: 20%">
+        <span>{{material.partNo}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 65%">
+        <span>{{material.description}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 15%">
+        <span>{{material.createDate | date:"dd-MM-yyyy HH:mm"}}</span>
+    </div>
+</div>

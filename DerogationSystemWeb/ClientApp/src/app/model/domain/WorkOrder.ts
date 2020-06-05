@@ -9,5 +9,6 @@ export class WorkOrder {
         public material?: Material,
         public target?: number
     ) {
+        this.material = new Material();
     }
 }

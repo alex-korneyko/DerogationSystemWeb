@@ -5,7 +5,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Work order No:</span>
         </div>
-        <input type="number" class="form-control">
+        <input type="number" class="form-control" title="{{workOrderApiService.selectedWorkOrder.orderNo}}" readonly="readonly"
+               [(ngModel)]="workOrderApiService.selectedWorkOrder.orderNo">
         <div class="input-group-append">
             <button class="btn btn-outline-primary" type="button" title="Search in database" data-toggle="modal" data-target="#workOrdersModal">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -16,17 +17,24 @@
         <div class="input-group-prepend">
             <span class="input-group-text" style="width: 60px">Model:</span>
         </div>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" title="{{workOrderApiService.selectedWorkOrder.skdPartNo}}" readonly="readonly"
+               [(ngModel)]="workOrderApiService.selectedWorkOrder.skdPartNo">
     </div>
-    <div class="input-group input-group-xsm mt-1">
-        <div class="input-group-prepend">
-            <span class="input-group-text" style="width: 60px">P.code:</span>
-        </div>
-        <input type="text" class="form-control">
+    <!-- <div class="input-group input-group-xsm mt-1"> -->
+    <!--     <div class="input-group-prepend"> -->
+    <!--         <span class="input-group-text" style="width: 60px">P.code:</span> -->
+    <!--     </div> -->
+    <!--     <input type="text" class="form-control" title="{{workOrderApiService.selectedWorkOrder.material.description}}" readonly="readonly" -->
+    <!--            [(ngModel)]="workOrderApiService.selectedWorkOrder.material.description"> -->
+    <!-- </div> -->
+
+    <div class="form-group mb-0 mt-1">
+        <textarea class="form-control p-1" style="font-size: smaller; font-weight: 600; resize: none"
+                  rows="2" placeholder="Description..." readonly="readonly"
+                  [(ngModel)]="workOrderApiService.selectedWorkOrder.material.description"></textarea>
     </div>
 
     <!-- ------------MODAL------------ -->
-
     <div class="modal fade" id="workOrdersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="background-color: lightgray">
