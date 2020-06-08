@@ -15,6 +15,7 @@ export class PartNumberRowComponent {
 
     materialDblClick() {
         this.materialRequestModel.material = this.material;
+        this.materialRequestModel.quantity = 1;
 
         // @ts-ignore
         $("#materialsModal_" + this.windowIdentId).modal("hide");

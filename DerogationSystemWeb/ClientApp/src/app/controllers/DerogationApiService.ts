@@ -3,6 +3,10 @@ import { HttpClient } from "@angular/common/http";
 import { DerogationHeader } from "../model/domain/DerogationHeader";
 import { DerogationRequestModel } from "../model/requestModel/DerogationRequestModel";
 import { ApprovalRequestModel } from "../model/requestModel/ApprovalRequestModel";
+import { DerogationItem } from "../model/domain/DerogationItem";
+import { LoginApiService } from "./LoginApiService";
+import { DepartmentApiService } from "./DepartmentApiService";
+import { DerogationDepartment } from "../model/domain/DerogationDepartment";
 
 @Injectable()
 export class DerogationApiService {
@@ -21,13 +25,16 @@ export class DerogationApiService {
     currentDerogation: DerogationHeader = null;
 
     newDerogation: DerogationHeader;
+    newItemForDerogation: DerogationItem;
+    itemsListForNewDerogation = new Array<DerogationItem>();
 
     private apiUrl = "/api/derogations";
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private loginApiService: LoginApiService, private departmentApiService: DepartmentApiService) {
         this.derogationRequestModel = new DerogationRequestModel();
         this.approvalRequestModel = new ApprovalRequestModel();
         this.newDerogation = new DerogationHeader();
+        this.newItemForDerogation = new DerogationItem();
     }
 
     getDerogationList() {
@@ -96,6 +103,31 @@ export class DerogationApiService {
             .subscribe((data: DerogationHeader) => {
                 this.currentDerogation = data;
             });
+    }
+
+    addCurrentItemToNewDerogation() {
+
+        this.currentDerogationIsLoaded = true;
+        let clone = Object.assign({}, this.newItemForDerogation);
+        this.newDerogation.derogationItems.push(clone);
+        this.newItemForDerogation = new DerogationItem();
+        console.log(this.newDerogation);
+    }
+
+    sendNewDerogation() {
+        this.newDerogation.owner = this.loginApiService.loggedInUser.derogationUser;
+        this.newDerogation.department = this.loginApiService.loggedInUser.department;
+
+        this.departmentApiService.deptsRequestModel.forEach(deptReqModel => {
+            if (deptReqModel.chosen === "1") {
+                const derogationDepartment = new DerogationDepartment();
+                derogationDepartment.department = deptReqModel.department.department;
+                derogationDepartment.mailStep = deptReqModel.department.mAilStep;
+                this.newDerogation.derogationDepartments.push(derogationDepartment);
+            }
+        });
+
+        console.log(this.newDerogation);
     }
 
     private getIndex(derogationList: Array<DerogationHeader>, derogation: DerogationHeader): number {

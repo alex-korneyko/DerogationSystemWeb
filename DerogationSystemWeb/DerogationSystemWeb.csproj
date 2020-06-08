@@ -39,6 +39,7 @@
 	  <None Remove="ClientApp\src\app\model\domain\WorkOrder.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\ApprovalRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\DergAddOperatorRequestModel.ts" />
+	  <None Remove="ClientApp\src\app\model\requestModel\DerogationInvolvedRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\MaterialRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\services\Utils.ts" />
 	  <None Remove="ClientApp\src\app\model\services\WebsocketService.ts" />
@@ -80,6 +81,7 @@
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderDashboardComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderList\WorkOrderListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\LeftPanel\WorkOrderDashboard\WorkOrderList\WorkOrderListRow\WorkOrderListRowComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptInvolvedRow\DeptInvolvedRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptsInvolvingComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\MainPanel\NewDergMainPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\NewDerogationPage\NewDerogationComponent.ts" />
@@ -97,10 +99,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="System.DirectoryServices" Version="4.7.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ClientApp\src\app\view\NewDerogationPage\MainPanel\DeptsIvolvingList\DeptInvolvedRow\" />
 	</ItemGroup>
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">

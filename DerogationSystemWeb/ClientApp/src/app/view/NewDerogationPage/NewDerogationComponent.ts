@@ -1,11 +1,16 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { WorkOrderApiService } from "../../controllers/WorkOrderApiService";
+import { MaterialsApiService } from "../../controllers/MaterialsApiService";
 
 @Component({
     templateUrl: "NewDerogationComponent.html",
     selector: "new-derogation"
 })
-export class NewDerogationComponent {
+export class NewDerogationComponent implements OnInit {
 
-    constructor(public workOrderApiService: WorkOrderApiService) {}
+    constructor(public materialsApiService: MaterialsApiService) {}
+
+    ngOnInit(): void {
+        this.materialsApiService.getMaterials();
+    }
 }

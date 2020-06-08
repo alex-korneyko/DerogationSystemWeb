@@ -14,5 +14,5 @@
         public reason?: string,
         public action?: string,
         public supplier?: string
-        ) { }
+    ) { }
 }

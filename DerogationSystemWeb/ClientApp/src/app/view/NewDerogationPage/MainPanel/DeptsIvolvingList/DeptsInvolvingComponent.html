@@ -12,7 +12,11 @@
         </div>
     </div>
 
-    <div style="overflow-y: scroll; height: calc(100% - 90px)">
-        
+    <div style="overflow-y: scroll; height: calc(100% - 60px)"
+         *ngIf="departmentApiService.departmentsIsLoaded">
+        <dept-involved-row
+            *ngFor="let dept of departmentApiService.deptsRequestModel"
+            [departmentReqModel]="dept">
+        </dept-involved-row>
     </div>
 </div>

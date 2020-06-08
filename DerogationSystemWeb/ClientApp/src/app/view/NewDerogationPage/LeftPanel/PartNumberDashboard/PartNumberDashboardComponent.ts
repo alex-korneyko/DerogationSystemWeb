@@ -1,4 +1,4 @@
-﻿import { Component, Input} from "@angular/core";
+﻿import { Component, Input } from "@angular/core";
 import { MaterialRequestModel } from "../../../../model/requestModel/MaterialRequestModel";
 import { MaterialsApiService } from "../../../../controllers/MaterialsApiService";
 
@@ -16,14 +16,11 @@ export class PartNumberDashboardComponent {
 
     constructor(private materialsApiService: MaterialsApiService) {
         this.windowIdentId = Math.ceil(Math.random() * 1000000000);
-        console.log("Id: " + this.windowIdentId);
     }
 
     openModalClick() {
 
         // @ts-ignore
         $("#materialsModal_" + this.windowIdentId).modal("show");
-
-        this.materialsApiService.getMaterials();
     }
 }

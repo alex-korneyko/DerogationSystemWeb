@@ -97,6 +97,15 @@ textarea {
     border-radius: 0.2rem
 }
 
+.input-group-xsm {
+    height: 22px;
+}
+
+.input-group-xsm > .input-group-prepend,
+.input-group-xsm > .input-group-append {
+    height: 22px;
+}
+
 .input-group-xsm > .input-group-prepend > .input-group-text,
 .input-group-xsm > .input-group-append > .input-group-text,
 .input-group-xsm > .input-group-append > .btn,

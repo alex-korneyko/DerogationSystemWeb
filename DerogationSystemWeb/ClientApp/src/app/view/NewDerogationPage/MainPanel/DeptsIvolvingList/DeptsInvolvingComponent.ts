@@ -1,13 +1,17 @@
-﻿import { Component } from "@angular/core";
-import { DerogationApiService } from  "../../../../controllers/DerogationApiService";
+﻿import { Component, OnInit } from "@angular/core";
 import { DepartmentApiService } from "../../../../controllers/DepartmentApiService";
+import { LoginApiService } from "../../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "DeptsInvolvingComponent.html",
     styleUrls: ["../../../../StyleSheet.css"],
     selector: "depts-involve-box"
 })
-export class DeptsInvolvingComponent {
+export class DeptsInvolvingComponent implements OnInit {
 
-    constructor(derogationApiService: DerogationApiService, departmentApiService: DepartmentApiService) {}
+    constructor(public departmentApiService: DepartmentApiService, public loginApiService: LoginApiService) {}
+
+    ngOnInit(): void {
+        this.departmentApiService.getDepartments();
+    }
 }

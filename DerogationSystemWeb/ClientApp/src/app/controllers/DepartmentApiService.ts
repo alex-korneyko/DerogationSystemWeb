@@ -1,18 +1,26 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Department } from "../model/domain/Department";
+import { DerogationInvolvedRequestModel } from "../model/requestModel/DerogationInvolvedRequestModel";
 
 @Injectable()
 export class DepartmentApiService {
 
     departments: Department[];
+    deptsRequestModel = new Array<DerogationInvolvedRequestModel>();
+    departmentsIsLoaded = false;
 
     private apiUrl = "/api/departments";
 
     constructor(private http: HttpClient) {}
 
     getDepartments() {
-        this.http.get(this.apiUrl).subscribe((data: Department[]) => this.departments = data);
+        this.departmentsIsLoaded = false;
+        this.http.get(this.apiUrl).subscribe((data: Department[]) => {
+            this.departments = data;
+            data.forEach(dept => this.deptsRequestModel.push(new DerogationInvolvedRequestModel(dept, dept.mandatory)));
+            this.departmentsIsLoaded = true;
+        });
     }
 
     getDepartment(id: string) {

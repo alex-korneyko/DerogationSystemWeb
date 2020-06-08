@@ -8,6 +8,7 @@ export class DerogationHeader {
     constructor(
         public derogationId?: number,
         public createdDate?: Date,
+        public department?: string,
         public factoryDepartment?: Department,
         public owner?: string,
         public author?: User,

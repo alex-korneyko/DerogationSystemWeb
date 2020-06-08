@@ -71,6 +71,8 @@ import { PartNumberListComponent } from
     "./view/NewDerogationPage/LeftPanel/PartNumberDashboard/PartNumberList/PartNumberListComponent";
 import { PartNumberRowComponent } from
     "./view/NewDerogationPage/LeftPanel/PartNumberDashboard/PartNumberList/PartNumberRow/PartNumberRowComponent";
+import { DeptInvolvedRowComponent } from
+    "./view/NewDerogationPage/MainPanel/DeptsIvolvingList/DeptInvolvedRow/DeptInvolvedRowComponent";
 
 
 const appRoutes: Routes = [
@@ -97,7 +99,7 @@ const appRoutes: Routes = [
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
         WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
-        WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent
+        WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,

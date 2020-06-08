@@ -14,8 +14,6 @@ export class WorkOrderListRowComponent {
     constructor(public workOrderApiService: WorkOrderApiService) {}
 
     woDblClick() {
-        console.log(this.workOrder);
-        
         this.workOrderApiService.selectedWorkOrder = this.workOrder;
 
         // @ts-ignore

@@ -25,7 +25,7 @@ namespace DerogationSystemWeb.Controllers
         [HttpGet]
         public async Task<IEnumerable<Material>> GetMaterials()
         {
-            var nowMinusOneYear = DateTime.Now.AddYears(-1);
+            var nowMinusOneYear = DateTime.Now.AddMonths(-3);
 
             var materials = await _db.Materials
                 .Where(material => material.CreateDate > nowMinusOneYear)

@@ -1,0 +1,22 @@
+﻿<div class="tableRow" style="user-select: none">
+    <div class="tableRowCell" style="width: 55%">
+        <span>{{departmentReqModel.department.department}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 15%">
+        <str-checkbox
+            [id]="departmentReqModel.department.department + '_involved'"
+            [strCheckedValue]="departmentReqModel.department.mandatory"
+            [isDisabled]="true">
+        </str-checkbox>
+    </div>
+    <div class="tableRowCell" style="width: 15%">
+        <span>{{departmentReqModel.department.mAilStep}}</span>
+    </div>
+    <div class="tableRowCell" style="width: 15%">
+        <span>
+            <str-checkbox [id]="departmentReqModel.department.department + '_chosen'"
+                          [(strCheckedValue)]="departmentReqModel.chosen">
+            </str-checkbox>
+        </span>
+    </div>
+</div>
