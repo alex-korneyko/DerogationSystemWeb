@@ -11,8 +11,8 @@
         public aPartNoDesc?: string,
         public quantity?: number,
         public aQuantity?: number,
-        public reason?: string,
-        public action?: string,
-        public supplier?: string
+        public reason = "",
+        public action = "",
+        public supplier = ""
     ) { }
 }

@@ -7,6 +7,7 @@ import { DerogationItem } from "../model/domain/DerogationItem";
 import { LoginApiService } from "./LoginApiService";
 import { DepartmentApiService } from "./DepartmentApiService";
 import { DerogationDepartment } from "../model/domain/DerogationDepartment";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class DerogationApiService {
@@ -30,7 +31,7 @@ export class DerogationApiService {
 
     private apiUrl = "/api/derogations";
 
-    constructor(private http: HttpClient, private loginApiService: LoginApiService, private departmentApiService: DepartmentApiService) {
+    constructor(private http: HttpClient, private loginApiService: LoginApiService, private departmentApiService: DepartmentApiService, private router: Router) {
         this.derogationRequestModel = new DerogationRequestModel();
         this.approvalRequestModel = new ApprovalRequestModel();
         this.newDerogation = new DerogationHeader();
@@ -108,7 +109,7 @@ export class DerogationApiService {
     addCurrentItemToNewDerogation() {
 
         this.currentDerogationIsLoaded = true;
-        let clone = Object.assign({}, this.newItemForDerogation);
+        const clone = Object.assign({}, this.newItemForDerogation);
         this.newDerogation.derogationItems.push(clone);
         this.newItemForDerogation = new DerogationItem();
         console.log(this.newDerogation);
@@ -127,7 +128,16 @@ export class DerogationApiService {
             }
         });
 
+        console.log("Send...");
         console.log(this.newDerogation);
+
+        this.http.post(this.apiUrl + "/new", this.newDerogation).subscribe((data: DerogationHeader) => {
+            console.log("Receive...");
+            console.log(data);
+            this.derogationList.push(data);
+            this.newDerogation = new DerogationHeader();
+            this.router.navigateByUrl("/derogations");
+        });
     }
 
     private getIndex(derogationList: Array<DerogationHeader>, derogation: DerogationHeader): number {

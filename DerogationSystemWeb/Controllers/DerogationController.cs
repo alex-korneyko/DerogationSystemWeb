@@ -22,7 +22,8 @@ namespace DerogationSystemWeb.Controllers
         private readonly DerogationService _derogationService;
         private readonly UserService _userService;
 
-        public DerogationController(ApplicationContext database, DerogationService derogationService, UserService userService)
+        public DerogationController(ApplicationContext database, DerogationService derogationService,
+            UserService userService)
         {
             _database = database;
             _derogationService = derogationService;
@@ -61,11 +62,11 @@ namespace DerogationSystemWeb.Controllers
         {
             var authUser = _userService.GetUserByName(this.User.Identity.Name);
             var derogation = _derogationService.GetDerogation(id);
-            if (authUser == null || derogation == null) 
+            if (authUser == null || derogation == null)
                 return BadRequest();
 
             var nextDeptsForApproval = _derogationService.GetNextDeptsForApproval(derogation);
-            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment)) 
+            if (!nextDeptsForApproval.Contains(authUser.FactoryDepartment))
                 return BadRequest();
 
             _derogationService.ChangeDergDeptStatusByUser(derogation, authUser, requestModel);
@@ -104,6 +105,20 @@ namespace DerogationSystemWeb.Controllers
             }
 
             _derogationService.Cancellation(derogation, reason["reason"]);
+
+            return Ok(derogation);
+        }
+
+        [HttpPost("new")]
+        public IActionResult NewDerogation(DerogationHeader derogation)
+        {
+            derogation.CreatedDate = DateTime.Now;
+
+            derogation.DerogationItems.ForEach(dergItem =>
+                dergItem.ProductCode = dergItem.ProductCode.Substring(0, 30));
+
+            _database.DerogationHeaders.Add(derogation);
+            _database.SaveChanges();
 
             return Ok(derogation);
         }

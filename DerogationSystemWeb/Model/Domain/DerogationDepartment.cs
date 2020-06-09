@@ -32,7 +32,7 @@ namespace DerogationSystemWeb.Model.Domain
         public string DerogationUser { get; set; }
         public User User { get; set; }
 
-        public DateTime OperationDate { get; set; }
+        public DateTime? OperationDate { get; set; }
 
         public char Checked { get; set; }
     }

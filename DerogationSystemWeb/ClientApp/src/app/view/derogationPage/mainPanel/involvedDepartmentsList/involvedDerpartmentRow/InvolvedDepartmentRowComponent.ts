@@ -14,7 +14,7 @@ export class InvolvedDepartmentRowComponent {
 
     getOperationDate(): Date {
 
-        if (this.involvedDepartment.operationDate.toString() === "0001-01-01T00:00:00") {
+        if (this.involvedDepartment.operationDate === null || this.involvedDepartment.operationDate.toString() === "0001-01-01T00:00:00") {
             return null;
         }
 

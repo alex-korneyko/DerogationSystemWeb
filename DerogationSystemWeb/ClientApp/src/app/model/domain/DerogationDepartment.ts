@@ -10,15 +10,15 @@ export class DerogationDepartment {
         public department?: string,
         public factoryDepartment?: Department,
         public mailStep?: number,
-        public training?: string,
-        public approved?: string,
-        public comment?: string,
-        public rejected?: string,
-        public cancellationRequest?: string,
-        public cancellationReason?: string,
+        public training = "0",
+        public approved = "0",
+        public comment = "",
+        public rejected = "0",
+        public cancellationRequest = "0",
+        public cancellationReason = "",
         public derogationUser?: string,
         public user?: User,
         public operationDate?: Date,
-        public checked?: string
+        public checked = "1"
     ) { }
 }

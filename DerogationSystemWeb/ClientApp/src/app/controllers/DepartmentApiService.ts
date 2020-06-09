@@ -2,6 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Department } from "../model/domain/Department";
 import { DerogationInvolvedRequestModel } from "../model/requestModel/DerogationInvolvedRequestModel";
+import { LoginApiService } from "./LoginApiService";
 
 @Injectable()
 export class DepartmentApiService {
@@ -12,13 +13,15 @@ export class DepartmentApiService {
 
     private apiUrl = "/api/departments";
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private loginApiService: LoginApiService) {}
 
     getDepartments() {
         this.departmentsIsLoaded = false;
         this.http.get(this.apiUrl).subscribe((data: Department[]) => {
             this.departments = data;
-            data.forEach(dept => this.deptsRequestModel.push(new DerogationInvolvedRequestModel(dept, dept.mandatory)));
+            this.deptsRequestModel = new Array<DerogationInvolvedRequestModel>();
+            data.forEach(dept => this.deptsRequestModel.push(
+                new DerogationInvolvedRequestModel(dept, dept.department !== this.loginApiService.loggedInUser.department ? dept.mandatory : "0")));
             this.departmentsIsLoaded = true;
         });
     }
