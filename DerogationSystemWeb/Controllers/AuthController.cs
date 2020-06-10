@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,20 +32,18 @@ namespace DerogationSystemWeb.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, requestModel.Username)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, requestModel.Username)
             };
-            var claimsIdentity = new ClaimsIdentity(claims, "Cookie");
-            ClaimsPrincipal claimPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync("Cookie", claimPrincipal);
+            var claimsIdentity = new ClaimsIdentity(claims, "AppCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
             return Ok(userFromDb);
         }
 
-        [Authorize]
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("Cookie");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return Ok();
         }

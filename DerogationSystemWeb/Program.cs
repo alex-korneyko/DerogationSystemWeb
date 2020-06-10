@@ -24,7 +24,7 @@ namespace DerogationSystemWeb
                 .UseKestrel(options =>
                 {
                     options.Listen(IPAddress.Any, 8080);
-                    options.Listen(IPAddress.Any, 8443, listenOptions => listenOptions.UseHttps());
+                    // options.Listen(IPAddress.Any, 8443, listenOptions => listenOptions.UseHttps());
                 })
                 .Build();
     }

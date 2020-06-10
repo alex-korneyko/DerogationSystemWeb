@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,27 +18,27 @@ namespace DerogationSystemWeb
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup()
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder().AddJsonFile("config.json");
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = $"Server={Configuration["Databases:MainDb:ServerAddress"]}\\{Configuration["Databases:MainDb:ServerName"]};" +
-                                   $"Database={Configuration["Databases:MainDb:DatabaseName"]};" +
-                                   $"User ID={Configuration["Databases:MainDb:UserId"]};" +
-                                   $"Password={Configuration["Databases:MainDb:Password"]}";
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
 
             services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();
             services.AddTransient<NotificationSenderService>();
 
-            services.AddHttpsRedirection(options => options.HttpsPort = 8443);
+            // services.AddHttpsRedirection(options => options.HttpsPort = 8443);
 
-            services.AddAuthentication("Cookie").AddCookie("Cookie");
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/static/accessDenied");
+            });
             services.AddAuthorization();
 
             services.AddSignalR();
@@ -52,7 +54,7 @@ namespace DerogationSystemWeb
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())

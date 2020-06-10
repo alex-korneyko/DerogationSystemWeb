@@ -73,10 +73,12 @@ import { PartNumberRowComponent } from
     "./view/NewDerogationPage/LeftPanel/PartNumberDashboard/PartNumberList/PartNumberRow/PartNumberRowComponent";
 import { DeptInvolvedRowComponent } from
     "./view/NewDerogationPage/MainPanel/DeptsIvolvingList/DeptInvolvedRow/DeptInvolvedRowComponent";
+import { AccessDeniedComponent } from "./view/AccessDeniedPage/AccessDeniedComponent";
 
 
 const appRoutes: Routes = [
     { path: "", component: IndexPageComponent },
+    { path: "static/accessDenied", component: AccessDeniedComponent},
     { path: "derogations", component: DerogationListComponent },
     { path: "departments", component: DepartmentListComponent },
     { path: "departments/department/:id", component: DepartmentEdtComponent },
@@ -99,7 +101,8 @@ const appRoutes: Routes = [
         DerogationItemRowComponent, ApprovalComponent, CancellationComponent, EngAndFiOptionsComponent, EngOperatorBoxComponent,
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
         WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
-        WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent
+        WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent,
+        AccessDeniedComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,

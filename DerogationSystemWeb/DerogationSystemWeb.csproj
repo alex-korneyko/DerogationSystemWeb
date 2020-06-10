@@ -43,6 +43,7 @@
 	  <None Remove="ClientApp\src\app\model\requestModel\MaterialRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\services\Utils.ts" />
 	  <None Remove="ClientApp\src\app\model\services\WebsocketService.ts" />
+	  <None Remove="ClientApp\src\app\view\AccessDeniedPage\AccessDeniedComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\CheckBox\StringValCheckBox.ts" />
 	  <None Remove="ClientApp\src\app\view\CommonComponents\TopNavBar\TopNavBarComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\departments\DepartmentCrtComponent.ts" />
