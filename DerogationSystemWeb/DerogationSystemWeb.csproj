@@ -41,6 +41,8 @@
 	  <None Remove="ClientApp\src\app\model\requestModel\DergAddOperatorRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\DerogationInvolvedRequestModel.ts" />
 	  <None Remove="ClientApp\src\app\model\requestModel\MaterialRequestModel.ts" />
+	  <None Remove="ClientApp\src\app\model\responseModel\LoginResponseModel.ts" />
+	  <None Remove="ClientApp\src\app\model\services\AuthInterceptor.ts" />
 	  <None Remove="ClientApp\src\app\model\services\Utils.ts" />
 	  <None Remove="ClientApp\src\app\model\services\WebsocketService.ts" />
 	  <None Remove="ClientApp\src\app\view\AccessDeniedPage\AccessDeniedComponent.ts" />
@@ -93,6 +95,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">
