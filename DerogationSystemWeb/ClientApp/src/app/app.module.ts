@@ -1,9 +1,12 @@
 ﻿import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
+import { LoginApiService } from "./controllers/LoginApiService";
+import { AuthInterceptor } from './model/services/AuthInterceptor';
 import { UserApiService } from "./controllers/UserApiService";
 import { DepartmentApiService } from "./controllers/DepartmentApiService";
 
@@ -20,7 +23,6 @@ import { DepartmentCrtComponent } from "./view/departments/DepartmentCreate/Depa
 import { DepartmentEdtComponent } from "./view/departments/DepartmentEdit/DepartmentEdtComponent";
 import { TopNavBarComponent } from "./view/CommonComponents/TopNavBar/TopNavBarComponent";
 import { StringValCheckBox } from "./view/CommonComponents/CheckBox/StringValCheckBox";
-import { LoginApiService } from "./controllers/LoginApiService";
 import { DerogationApiService } from "./controllers/DerogationApiService";
 import { DataFilterComponent } from "./view/derogationList/components/leftPanel/dataFilter/DataFilterComponent";
 import { DateRangeComponent } from "./view/derogationList/components/leftPanel/dateRange/DateRangeComponent";
@@ -76,6 +78,7 @@ import { DeptInvolvedRowComponent } from
 import { AccessDeniedComponent } from "./view/AccessDeniedPage/AccessDeniedComponent";
 
 
+
 const appRoutes: Routes = [
     { path: "", component: IndexPageComponent },
     { path: "static/accessDenied", component: AccessDeniedComponent},
@@ -106,7 +109,13 @@ const appRoutes: Routes = [
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,
-        WorkOrderApiService, MaterialsApiService]
+        WorkOrderApiService, MaterialsApiService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class AppModule {
+
+    constructor(http: HttpClient) {
+        setInterval(() => http.get("/api/auth/refreshToken").subscribe(data => {
+            sessionStorage.setItem("accessToken", data["token"]);
+        }), 1800000);
+    }
 }

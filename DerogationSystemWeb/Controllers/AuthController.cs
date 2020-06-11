@@ -9,6 +9,7 @@ using DerogationSystemWeb.Model.Domain;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -68,9 +69,30 @@ namespace DerogationSystemWeb.Controllers
         {
             var userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == requestModel.Username);
             if (userFromDb == null)
-                return null;
+            {
+                return BadRequest(new {error = "Username or password incorrect"});
+            }
 
-            var identity = GetIdentity(userFromDb.DerogationUser);
+            return Ok(GenerateToken(userFromDb));
+        }
+
+        [Authorize]
+        [HttpGet("refreshToken")]
+        public IActionResult RefreshToken()
+        {
+            var userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
+
+            if (userFromDb == null)
+            {
+                return BadRequest(new {error = "Token refresh failed"});
+            }
+
+            return Ok(GenerateToken(userFromDb));
+        }
+
+        private object GenerateToken(User user)
+        {
+            var identity = GetIdentity(user.DerogationUser);
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
@@ -82,15 +104,9 @@ namespace DerogationSystemWeb.Controllers
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
 
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
-            {
-                token = encodedJwt,
-                user = userFromDb
-            };
-
-            return Json(response);
+            return new {token, user};
         }
 
         private ClaimsIdentity GetIdentity(string username)

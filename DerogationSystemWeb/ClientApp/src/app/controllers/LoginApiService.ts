@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { LoginRequestModel } from "../model/requestModel/LoginRequestModel";
 import { User } from "../model/domain/User";
 import { WebsocketService } from '../model/services/WebsocketService';
@@ -15,77 +16,60 @@ export class LoginApiService {
     private user: User;
     private loginError: boolean;
 
-    private httpOptions: any;
-
-    constructor(private http: HttpClient, private wsService: WebsocketService) {
-        const httpHeaders = new HttpHeaders()
-            .append("Accept", "application/json")
-            .append("Authorization", `Bearer ${sessionStorage.getItem(this.tokenKey)}`);
-
-        this.httpOptions = {
-            headers: httpHeaders
-        }
+    constructor(private http: HttpClient, private wsService: WebsocketService, private router: Router) {
 
         this.getAuthUser();
     }
 
     get loggedInUser(): User { return this.user; }
+    set setLoggedInUser(user: User) {
+        this.user = user;
+
+        if (this.wsService.isConnected) {
+            this.wsService.disconnect();
+        }
+
+        this.wsService.connect();
+    } 
 
     get logInError(): boolean { return this.loginError; }
 
     login(data: LoginRequestModel) {
-//        this.http.post(this.apiUrl + "/login", data).subscribe((user: User) => {
-//            if (user == null) {
-//                this.loginError = true;
-//            }
-//            this.user = user;
-//            if (this.user != null && !this.wsService.isConnected) {
-//                this.wsService.connect();
-//            }
-//        });
-//        return this.user;
 
+        this.http.post(this.apiUrl + "/token", data).subscribe((response: LoginResponseModel) => {
 
-        this.http.post(this.apiUrl + "/token", data, this.httpOptions).subscribe(response => {
-
-            if (response["user"] == null) {
-                this.loginError = true;
-                return null;
-            }
-
-            console.log(response);
-
-            this.user = response["user"];
-            sessionStorage.setItem(this.tokenKey, response["token"]);
+            this.setLoggedInUser = response.user;
+            sessionStorage.setItem(this.tokenKey, response.token);
+            this.router.navigateByUrl("/");
 
             return this.user;
+        }, err => {
+                console.log(err.error.error);
+                this.loginError = true;
+                return null;
         });
     }
 
     logout() {
-//        this.http.get(this.apiUrl + "/logout").subscribe(() => this.user = null);
 
         sessionStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.tokenKey);
+        this.user = null;
         this.wsService.disconnect();
         this.loginError = false;
     }
 
     private getAuthUser() {
+        this.loggedInUserIsReceives = false;
 
-        console.log(this.httpOptions);
-
-        this.http.get(this.apiUrl + "/user", this.httpOptions).subscribe(user => {
-            this.loggedInUserIsReceives = false;
-
-            console.log(user);
+        this.http.get(this.apiUrl + "/user").subscribe((user: User) => {
 
             if (user != null) {
-                if (!this.wsService.isConnected) {
-                    this.wsService.connect();
-                }
-                //TODO
-                this.user = user;
-                console.log(this.user);
+                this.setLoggedInUser = user;
+                this.http.get(this.apiUrl + "/refreshToken").subscribe((response: LoginResponseModel) => {
+                    sessionStorage.setItem(this.tokenKey, response.token);
+                    console.log("New token received");
+                });
             }
 
             this.loggedInUserIsReceives = true;
