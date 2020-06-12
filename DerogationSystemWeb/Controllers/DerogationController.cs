@@ -115,7 +115,13 @@ namespace DerogationSystemWeb.Controllers
             derogation.CreatedDate = DateTime.Now;
 
             derogation.DerogationItems.ForEach(dergItem =>
-                dergItem.ProductCode = dergItem.ProductCode.Substring(0, 30));
+            {
+                if (dergItem.ProductCode.Length > 30)
+                {
+                    dergItem.ProductCode = dergItem.ProductCode.Substring(0, 30);
+                }
+            });
+
 
             _database.DerogationHeaders.Add(derogation);
             _database.SaveChanges();

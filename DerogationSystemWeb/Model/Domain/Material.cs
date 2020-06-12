@@ -7,6 +7,6 @@ namespace DerogationSystemWeb.Model.Domain
         public long MaterialId { get; set; }
         public string PartNo { get; set; }
         public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
     }
 }

@@ -23,10 +23,8 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpGet]
-        public  IEnumerable<WorkOrder> GetAllWorkOrders()
+        public  IActionResult GetAllWorkOrders()
         {
-            // var workOrder = _db.WorkOrders.Include(wo => wo.Material).FirstOrDefault(wo => wo.WorkOrderId == 313687);
-
             var nowMinus30Days = DateTime.Now.AddDays(-30);
 
             var workOrders = _db.WorkOrders
@@ -43,18 +41,60 @@ namespace DerogationSystemWeb.Controllers
             workOrders.Sort((wo1, wo2) =>
             {
                 if (wo1.OrderDate < wo2.OrderDate)
-                {
                     return 1;
-                }
 
                 if (wo1.OrderDate > wo2.OrderDate)
-                {
                     return -1;
-                }
 
                 return 0;
             });
-            return workOrders;
+
+            var trimmed = workOrders.Select(wo =>
+            {
+                wo.OrderNo = wo.OrderNo.Trim();
+                return wo;
+            }).ToList();
+
+            return Ok(trimmed);
+        }
+
+        [HttpPost("byMask")]
+        public async Task<IActionResult> GetByMask(string mask)
+        {
+            if (string.IsNullOrEmpty(mask) || mask == "null")
+            {
+                return RedirectToAction("GetAllWorkOrders");
+            }
+
+            if (mask.Length < 3)
+            {
+                return Ok(new List<WorkOrder>());
+            }
+
+            var byMask = await _db.WorkOrders.Include(wo => wo.Material)
+                .Where(wo => wo.OrderNo.Contains(mask))
+                .ToListAsync();
+
+            byMask.AddRange(await _db.WorkOrders.Include(wo => wo.Material)
+                .Where(wo => wo.SkdPartNo.Contains(mask))
+                .ToListAsync());
+
+            byMask.AddRange(await _db.WorkOrders.Include(wo => wo.Material)
+                .Where(wo => wo.Material.Description.Contains(mask))
+                .ToListAsync());
+
+            var trimmed = byMask.Select(wo =>
+            {
+                wo.OrderNo = wo.OrderNo.Trim();
+                return wo;
+            }).ToList();
+
+            if (trimmed.Count > 200)
+            {
+                trimmed = trimmed.Where(wo => wo.OrderDate > DateTime.Now.AddDays(-30)).ToList();
+            }
+
+            return Ok(trimmed);
         }
     }
 }

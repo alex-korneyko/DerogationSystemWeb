@@ -18,5 +18,8 @@ export class WorkOrderListRowComponent {
 
         // @ts-ignore
         $("#workOrdersModal").modal("hide");
+
+        this.workOrderApiService.maskString = "";
+        this.workOrderApiService.getAllWorkOrders();
     }
 }

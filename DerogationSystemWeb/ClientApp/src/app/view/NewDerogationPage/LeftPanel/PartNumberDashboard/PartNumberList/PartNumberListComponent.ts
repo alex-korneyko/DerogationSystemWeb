@@ -13,4 +13,10 @@ export class PartNumberListComponent {
 
     @Input() materialRequestModel: MaterialRequestModel;
     @Input() windowIdentId: number;
+
+    
+
+    maskStringChange() {
+        this.materialsApiService.getMaterialsByMask();
+    }
 }

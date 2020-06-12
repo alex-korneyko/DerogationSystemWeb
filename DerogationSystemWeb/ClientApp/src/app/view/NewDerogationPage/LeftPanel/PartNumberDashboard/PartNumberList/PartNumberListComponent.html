@@ -5,8 +5,9 @@
                 Search:
             </span>
         </div>
-        <input type="number" class="form-control">
-
+        <input type="text" class="form-control"
+               [(ngModel)]="materialsApiService.maskString"
+               (ngModelChange)="maskStringChange()">
     </div>
 </div>
 <div class="ml-1" style="display: inline-block; font-weight: bold; font-size: x-small; color: dimgray">

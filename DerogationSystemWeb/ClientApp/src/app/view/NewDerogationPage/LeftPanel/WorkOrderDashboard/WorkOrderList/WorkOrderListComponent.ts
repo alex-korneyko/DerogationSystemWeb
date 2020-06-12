@@ -13,4 +13,8 @@ export class WorkOrderListComponent implements OnInit{
     ngOnInit(): void {
         this.workOrderApiService.getAllWorkOrders();
     }
+
+    maskStringChange() {
+        this.workOrderApiService.getWorkOrdersByMask();
+    }
 }

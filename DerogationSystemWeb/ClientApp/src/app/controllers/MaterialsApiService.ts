@@ -10,6 +10,7 @@ export class MaterialsApiService {
     materialsIsLoaded = false;
     selectedMaterial: MaterialRequestModel;
     selectedAltMaterial: MaterialRequestModel;
+    maskString: string;
 
     private apiUrl = "/api/materials";
 
@@ -24,5 +25,14 @@ export class MaterialsApiService {
             this.materials = data;
             this.materialsIsLoaded = true;
         });
+    }
+
+    async getMaterialsByMask() {
+        this.materialsIsLoaded = false;
+        await this.http.post(this.apiUrl + `/byMask?mask=${this.maskString}`, this.maskString)
+            .subscribe((data: Material[]) => {
+                this.materials = data;
+                this.materialsIsLoaded = true;
+            });
     }
 }

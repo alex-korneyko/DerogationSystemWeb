@@ -8,6 +8,7 @@ export class WorkOrderApiService {
     workOrders: WorkOrder[];
     workOrdersIsLoaded = false;
     selectedWorkOrder: WorkOrder;
+    maskString = "";
 
     private apiUrl = "/api/workOrders";
 
@@ -15,12 +16,21 @@ export class WorkOrderApiService {
         this.selectedWorkOrder = new WorkOrder();
     }
 
-    getAllWorkOrders() {
+    async getAllWorkOrders() {
         this.workOrdersIsLoaded = false;
 
-        this.http.get(this.apiUrl).subscribe((data: WorkOrder[]) => {
+        await this.http.get(this.apiUrl).subscribe((data: WorkOrder[]) => {
             this.workOrders = data;
             this.workOrdersIsLoaded = true;
         });
+    }
+
+    async getWorkOrdersByMask() {
+        this.workOrdersIsLoaded = false;
+        await this.http.post(this.apiUrl + `/byMask?mask=${this.maskString}`, this.maskString)
+            .subscribe((data: WorkOrder[]) => {
+                this.workOrders = data;
+                this.workOrdersIsLoaded = true;
+            });
     }
 }
