@@ -109,6 +109,21 @@ namespace DerogationSystemWeb.Controllers
             return Ok(derogation);
         }
 
+        [HttpPost("setEngFi/{id}")]
+        public IActionResult setEngFi(long id, Dictionary<string, object> request)
+        {
+            var derogation = _derogationService.GetDerogation(id);
+
+            derogation.Ltime = int.Parse(request["ltime"].ToString());
+            derogation.SLT = decimal.Parse(request["slt"].ToString());
+            derogation.DcostP = decimal.Parse(request["dcostP"].ToString());
+            derogation.DcostF = decimal.Parse(request["dcostF"].ToString());
+
+            _database.SaveChanges();
+
+            return Ok(derogation);
+        }
+
         [HttpPost("new")]
         public IActionResult NewDerogation(DerogationHeader derogation)
         {

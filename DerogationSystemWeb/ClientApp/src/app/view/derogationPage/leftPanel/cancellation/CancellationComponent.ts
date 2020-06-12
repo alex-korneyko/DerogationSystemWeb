@@ -11,6 +11,7 @@ export class CancellationComponent {
 
     public cancType = "cancelReq";
     public cancReason: string;
+    public reasonValidateError = false;
 
     @Input()
     disabled: boolean;
@@ -18,6 +19,11 @@ export class CancellationComponent {
     constructor(private derogationApiService: DerogationApiService, private loginApiService: LoginApiService) {}
 
     cancelClick() {
+        if (this.cancReason === undefined || this.cancReason.length < 3) {
+            this.reasonValidateError = true;
+            return;
+        }
+
         this.cancType = this.derogationApiService.currentDerogation.owner === this.loginApiService.loggedInUser.derogationUser
             ? "cancel"
             : "cancelReq";
@@ -39,5 +45,9 @@ export class CancellationComponent {
                 && this.derogationApiService.currentDerogation.cancelled !== "1";
         }
         return false;
+    }
+
+    txtAreaChange() {
+        this.reasonValidateError = false;
     }
 }

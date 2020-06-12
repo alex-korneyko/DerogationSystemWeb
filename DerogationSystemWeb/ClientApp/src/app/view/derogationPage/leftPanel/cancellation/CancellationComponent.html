@@ -3,8 +3,10 @@
 
     <div class="form-group mb-0">
         <textarea class="form-control p-1" style="font-size: small; resize: none" id="commentCancTextarea" rows="3" placeholder="Reason..."
+                  [ngClass]="{validateError:reasonValidateError}"
                   [(ngModel)]="cancReason"
-                  [disabled]="disabled  && !cancellationIsAllowed()">
+                  [disabled]="disabled  && !cancellationIsAllowed()"
+                  (ngModelChange)="txtAreaChange()">
         </textarea>
     </div>
 
@@ -25,7 +27,7 @@
 
     <button class="btn btn-xsm btn-warning" style="width: 100%; font-weight: bold"
             (click)="cancelClick()"
-            [disabled]="disabled && !cancellationIsAllowed()">
+            [disabled]="(disabled && !cancellationIsAllowed())">
         Cancel/Request
     </button>
 </div>

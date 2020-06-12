@@ -33,6 +33,9 @@ export class LoginApiService {
     } 
 
     get logInError(): boolean { return this.loginError; }
+    set setLoginError(value: boolean) {
+        this.loginError = value;
+    }
 
     login(data: LoginRequestModel) {
 

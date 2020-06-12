@@ -11,6 +11,17 @@ textarea {
     resize: none
 }
 
+.validateError {
+    border: red solid 1px;
+    background-color: lightcoral
+}
+
+.formDataChanged {
+    border: green solid 1px;
+    background-color: lightgreen;
+    font-weight: bold
+}
+
 .panel {
     width: 100%;
     border: dimgray solid 1px;

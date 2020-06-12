@@ -28,6 +28,6 @@ export class TopNavBarComponent {
     }
 
     loginDataOnChange() {
-        this.userError = false;
+        this.loginApiService.setLoginError = false;
     }
 }

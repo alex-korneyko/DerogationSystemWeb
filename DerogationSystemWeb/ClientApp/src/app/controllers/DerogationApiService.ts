@@ -106,6 +106,13 @@ export class DerogationApiService {
             });
     }
 
+    sendEngFi(ltime: number, slt: number, dcostP: number, dcostF: number) {
+        this.http.post(this.apiUrl + `/setEngFi/${this.currentDerogation.derogationId}`, { "ltime": ltime, "slt": slt, "dcostP": dcostP, "dcostF": dcostF })
+            .subscribe((data: DerogationHeader) => {
+                this.currentDerogation = data;
+            });
+    }
+
     addCurrentItemToNewDerogation() {
 
         this.currentDerogationIsLoaded = true;

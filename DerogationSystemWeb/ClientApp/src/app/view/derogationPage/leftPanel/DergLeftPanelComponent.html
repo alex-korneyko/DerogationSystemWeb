@@ -28,5 +28,6 @@
     <approval-dashboard [disabled]="!availableForActions()"></approval-dashboard>
     <cancel-dashboard [disabled]="!availableForActions()"></cancel-dashboard>
     <hr class="m-2" />
-    <eng-fi-options></eng-fi-options>
+    <eng-fi-options
+        *ngIf="derogationApiService.currentDerogationIsLoaded"></eng-fi-options>
 </div>
