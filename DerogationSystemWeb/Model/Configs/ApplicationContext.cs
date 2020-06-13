@@ -13,6 +13,7 @@ namespace DerogationSystemWeb.Model.Configs
         public DbSet<DerogationItem> DerogationItems { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
+        public DbSet<DerogationDoc> DerogationDocs { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -94,6 +95,25 @@ namespace DerogationSystemWeb.Model.Configs
                 .WithMany()
                 .HasForeignKey(order => order.SkdPartNo)
                 .HasPrincipalKey(material => material.PartNo);
+
+            //---------------- DerogationDoc ----------------------
+            modelBuilder.Entity<DerogationDoc>().ToTable("DerogationDocs").HasKey(doc => doc.Id);
+
+            modelBuilder.Entity<DerogationDoc>()
+                .HasOne(doc => doc.DerogationHeader)
+                .WithMany(derg => derg.DerogationDocs)
+                .HasForeignKey(doc => doc.DerogationID);
+
+            modelBuilder.Entity<DerogationDoc>()
+                .HasOne(doc => doc.Author)
+                .WithMany()
+                .HasForeignKey(doc => doc.DerogationUser)
+                .HasPrincipalKey(doc => doc.DerogationUser);
+
+            modelBuilder.Entity<DerogationDoc>()
+                .HasOne(doc => doc.FactoryDepartment)
+                .WithMany()
+                .HasForeignKey(doc => doc.Department);
         }
     }
 }

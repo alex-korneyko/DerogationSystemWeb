@@ -175,6 +175,7 @@ namespace DerogationSystemWeb.Model.Services
                 .Include(dh => dh.DerogationDepartments)
                 .Include(dh => dh.DerogationItems)
                 .Include(dh => dh.Operators)
+                .Include(dh => dh.DerogationDocs)
                 .First(derg => derg.DerogationId == id);
             return derogation;
         }

@@ -5,7 +5,7 @@
   "author": "Alex Korneiko",
   "scripts": {
     "ng": "ng",
-    "start": "echo hello && ng serve",
+    "start": "echo hello && ng serve --proxy-config proxy.conf.json",
     "build": "ng build"
   },
   "dependencies": {

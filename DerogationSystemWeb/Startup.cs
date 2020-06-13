@@ -19,6 +19,7 @@ namespace DerogationSystemWeb
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
+        readonly string AllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -56,6 +57,19 @@ namespace DerogationSystemWeb
                 });
             services.AddAuthorization();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .WithOrigins("http://localhost:4200")
+                            .AllowCredentials();
+                    });
+            });
+
             services.AddSignalR();
             services.AddControllers();
 
@@ -79,6 +93,8 @@ namespace DerogationSystemWeb
 
             app.UseRouting();
 
+            app.UseCors(AllowSpecificOrigins);
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -88,15 +104,15 @@ namespace DerogationSystemWeb
                 endpoints.MapControllers();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            // app.UseSpa(spa =>
+            // {
+            //     spa.Options.SourcePath = "ClientApp";
+            //
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseAngularCliServer(npmScript: "start");
+            //     }
+            // });
         }
     }
 }

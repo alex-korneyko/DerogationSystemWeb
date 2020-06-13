@@ -40,6 +40,9 @@ namespace DerogationSystemWeb.Model.Domain
         public List<DerogationItem> DerogationItems { get; set; } = new List<DerogationItem>();
 
         public List<DerogationOperator> Operators { get; set; } = new List<DerogationOperator>();
+
+        public List<DerogationDoc> DerogationDocs { get; set; } = new List<DerogationDoc>();
+
         public bool Equals(DerogationHeader x, DerogationHeader y)
         {
             if (x == null || y == null)

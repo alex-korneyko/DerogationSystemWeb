@@ -1,10 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { LoginRequestModel } from "../model/requestModel/LoginRequestModel";
 import { User } from "../model/domain/User";
 import { WebsocketService } from '../model/services/WebsocketService';
 import { LoginResponseModel } from "../model/responseModel/LoginResponseModel";
+import { LoginRequestModel } from '../model/requestModel/LoginRequestModel';
 
 @Injectable()
 export class LoginApiService {
