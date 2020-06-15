@@ -14,11 +14,18 @@
     </div>
 
     <div style="overflow-y: scroll; height: calc(100% - 90px)">
-
+        <div *ngIf="derogationApiService.currentDerogationIsLoaded">
+            <derogation-doc-row *ngFor="let dergDoc of derogationDocs"
+                                [derogationDoc]="dergDoc">
+            </derogation-doc-row>
+        </div>
     </div>
     <hr class="m-1"/>
 
     <div class="row mt-1 mx-0 justify-content-end" style="height: 22px">
-        <button class="btn btn-xsm btn-primary" style="width: 150px">Upload file</button>
+        <button class="btn btn-xsm btn-primary" style="width: 150px"
+                (click)="uploadClick()">
+            Upload file
+        </button>
     </div>
 </div>

@@ -22,12 +22,14 @@
 
 	<ItemGroup>
 	  <None Remove="ClientApp\src\app\controllers\DerogationApiService.ts" />
+	  <None Remove="ClientApp\src\app\controllers\FileApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\LoginApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\MaterialsApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\UserApiService.ts" />
 	  <None Remove="ClientApp\src\app\controllers\WorkOrderApiService.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\Department.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationDepartment.ts" />
+	  <None Remove="ClientApp\src\app\model\domain\DerogationDoc.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationHeader.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationItem.ts" />
 	  <None Remove="ClientApp\src\app\model\domain\DerogationOperator.ts" />
@@ -66,6 +68,7 @@
 	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\DergLeftPanelComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\leftPanel\engAndFiOptions\EngAndFiOptionsComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\DergMainPanelComponent.ts" />
+	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationDocs\DerogationDocRow\DerogationDocRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationDocs\DerogationDocsListComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\derogationItemRow\DerogationItemRowComponent.ts" />
 	  <None Remove="ClientApp\src\app\view\derogationPage\mainPanel\derogationItemsList\DerogationItemsListComponent.ts" />

@@ -76,7 +76,9 @@ import { PartNumberRowComponent } from
 import { DeptInvolvedRowComponent } from
     "./view/NewDerogationPage/MainPanel/DeptsIvolvingList/DeptInvolvedRow/DeptInvolvedRowComponent";
 import { AccessDeniedComponent } from "./view/AccessDeniedPage/AccessDeniedComponent";
-
+import { DerogationDocRowComponent } from
+    "./view/derogationPage/mainPanel/derogationDocs/DerogationDocRow/DerogationDocRowComponent";
+import { FileApiService } from "./controllers/FileApiService";
 
 
 const appRoutes: Routes = [
@@ -105,11 +107,11 @@ const appRoutes: Routes = [
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
         WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
         WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent,
-        AccessDeniedComponent
+        AccessDeniedComponent, DerogationDocRowComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,
-        WorkOrderApiService, MaterialsApiService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
+        WorkOrderApiService, MaterialsApiService, FileApiService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class AppModule {
 

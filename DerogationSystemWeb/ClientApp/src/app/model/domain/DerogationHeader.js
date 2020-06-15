@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var DerogationHeader = /** @class */ (function () {
-    function DerogationHeader(derogationId, createdDate, department, factoryDepartment, owner, author, ltime, slt, dcostP, dcostF, cancelled, approved, offline, cancellationReason, derogationDepartments, derogationItems, operators) {
+    function DerogationHeader(derogationId, createdDate, department, factoryDepartment, owner, author, ltime, slt, dcostP, dcostF, cancelled, approved, offline, cancellationReason, derogationDepartments, derogationItems, operators, derogationDocs) {
         if (cancelled === void 0) { cancelled = "0"; }
         if (approved === void 0) { approved = "0"; }
         if (offline === void 0) { offline = "0"; }
         if (derogationDepartments === void 0) { derogationDepartments = new Array(); }
         if (derogationItems === void 0) { derogationItems = new Array(); }
         if (operators === void 0) { operators = new Array(); }
+        if (derogationDocs === void 0) { derogationDocs = new Array(); }
         this.derogationId = derogationId;
         this.createdDate = createdDate;
         this.department = department;
@@ -25,6 +26,7 @@ var DerogationHeader = /** @class */ (function () {
         this.derogationDepartments = derogationDepartments;
         this.derogationItems = derogationItems;
         this.operators = operators;
+        this.derogationDocs = derogationDocs;
     }
     return DerogationHeader;
 }());

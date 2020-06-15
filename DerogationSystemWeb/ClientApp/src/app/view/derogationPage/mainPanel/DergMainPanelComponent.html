@@ -7,7 +7,11 @@
     
     <div class="row" style="height: 100%">
         <eng-operator-box class="col-4 pr-0"></eng-operator-box>
-        <derogation-docs-list class="col-5 pl-2 pr-2"></derogation-docs-list>
+        <derogation-docs-list class="col-5 pl-2 pr-2"
+                              *ngIf="derogationApiService.currentDerogationIsLoaded"
+                              [derogationDocs]="derogationApiService.currentDerogation.derogationDocs">
+
+        </derogation-docs-list>
         <derogation-mail-list class="col-3 pl-0"></derogation-mail-list>
     </div>
 </div>

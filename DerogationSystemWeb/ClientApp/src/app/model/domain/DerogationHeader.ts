@@ -3,6 +3,7 @@ import { User } from "./User";
 import { DerogationDepartment } from "./DerogationDepartment";
 import { DerogationItem } from "./DerogationItem";
 import { DerogationOperator } from "./DerogationOperator";
+import { DerogationDoc } from "./DerogationDoc";
 
 export class DerogationHeader {
     constructor(
@@ -22,6 +23,7 @@ export class DerogationHeader {
         public cancellationReason?: string,
         public derogationDepartments = new Array<DerogationDepartment>(),
         public derogationItems = new Array<DerogationItem>(),
-        public operators = new Array<DerogationOperator>()
+        public operators = new Array<DerogationOperator>(),
+        public derogationDocs = new Array<DerogationDoc>()
     ) { }
 }

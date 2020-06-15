@@ -27,7 +27,7 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpPost("upload/{derogationId}")]
-        public async Task<IActionResult> AddFile(IFormFile file, long derogationId)
+        public async Task<IActionResult> AddFile(long derogationId, IFormFile uploadFile)
         {
             var author = _db.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
             if (author == null)
@@ -42,17 +42,17 @@ namespace DerogationSystemWeb.Controllers
             }
 
             if (_configuration["FileStore:Upload:MaxSizeMb"] != "" 
-                && file.Length > (int.Parse(_configuration["FileStore:Upload:MaxSizeMb"]) * 1024 * 1024))
+                && uploadFile.Length > (int.Parse(_configuration["FileStore:Upload:MaxSizeMb"]) * 1024 * 1024))
             {
                 return BadRequest(new { message = "File is to large" });
             }
 
-            var guidFileName = "guid." + Guid.NewGuid() + "." + file.FileName;
+            var guidFileName = "guid." + Guid.NewGuid() + "." + uploadFile.FileName;
             var path = _configuration["FileStore:Upload:Path"] + "\\" + guidFileName;
 
             await using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                await file.CopyToAsync(fileStream);
+                await uploadFile.CopyToAsync(fileStream);
             }
 
             var derogationDoc = new DerogationDoc
@@ -67,7 +67,32 @@ namespace DerogationSystemWeb.Controllers
             _db.DerogationDocs.Add(derogationDoc);
             _db.SaveChanges();
 
-            return Ok(derogationDoc);
+            derogation = _derogationService.GetDerogation(derogationId);
+
+            return Ok(derogation);
+        }
+
+        [HttpGet("delete/{fileId}")]
+        public IActionResult Delete(long fileId)
+        {
+            var dergDoc = _db.DerogationDocs.FirstOrDefault(doc => doc.Id == fileId);
+
+            if (dergDoc == null)
+            {
+                return BadRequest(new {message = "File not found"});
+            }
+
+            var path = _configuration["FileStore:Upload:Path"] + "\\" + dergDoc.DocName;
+
+            var fileInfo = new FileInfo(path);
+            fileInfo.Delete();
+
+            _db.DerogationDocs.Remove(dergDoc);
+            _db.SaveChanges();
+
+            var derogation = _derogationService.GetDerogation(dergDoc.DerogationID);
+
+            return Ok(derogation);
         }
     }
 }
