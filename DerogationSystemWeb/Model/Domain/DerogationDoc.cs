@@ -22,5 +22,7 @@ namespace DerogationSystemWeb.Model.Domain
         public string DocName { get; set; }
 
         public DateTime? InsertedDate { get; set; }
+
+        public string FileType { get; set; }
     }
 }

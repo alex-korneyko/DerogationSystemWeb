@@ -86,6 +86,10 @@ textarea {
     border-right: dimgray solid 1px
 }
 
+.lastCell {
+    border-right: none;
+}
+
 .form-control-xsm {
     height: calc(1.2em + .5rem + 2px);
     padding: 0.2rem 0.3rem;

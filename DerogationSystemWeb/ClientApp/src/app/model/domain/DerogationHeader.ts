@@ -7,7 +7,7 @@ import { DerogationDoc } from "./DerogationDoc";
 
 export class DerogationHeader {
     constructor(
-        public derogationId?: number,
+        public derogationId = 0,
         public createdDate?: Date,
         public department?: string,
         public factoryDepartment?: Department,

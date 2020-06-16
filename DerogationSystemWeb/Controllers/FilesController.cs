@@ -7,6 +7,7 @@ using DerogationSystemWeb.Model.Domain;
 using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DerogationSystemWeb.Controllers
@@ -26,8 +27,14 @@ namespace DerogationSystemWeb.Controllers
             _derogationService = derogationService;
         }
 
+        [HttpPost("upload")]
+        public IActionResult AddFile(IFormFile uploadFile)
+        {
+            return Ok();
+        }
+
         [HttpPost("upload/{derogationId}")]
-        public async Task<IActionResult> AddFile(long derogationId, IFormFile uploadFile)
+        public async Task<IActionResult> AddFileForDerogation(long derogationId, IFormFile uploadFile)
         {
             var author = _db.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
             if (author == null)
@@ -35,10 +42,19 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest(new {message = "User not found"});
             }
 
-            var derogation = _derogationService.GetDerogation(derogationId);
-            if (derogation == null)
+            DerogationHeader derogation;
+            
+            if (derogationId == 0)
             {
-                return BadRequest(new {message = "Derogation not found"});
+                derogation = new DerogationHeader {DerogationId = 0};
+            }
+            else
+            {
+                derogation = _derogationService.GetDerogation(derogationId);
+                if (derogation == null)
+                {
+                    return BadRequest(new {message = "Derogation not found"});
+                }
             }
 
             if (_configuration["FileStore:Upload:MaxSizeMb"] != "" 
@@ -48,7 +64,7 @@ namespace DerogationSystemWeb.Controllers
             }
 
             var guidFileName = "guid." + Guid.NewGuid() + "." + uploadFile.FileName;
-            var path = _configuration["FileStore:Upload:Path"] + "\\" + guidFileName;
+            var path = Path.Combine(_configuration["FileStore:Upload:Path"], guidFileName);
 
             await using (var fileStream = new FileStream(path, FileMode.Create))
             {
@@ -61,15 +77,34 @@ namespace DerogationSystemWeb.Controllers
                 DerogationUser = author.DerogationUser,
                 Department = author.Department,
                 DocName = guidFileName,
-                InsertedDate = DateTime.Now
+                InsertedDate = DateTime.Now,
+                FileType = uploadFile.ContentType
             };
 
-            _db.DerogationDocs.Add(derogationDoc);
-            _db.SaveChanges();
-
+            if (derogation.DerogationId == 0)
+            {
+                await _db.DerogationDocs.AddAsync(derogationDoc);
+                await _db.SaveChangesAsync();
+                derogation.DerogationDocs.Add(derogationDoc);
+                return Ok(derogation);
+            }
+            
+            await _db.DerogationDocs.AddAsync(derogationDoc);
+            await _db.SaveChangesAsync();
             derogation = _derogationService.GetDerogation(derogationId);
 
             return Ok(derogation);
+        }
+
+        [HttpGet("file/{fileId}")]
+        public async Task<IActionResult> GetFile(long fileId)
+        {
+            var dergDoc = await _db.DerogationDocs.FirstOrDefaultAsync(dd => dd.Id == fileId);
+            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName);
+
+            var fileInfo = new FileInfo(path);
+
+            return PhysicalFile(path, dergDoc.FileType ?? "application/" + fileInfo.Extension);
         }
 
         [HttpGet("delete/{fileId}")]
@@ -82,7 +117,7 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest(new {message = "File not found"});
             }
 
-            var path = _configuration["FileStore:Upload:Path"] + "\\" + dergDoc.DocName;
+            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName);
 
             var fileInfo = new FileInfo(path);
             fileInfo.Delete();
@@ -90,7 +125,9 @@ namespace DerogationSystemWeb.Controllers
             _db.DerogationDocs.Remove(dergDoc);
             _db.SaveChanges();
 
-            var derogation = _derogationService.GetDerogation(dergDoc.DerogationID);
+            var derogation = dergDoc.DerogationID != 0 
+                ? _derogationService.GetDerogation(dergDoc.DerogationID) 
+                : new DerogationHeader{DerogationId = 0};
 
             return Ok(derogation);
         }

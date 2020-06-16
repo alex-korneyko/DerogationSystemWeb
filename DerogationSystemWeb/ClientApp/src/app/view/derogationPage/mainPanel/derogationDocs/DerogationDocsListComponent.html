@@ -5,17 +5,17 @@
 
     <div>
         <div class="mb-1 mr-3 tableHeader">
-            <div class="tableHeaderCell" style="width: 20%">File name</div>
-            <div class="tableHeaderCell" style="width: 15%">Department</div>
-            <div class="tableHeaderCell" style="width: 30%">User</div>
-            <div class="tableHeaderCell" style="width: 30%">Date</div>
+            <div class="tableHeaderCell" style="width: 35%">File name</div>
+            <div class="tableHeaderCell" style="width: 12%">Department</div>
+            <div class="tableHeaderCell" style="width: 24%">User</div>
+            <div class="tableHeaderCell" style="width: 24%">Date</div>
             <div class="tableHeaderCell" style="width: 5%; border-right: none">Rm</div>
         </div>
     </div>
 
     <div style="overflow-y: scroll; height: calc(100% - 90px)">
         <div *ngIf="derogationApiService.currentDerogationIsLoaded">
-            <derogation-doc-row *ngFor="let dergDoc of derogationDocs"
+            <derogation-doc-row *ngFor="let dergDoc of derogation.derogationDocs"
                                 [derogationDoc]="dergDoc">
             </derogation-doc-row>
         </div>

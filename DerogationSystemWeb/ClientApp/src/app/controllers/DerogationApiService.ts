@@ -135,12 +135,7 @@ export class DerogationApiService {
             }
         });
 
-        console.log("Send...");
-        console.log(this.newDerogation);
-
         this.http.post(this.apiUrl + "/new", this.newDerogation).subscribe((data: DerogationHeader) => {
-            console.log("Receive...");
-            console.log(data);
             this.derogationList.push(data);
             this.newDerogation = new DerogationHeader();
             this.router.navigateByUrl("/derogations");

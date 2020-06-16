@@ -1,12 +1,13 @@
-﻿import { Component, Inject, OnDestroy, Input } from "@angular/core";
+﻿import { Component, Inject, OnDestroy, OnInit, Input } from "@angular/core";
 import { DerogationApiService } from "../../../../controllers/DerogationApiService";
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Router} from "@angular/router";
 import { DOCUMENT } from "@angular/common";
 
 import { fromEvent, Subject } from "rxjs";
 import { mergeMap, finalize, takeUntil, first } from 'rxjs/operators';
 import { DerogationHeader } from "../../../../model/domain/DerogationHeader";
-import { DerogationDoc } from "../../../../model/domain/DerogationDoc";
+import {FileApiService} from "../../../../controllers/FileApiService";
 
 @Component({
     templateUrl: "DerogationDocsListComponent.html",
@@ -18,13 +19,20 @@ export class DerogationDocsListComponent implements OnDestroy {
     private destroy$ = new Subject<void>();
 
     @Input()
-    derogationDocs = new Array<DerogationDoc>();
+    derogation: DerogationHeader;
 
     constructor(
         public derogationApiService: DerogationApiService,
+        private fileApiService: FileApiService,
         private http: HttpClient,
+        private router: Router,
         @Inject(DOCUMENT) private document: Document
-    ) { }
+    ) {
+        if (this.router.url === "/derogations/new") {
+            this.derogation = this.derogationApiService.newDerogation;
+            console.log("NEW derogation");
+        }
+    }
 
     uploadClick() {
         let fileInput = this.document.createElement("input");
@@ -34,17 +42,10 @@ export class DerogationDocsListComponent implements OnDestroy {
             mergeMap((event) => {
                 const target = event.target as HTMLInputElement;
                 const selectedFile = target.files[0];
+                console.log("File type: " + selectedFile.type)
                 const uploadData = new FormData();
                 uploadData.append("uploadFile", selectedFile, selectedFile.name);
-                console.log(selectedFile);
-                console.log(uploadData);
-                return this.http.post(
-                    `/api/files/upload/${this.derogationApiService.currentDerogation.derogationId}`,
-                    uploadData,
-                    {
-                        reportProgress: true,
-                        observe: "events"
-                    });
+                return this.fileApiService.uploadFile(uploadData, this.derogation.derogationId);
             }),
             finalize(() => {
                 fileInput = null;
@@ -66,8 +67,9 @@ export class DerogationDocsListComponent implements OnDestroy {
                     );
                     break;
                 case HttpEventType.Response:
-                        console.log('Done!', event.body);
-                        this.derogationApiService.currentDerogation = event.body as DerogationHeader;
+                    console.log('Done!', event.body);
+                    this.derogation.derogationDocs.push(...(event.body as DerogationHeader).derogationDocs);
+                    console.log(this.derogation);
                 }
             },
             () => console.log('Upload error'),

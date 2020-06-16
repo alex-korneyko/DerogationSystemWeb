@@ -12,3 +12,5 @@ alter table DerogationOperators add constraint PK_derg_operator primary key (Id)
 
 alter table Users add Id bigint not null identity (1, 1);
 alter table Users add constraint PK_user primary key (Id);
+
+alter table dbo.DerogationDocs add FileType varchar(256);

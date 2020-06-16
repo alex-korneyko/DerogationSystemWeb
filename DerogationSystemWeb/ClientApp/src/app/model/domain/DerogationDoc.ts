@@ -5,6 +5,7 @@
         public derogationUser?: string,
         public department?: string,
         public  docName?: string,
-        public insertedDate?: Date
+        public insertedDate?: Date,
+        public fileType?: string
     ) { }
 }

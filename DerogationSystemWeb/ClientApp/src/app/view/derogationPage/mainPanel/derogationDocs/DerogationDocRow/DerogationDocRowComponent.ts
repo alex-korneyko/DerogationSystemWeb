@@ -18,18 +18,28 @@ export class DerogationDocRowComponent {
     getDocName(): string {
 
         if (this.derogationDoc.docName.startsWith("guid")) {
-            let words: string[] = this.derogationDoc.docName.split(".");
+            let trimmed = this.derogationDoc.docName.trimRight();
+            let words: string[] = trimmed.split(".");
 
             let result = "";
 
-            for (var i = 2; i < words.length; i++) {
+            for (let i = 2; i < words.length; i++) {
                 result += words[i] + ".";
             }
 
-            return result.slice(0, result.length - 2);
+            return result.endsWith(".") ? result.slice(0, result.length - 1) : result;
         }
 
         return this.derogationDoc.docName;
+    }
+    
+    getMimeType() {
+        console.log(this.derogationDoc);
+        let split = this.derogationDoc.fileType.split("/");
+        if (split.length > 1) {
+            return split[0];
+        }
+        return this.derogationDoc.fileType;
     }
 
     deleteDocClick() {
