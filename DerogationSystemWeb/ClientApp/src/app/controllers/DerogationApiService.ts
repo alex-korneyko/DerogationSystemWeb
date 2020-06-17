@@ -38,20 +38,39 @@ export class DerogationApiService {
         this.newItemForDerogation = new DerogationItem();
     }
 
-    getDerogationList() {
+    async getDerogationList() {
         this.derogationListIsLoaded = false;
 
         if (this.derogationRequestModel.workOrder === null) this.derogationRequestModel.workOrder = undefined;
         if (this.derogationRequestModel.derogationId === null) this.derogationRequestModel.derogationId = undefined;
 
-        this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
+        await this.http.post(this.apiUrl + "/getLast", this.derogationRequestModel)
             .subscribe((data: DerogationHeader[]) => {
                 this.derogationList = data;
                 this.derogationListIsLoaded = true;
 
+                let notApprovedDerogations = new Array<number>()
                 this.derogationList.forEach(derogation => {
                     if (derogation.approved === "0") {
-                        this.getDerogation(derogation.derogationId, false, true);
+                        // this.getDerogation(derogation.derogationId, false, true);
+                        notApprovedDerogations.push(derogation.derogationId);
+                    }
+                });
+                this.getDerogationsSet(notApprovedDerogations);
+            });
+    }
+    
+    async getDerogationsSet(derogationsIds: Array<number>) {
+        await this.http.post(this.apiUrl + "/getSet", derogationsIds)
+            .subscribe((data: DerogationHeader[]) => {
+                data.forEach(derg => {
+                    let index = this.derogationList
+                        .findIndex(dergInCurrList => dergInCurrList.derogationId === derg.derogationId);
+                    
+                    if (index === -1) {
+                        this.derogationList.push(derg);
+                    } else {
+                        this.derogationList.splice(index, 1, derg);
                     }
                 });
             });

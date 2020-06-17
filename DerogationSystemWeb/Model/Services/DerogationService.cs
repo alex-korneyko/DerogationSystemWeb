@@ -167,6 +167,11 @@ namespace DerogationSystemWeb.Model.Services
             return factoryDepartments;
         }
 
+        public IEnumerable<DerogationHeader> GetDerogationsSet(IEnumerable<long> derogationIds)
+        {
+            return derogationIds.Select(GetDerogation).Where(derogationHeader => derogationHeader != null).ToList();
+        }
+
         public DerogationHeader GetDerogation(long id)
         {
             var derogation = _db.DerogationHeaders

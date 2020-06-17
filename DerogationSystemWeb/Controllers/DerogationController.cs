@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using DerogationSystemWeb.Controllers.RequestModel;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
@@ -47,6 +45,14 @@ namespace DerogationSystemWeb.Controllers
             var filteredList = _derogationService.GetFilteredList(requestModel, authUser);
 
             return filteredList;
+        }
+
+        [HttpPost("getSet")]
+        public IEnumerable<DerogationHeader> GetDerogationsSet(IEnumerable<long> derogationIds)
+        {
+            var derogationsSet = _derogationService.GetDerogationsSet(derogationIds);
+
+            return derogationsSet;
         }
 
         [HttpGet("getOne/{id}")]
@@ -110,14 +116,14 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpPost("setEngFi/{id}")]
-        public IActionResult setEngFi(long id, Dictionary<string, object> request)
+        public IActionResult SetEngFi(long id, Dictionary<string, object> request)
         {
             var derogation = _derogationService.GetDerogation(id);
 
-            derogation.Ltime = int.Parse(request["ltime"].ToString());
-            derogation.SLT = decimal.Parse(request["slt"].ToString());
-            derogation.DcostP = decimal.Parse(request["dcostP"].ToString());
-            derogation.DcostF = decimal.Parse(request["dcostF"].ToString());
+            derogation.Ltime = int.Parse(request["ltime"].ToString() ?? "0");
+            derogation.SLT = decimal.Parse(request["slt"].ToString() ?? "0");
+            derogation.DcostP = decimal.Parse(request["dcostP"].ToString() ?? "0");
+            derogation.DcostF = decimal.Parse(request["dcostF"].ToString() ?? "0");
 
             _database.SaveChanges();
 
