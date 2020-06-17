@@ -1,5 +1,6 @@
 ﻿import { Component } from "@angular/core";
 import { DerogationApiService } from "../../../../../controllers/DerogationApiService";
+import {LoginApiService} from "../../../../../controllers/LoginApiService";
 
 @Component({
     selector: "left-panel",
@@ -8,7 +9,7 @@ import { DerogationApiService } from "../../../../../controllers/DerogationApiSe
 })
 export class LeftPanelComponent {
 
-    constructor(private derogationApiService: DerogationApiService) { }
+    constructor(private derogationApiService: DerogationApiService, public loginApiService: LoginApiService) { }
 
     applyClick() {
         this.derogationApiService.getDerogationList();

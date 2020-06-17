@@ -1,8 +1,8 @@
-﻿import { Component } from "@angular/core";
-import { DerogationApiService } from "../../../controllers/DerogationApiService";
-import { Router, ActivatedRoute} from "@angular/router";
-import { LoginApiService } from "../../../controllers/LoginApiService";
-import { DerogationDepartment } from "../../../model/domain/DerogationDepartment";
+﻿import {Component} from "@angular/core";
+import {DerogationApiService} from "../../../controllers/DerogationApiService";
+import {ActivatedRoute} from "@angular/router";
+import {LoginApiService} from "../../../controllers/LoginApiService";
+import {DerogationDepartment} from "../../../model/domain/DerogationDepartment";
 
 @Component({
     templateUrl: "./DergLeftPanelComponent.html",
@@ -15,8 +15,7 @@ export class DergLeftPanelComponent {
 
     constructor(public derogationApiService: DerogationApiService,
         private loginApiService: LoginApiService,
-        private activatedRoute: ActivatedRoute,
-        private router: Router) {
+        private activatedRoute: ActivatedRoute) {
 
         this.id = this.activatedRoute.snapshot.params["id"];
         if (this.derogationApiService.currentDerogation === null || this.derogationApiService.currentDerogation.derogationId !== this.id) {
@@ -28,6 +27,10 @@ export class DergLeftPanelComponent {
         let deptsForApproval = new Array<DerogationDepartment>();
         let minStep = 1000;
         let result = false;
+        
+        if (this.loginApiService.loggedInUser === undefined || 
+                (this.loginApiService.loggedInUser.canApprove === "0" && this.loginApiService.loggedInUser.admin !== "1"))
+            return false;
 
         if (this.derogationApiService.currentDerogationIsLoaded) {
             this.derogationApiService.currentDerogation.derogationDepartments.forEach(dept => {

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DerogationSystemWeb.Controllers
@@ -29,10 +30,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequestModel requestModel)
         {
-            User userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == requestModel.Username);
+            var userFromDb = _context.Users
+                .Include(user => user.FactoryDepartment)
+                .FirstOrDefault(user => user.DerogationUser == requestModel.Username);
 
             if (userFromDb == null)
-                return Ok(null);
+                return BadRequest(new {message = "User not found!"});
 
             var claims = new List<Claim>
             {
@@ -57,7 +60,9 @@ namespace DerogationSystemWeb.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                User authUser = _context.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
+                User authUser = _context.Users
+                    .Include(user => user.FactoryDepartment)
+                    .FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
                 return Ok(authUser);
             }
 
@@ -67,7 +72,9 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost("token")]
         public IActionResult Token(LoginRequestModel requestModel)
         {
-            var userFromDb = _context.Users.FirstOrDefault(user => user.DerogationUser == requestModel.Username);
+            var userFromDb = _context.Users
+                .Include(user => user.FactoryDepartment)
+                .FirstOrDefault(user => user.DerogationUser == requestModel.Username);
             if (userFromDb == null)
             {
                 return BadRequest(new {error = "Username or password incorrect"});

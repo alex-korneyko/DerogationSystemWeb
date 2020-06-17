@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
@@ -43,6 +44,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost]
         public IActionResult AddDepartment(FactoryDepartment department)
         {
+            var authUser = _dataBase.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -57,6 +64,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateDepartment(string id, FactoryDepartment department)
         {
+            var authUser = _dataBase.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+            
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -86,6 +99,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteDepartment(string id)
         {
+            var authUser = _dataBase.Users.FirstOrDefault(user => user.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+            
             FactoryDepartment department = _dataBase.Departments
                 .Include(department => department.Users)
                 .FirstOrDefault(dept => dept.Department.Equals(id));

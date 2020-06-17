@@ -1,5 +1,5 @@
 ﻿<div>
-    <div class="row justify-content-between mx-0 mb-2">
+    <div class="row justify-content-between mx-0 my-2">
         <h5>List of Users</h5>
         <div class="input-group input-group-sm col-3">
             <div class="input-group-prepend">
@@ -9,9 +9,14 @@
             </div>
             <input [(ngModel)]="filter"
                    (ngModelChange)="filterChange()"
-                   type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   type="text" class="form-control" placeholder="Username" aria-label="Username"
+                   aria-describedby="basic-addon1">
         </div>
-        <button class="btn btn-sm btn-primary ml-5" (click)="addNewClick()">Add new user</button>
+        <button class="btn btn-sm btn-primary ml-5"
+                (click)="addNewClick()"
+                [disabled]="loginApiService.loggedInUser === undefined || loginApiService.loggedInUser.admin === '0'">
+            Add new user
+        </button>
     </div>
     <table class="table table-striped table-sm">
         <thead>
@@ -27,20 +32,47 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let u of users">
-                <td>
-                    <a [routerLink]="['user', u.id]">{{u?.derogationUser}}</a>
-                </td>
-                <td>
-                    <span class="badge badge-danger" (click)="deleteUser(u.id)" style="cursor: default;" title="Delete">X</span>
-                </td>
-                <td><a [routerLink]="['/departments/department', u.department]">{{u?.department}}</a></td>
-                <td>{{u?.userMailBase}}</td>
-                <td><str-checkbox [id]="u.id + '_admin'" [strCheckedValue]="u.admin" [isDisabled]="true"></str-checkbox></td>
-                <td><str-checkbox [id]="u.id + '_canCreate'" [strCheckedValue]="u.canCreate" [isDisabled]="true"></str-checkbox></td>
-                <td><str-checkbox [id]="u.id + '_canApprove'" [strCheckedValue]="u.canApprove" [isDisabled]="true"></str-checkbox></td>
-                <td><str-checkbox [id]="u.id + '_inMail'" [strCheckedValue]="u.inMail" [isDisabled]="true"></str-checkbox></td>
-            </tr>
+        <tr *ngFor="let u of users">
+            <td>
+                <a *ngIf="loginApiService.loggedInUser !== null && loginApiService.loggedInUser.admin === '1'"
+                   [routerLink]="['user', u.id]">
+                    {{u?.derogationUser}}
+                </a>
+                <span *ngIf="loginApiService.loggedInUser !== null && loginApiService.loggedInUser.admin === '0'">
+                    {{u?.derogationUser}}
+                </span>
+            </td>
+            <td>
+                <span *ngIf="loginApiService.loggedInUser !== undefined && loginApiService.loggedInUser.admin === '1'"
+                      class="badge badge-danger" style="cursor: default;" 
+                      (click)="deleteUser(u.id)"
+                      title="Delete">X</span>
+            </td>
+            <td>
+                <a *ngIf="loginApiService.loggedInUser !== undefined && loginApiService.loggedInUser.admin === '1'"
+                    [routerLink]="['/departments/department', u.department]">
+                    {{u?.department}}
+                </a>
+                <span *ngIf="loginApiService.loggedInUser !== undefined && loginApiService.loggedInUser.admin === '0'">
+                    {{u?.department}}
+                </span>
+            </td>
+            <td>{{u?.userMailBase}}</td>
+            <td>
+                <str-checkbox [id]="u.id + '_admin'" [strCheckedValue]="u.admin" [isDisabled]="true"></str-checkbox>
+            </td>
+            <td>
+                <str-checkbox [id]="u.id + '_canCreate'" [strCheckedValue]="u.canCreate"
+                              [isDisabled]="true"></str-checkbox>
+            </td>
+            <td>
+                <str-checkbox [id]="u.id + '_canApprove'" [strCheckedValue]="u.canApprove"
+                              [isDisabled]="true"></str-checkbox>
+            </td>
+            <td>
+                <str-checkbox [id]="u.id + '_inMail'" [strCheckedValue]="u.inMail" [isDisabled]="true"></str-checkbox>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

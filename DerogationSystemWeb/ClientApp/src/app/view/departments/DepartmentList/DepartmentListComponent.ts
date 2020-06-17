@@ -1,9 +1,10 @@
-﻿import { Component, OnInit, OnChanges } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { DepartmentApiService } from "../../../controllers/DepartmentApiService";
 import { Department } from "../../../model/domain/Department";
 import { Router } from "@angular/router";
 import { HttpResponse } from "@angular/common/http";
 import { WebsocketService } from '../../../model/services/WebsocketService';
+import {LoginApiService} from "../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "DepartmentListComponent.html",
@@ -13,7 +14,9 @@ export class DepartmentListComponent implements OnInit {
 
     departments: Department[];
 
-    constructor(public departmentApiService: DepartmentApiService,
+    constructor(
+        public departmentApiService: DepartmentApiService,
+        public loginApiService: LoginApiService,
         private router: Router,
         private wsService: WebsocketService) {
 

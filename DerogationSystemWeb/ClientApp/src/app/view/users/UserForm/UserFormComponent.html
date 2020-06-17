@@ -1,23 +1,51 @@
 ﻿<div class="col-5">
     <div class="form-group">
-        <label>User:</label>
-        <input [(ngModel)]="user.derogationUser"
-               type="text" class="form-control" />
+        <label for="userName">User:</label>
+        <input type="text" class="form-control" id="userName"
+               [disabled]="disabled" ]
+               [(ngModel)]="user.derogationUser"/>
     </div>
 
     <label for="department_select">Department:</label>
     <select [(ngModel)]="user.department"
+            [disabled]="disabled"
             class="custom-select" id="department_select" required>
-        <option *ngFor="let dept of departmentApiService.departments" [ngValue]="dept.department">{{dept.department}}</option>>
+        <option *ngFor="let dept of departmentApiService.departments"
+                [ngValue]="dept.department">{{dept.department}}</option>
+        >
     </select>
 
     <div class="form-group">
-        <label>MailBase:</label>
-        <input type="text" [(ngModel)]="user.userMailBase" class="form-control" />
+        <label for="mailBase">MailBase:</label>
+        <input type="text" class="form-control" id="mailBase"
+               [(ngModel)]="user.userMailBase"
+               [disabled]="disabled"/>
     </div>
 
-    <str-checkbox [id]="'admin'" [(strCheckedValue)]="user.admin" [label]="'IsAdmin'"></str-checkbox>
-    <str-checkbox [id]="'canCreate'" [(strCheckedValue)]="user.canCreate" [label]="'CanCreate'"></str-checkbox>
-    <str-checkbox [id]="'canApprove'" [(strCheckedValue)]="user.canApprove" [label]="'CanApprove'"></str-checkbox>
-    <str-checkbox [id]="'inMail'" [(strCheckedValue)]="user.inMail" [label]="'InMail'"></str-checkbox>
+    <str-checkbox
+            [id]="'admin'"
+            [(strCheckedValue)]="user.admin"
+            [label]="'IsAdmin'"
+            [isDisabled]="disabled">
+    </str-checkbox>
+
+    <str-checkbox
+            [id]="'canCreate'"
+            [(strCheckedValue)]="user.canCreate"
+            [label]="'CanCreate'"
+            [isDisabled]="disabled">
+    </str-checkbox>
+
+    <str-checkbox
+            [id]="'canApprove'"
+            [(strCheckedValue)]="user.canApprove"
+            [label]="'CanApprove'"
+            [isDisabled]="disabled">
+    </str-checkbox>
+    <str-checkbox
+            [id]="'inMail'"
+            [(strCheckedValue)]="user.inMail"
+            [label]="'InMail'"
+            [isDisabled]="disabled">
+    </str-checkbox>
 </div>

@@ -4,9 +4,9 @@
     </div>
     <div class="tableRowCell" style="width: 15%">
         <str-checkbox
-            [id]="departmentReqModel.department.department + '_involved'"
-            [strCheckedValue]="departmentReqModel.department.mandatory"
-            [isDisabled]="true">
+                [id]="departmentReqModel.department.department + '_involved'"
+                [strCheckedValue]="departmentReqModel.department.mandatory"
+                [isDisabled]="true">
         </str-checkbox>
     </div>
     <div class="tableRowCell" style="width: 15%">
@@ -15,7 +15,9 @@
     <div class="tableRowCell" style="width: 15%">
         <span>
             <str-checkbox [id]="departmentReqModel.department.department + '_chosen'"
-                          [(strCheckedValue)]="departmentReqModel.chosen">
+                          [(strCheckedValue)]="departmentReqModel.chosen"
+                          [isDisabled]="loginApiService.loggedInUser === null 
+                          || loginApiService.loggedInUser.factoryDepartment.addDept === '0'">
             </str-checkbox>
         </span>
     </div>

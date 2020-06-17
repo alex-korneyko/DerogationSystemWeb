@@ -21,7 +21,10 @@ export class LoginApiService {
         this.getAuthUser();
     }
 
-    get loggedInUser(): User { return this.user; }
+    get loggedInUser(): User {
+        // console.log("--->>> User: ", this.user);
+        return this.user; 
+    }
     set setLoggedInUser(user: User) {
         this.user = user;
 

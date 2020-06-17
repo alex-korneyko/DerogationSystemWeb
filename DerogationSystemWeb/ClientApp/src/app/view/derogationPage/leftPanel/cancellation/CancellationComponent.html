@@ -1,8 +1,9 @@
 ﻿<div class="mt-2 panel panel-gray" style="padding: 3px">
-    <span class="badge badge-warning">Cancellation</span>
 
     <div class="form-group mb-0">
-        <textarea class="form-control p-1" style="font-size: small; resize: none" id="commentCancTextarea" rows="3" placeholder="Reason..."
+        <label class="badge badge-warning mb-0" for="commentCancTextarea">Cancellation</label>
+        <textarea class="form-control p-1" style="font-size: small; resize: none" id="commentCancTextarea" rows="3"
+                  placeholder="Reason..."
                   [ngClass]="{validateError:reasonValidateError}"
                   [(ngModel)]="cancReason"
                   [disabled]="disabled  && !cancellationIsAllowed()"
@@ -14,15 +15,18 @@
         <input class="form-check-input mr-0" type="radio" name="radioCancel" id="radioCancelRequest" value="cancelReq"
                [(ngModel)]="cancType"
                [disabled]="disabled">
-        <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioCancelRequest" title="Cancellation request">
+        <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioCancelRequest"
+               title="Cancellation request">
             Canc. request
         </label>
     </div>
     <div class="form-check form-check-inline mr-2">
-        <input class="form-check-input mr-0" type="radio" name="radioCancel" id="radioCancel" value="cancel" [checked]="cancellationIsAllowed()"
+        <input class="form-check-input mr-0" type="radio" name="radioCancel" id="radioCancel" value="cancel"
+               [checked]="cancellationIsAllowed()"
                [(ngModel)]="cancType"
                [disabled]="(disabled && !cancellationIsAllowed()) || !cancellationIsAllowed()">
-        <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioCancel" title="cancellation">Cancellation</label>
+        <label class="form-check-label" style="font-size: smaller; font-weight: bold" for="radioCancel"
+               title="cancellation">Cancellation</label>
     </div>
 
     <button class="btn btn-xsm btn-warning" style="width: 100%; font-weight: bold"

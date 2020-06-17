@@ -1,8 +1,15 @@
 ﻿<div>
     <h5>Add new user</h5>
-    <user-form [(user)]="user"></user-form>
+    <user-form 
+            [(user)]="user"
+            [disabled]="loginApiService.loggedInUser === undefined || loginApiService.loggedInUser.admin === '0'">
+    </user-form>
     <div class="form-group">
-        <input type="button" value="Save" (click)="save()" [disabled]="disabled()" class="btn btn-success mr-3" />
+        <button type="button" class="btn btn-success mr-3"
+                (click)="save()" 
+                [disabled]="disabled()">
+            Save
+        </button>
         <a routerLink="/users" class="btn btn-warning">Cancel</a>
     </div>
 </div>

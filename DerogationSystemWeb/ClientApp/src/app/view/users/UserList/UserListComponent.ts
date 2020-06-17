@@ -2,6 +2,7 @@
 import { Router } from "@angular/router";
 import { UserApiService } from "../../../controllers/UserApiService";
 import { User } from "../../../model/domain/User";
+import {LoginApiService} from "../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "UserListComponent.html"
@@ -13,7 +14,10 @@ export class UserListComponent implements OnInit{
     usersTotalList = new Array<User>();
     @Input() filter: string;
 
-    constructor(private apiService: UserApiService, private router: Router) { }
+    constructor(
+        private apiService: UserApiService,
+        public loginApiService: LoginApiService,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.apiService.getUsers().subscribe((data: User[]) => {

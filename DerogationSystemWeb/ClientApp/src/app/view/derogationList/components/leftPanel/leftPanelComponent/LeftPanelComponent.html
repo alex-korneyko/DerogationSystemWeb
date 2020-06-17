@@ -1,6 +1,10 @@
 ﻿<div style="width: 250px; background-color: lightgray; padding: 10px; border-right: 2px solid gray; height: calc(100vh - 40px)">
-    <a class="btn btn-sm btn-primary" style="width: 100%; font-weight: 800" routerLink="/derogations/new">New Derogation</a>
-    <hr class="m-2" />
+    <a class="btn btn-sm btn-primary" style="width: 100%; font-weight: 800" routerLink="/derogations/new"
+       [ngClass]="{
+            'disabled': loginApiService.loggedInUser === undefined 
+            || (loginApiService.loggedInUser.canCreate === '0' && loginApiService.loggedInUser.admin !== '1')}"
+    >New Derogation</a>
+    <hr class="m-2"/>
 
     <show-last-count></show-last-count>
 

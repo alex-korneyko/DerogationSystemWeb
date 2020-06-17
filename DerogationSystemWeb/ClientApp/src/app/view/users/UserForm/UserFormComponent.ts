@@ -10,6 +10,9 @@ export class UserFormComponent implements OnInit {
 
     @Input()
     user: User;
+    
+    @Input()
+    disabled = false;
 
     departments: string[];
 

@@ -8,4 +8,7 @@ import { Department } from '../../../model/domain/Department'
 export class DepartmentFormComponent {
     @Input()
     department: Department;
+    
+    @Input()
+    disabled = false;
 }

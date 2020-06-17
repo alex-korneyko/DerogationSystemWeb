@@ -34,6 +34,10 @@ export class DerogationDocRowComponent {
     }
     
     getMimeType() {
+        if (this.derogationDoc.fileType === null) {
+            return "application";
+        }
+        
         let split = this.derogationDoc.fileType.split("/");
         if (split.length > 1) {
             return split[0];

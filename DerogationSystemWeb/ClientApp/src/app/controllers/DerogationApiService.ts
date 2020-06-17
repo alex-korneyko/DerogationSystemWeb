@@ -52,7 +52,6 @@ export class DerogationApiService {
                 let notApprovedDerogations = new Array<number>()
                 this.derogationList.forEach(derogation => {
                     if (derogation.approved === "0") {
-                        // this.getDerogation(derogation.derogationId, false, true);
                         notApprovedDerogations.push(derogation.derogationId);
                     }
                 });
@@ -83,7 +82,7 @@ export class DerogationApiService {
                 if (setAsCurrent) {
                     this.currentDerogation = data;
                 }
-                let index = this.getIndex(this.derogationList, data);
+                let index = this.derogationList.findIndex(dergInList => dergInList.derogationId === data.derogationId);
                 if (replaceInList && index !== -1) {
                     this.derogationList.splice(index, 1, data);
                 }
@@ -159,16 +158,5 @@ export class DerogationApiService {
             this.newDerogation = new DerogationHeader();
             this.router.navigateByUrl("/derogations");
         });
-    }
-
-    private getIndex(derogationList: Array<DerogationHeader>, derogation: DerogationHeader): number {
-
-        for (let i = 0; i < derogationList.length; i++) {
-            if (derogationList[i].derogationId === derogation.derogationId) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 }

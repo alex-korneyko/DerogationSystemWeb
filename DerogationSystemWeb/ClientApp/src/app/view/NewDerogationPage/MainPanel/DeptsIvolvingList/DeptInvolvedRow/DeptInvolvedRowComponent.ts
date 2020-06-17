@@ -1,5 +1,6 @@
 ﻿import { Component, Input } from "@angular/core";
 import { DerogationInvolvedRequestModel } from "../../../../../model/requestModel/DerogationInvolvedRequestModel";
+import {LoginApiService} from "../../../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "DeptInvolvedRowComponent.html",
@@ -10,4 +11,6 @@ export class DeptInvolvedRowComponent {
 
     @Input() departmentReqModel: DerogationInvolvedRequestModel;
 
+    constructor(public loginApiService: LoginApiService) {
+    }
 }

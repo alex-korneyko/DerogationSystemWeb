@@ -1,12 +1,12 @@
-﻿import { Component, Inject, OnDestroy, OnInit, Input } from "@angular/core";
-import { DerogationApiService } from "../../../../controllers/DerogationApiService";
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Router} from "@angular/router";
-import { DOCUMENT } from "@angular/common";
+﻿import {Component, Inject, Input, OnDestroy} from "@angular/core";
+import {DerogationApiService} from "../../../../controllers/DerogationApiService";
+import {HttpClient, HttpEventType} from '@angular/common/http';
+import {Router} from "@angular/router";
+import {DOCUMENT} from "@angular/common";
 
-import { fromEvent, Subject } from "rxjs";
-import { mergeMap, finalize, takeUntil, first } from 'rxjs/operators';
-import { DerogationHeader } from "../../../../model/domain/DerogationHeader";
+import {fromEvent, Subject} from "rxjs";
+import {finalize, first, mergeMap, takeUntil} from 'rxjs/operators';
+import {DerogationHeader} from "../../../../model/domain/DerogationHeader";
 import {FileApiService} from "../../../../controllers/FileApiService";
 import {DerogationDoc} from "../../../../model/domain/DerogationDoc";
 
@@ -31,7 +31,6 @@ export class DerogationDocsListComponent implements OnDestroy {
     ) {
         if (this.router.url === "/derogations/new") {
             this.derogation = this.derogationApiService.newDerogation;
-            console.log("NEW derogation");
         }
     }
 
@@ -69,7 +68,6 @@ export class DerogationDocsListComponent implements OnDestroy {
                     break;
                 case HttpEventType.Response:
                     console.log('Done!', event.body);
-                    // this.derogation.derogationDocs.push(...(event.body as DerogationHeader).derogationDocs);
                     this.addOrReplaceDergDocs(...(event.body as DerogationHeader).derogationDocs);
                     console.log(this.derogation);
                 }

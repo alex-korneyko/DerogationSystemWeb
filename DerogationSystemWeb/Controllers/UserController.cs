@@ -23,7 +23,7 @@ namespace DerogationSystemWeb.Controllers
         [HttpGet]
         public IEnumerable<User> GetAll()
         {
-            List<User> users = _dataBase.Users.Include(u => u.FactoryDepartment).ToList();
+            var users = _dataBase.Users.Include(u => u.FactoryDepartment).ToList();
 
             return users;
         }
@@ -31,7 +31,7 @@ namespace DerogationSystemWeb.Controllers
         [HttpGet("{id}")]
         public User GetUser(long id)
         {
-            User user = _dataBase.Users.Include(u => u.FactoryDepartment).FirstOrDefault(usr => usr.Id == id);
+            var user = _dataBase.Users.Include(u => u.FactoryDepartment).FirstOrDefault(usr => usr.Id == id);
 
             return user;
         }
@@ -39,6 +39,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost]
         public IActionResult AddUser(User user)
         {
+            var authUser = _dataBase.Users.FirstOrDefault(usr => usr.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -51,10 +57,16 @@ namespace DerogationSystemWeb.Controllers
         [HttpPut]
         public IActionResult UpdateUser(User user)
         {
+            var authUser = _dataBase.Users.FirstOrDefault(usr => usr.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+            
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            FactoryDepartment department = _dataBase.Departments.FirstOrDefault(dept => dept.Department.Equals(user.Department));
+            var department = _dataBase.Departments.FirstOrDefault(dept => dept.Department.Equals(user.Department));
             if (department != null)
             {
                 user.FactoryDepartment = department;
@@ -73,7 +85,13 @@ namespace DerogationSystemWeb.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(long id)
         {
-            User user = _dataBase.Users.FirstOrDefault(usr => usr.Id == id);
+            var authUser = _dataBase.Users.FirstOrDefault(usr => usr.DerogationUser == User.Identity.Name);
+            if (authUser == null || authUser.Admin == '0')
+            {
+                return BadRequest(new {message = "Forbidden"});
+            }
+            
+            var user = _dataBase.Users.FirstOrDefault(usr => usr.Id == id);
             if (user == null) return Ok();
 
             _dataBase.Users.Remove(user);

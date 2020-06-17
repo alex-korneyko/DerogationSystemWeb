@@ -3,13 +3,15 @@
     <div class="row">
         <div class="col-6  pr-1">
             <label class="form-label-xsm" for="timeSec">Time sec.</label>
-            <input type="number" class="form-control form-control-xsm" id="timeSec"
+            <input type="number" class="form-control form-control-xsm" id="timeSec" min="0"
+                   [disabled]="loginApiService.loggedInUser === null || loginApiService.loggedInUser.factoryDepartment.ltimeAccess === '0'"
                    [(ngModel)]="ltime"
                    [ngClass]="{formDataChanged:derogationApiService.currentDerogation.ltime !== ltime}">
         </div>
         <div class="col-6  pl-1">
             <label class="form-label-xsm" for="slt">SLT</label>
-            <input type="number" class="form-control form-control-xsm" id="slt"
+            <input type="number" class="form-control form-control-xsm" id="slt" min="0"
+                   [disabled]="loginApiService.loggedInUser === null || loginApiService.loggedInUser.factoryDepartment.ltimeAccess === '0'"
                    [(ngModel)]="slt"
                    [ngClass]="{formDataChanged:derogationApiService.currentDerogation.slt !== slt}">
         </div>
@@ -17,13 +19,15 @@
     <div class="row mt-1">
         <div class="col-6  pr-1">
             <label class="form-label-xsm" for="derCostP">Der Cost. P</label>
-            <input type="number" class="form-control form-control-xsm" id="derCostP"
+            <input type="number" class="form-control form-control-xsm" id="derCostP" min="0"
+                   [disabled]="loginApiService.loggedInUser === null || loginApiService.loggedInUser.factoryDepartment.dCostAccess === '0'"
                    [(ngModel)]="dcostP"
                    [ngClass]="{formDataChanged:derogationApiService.currentDerogation.dcostP !== dcostP}">
         </div>
         <div class="col-6  pl-1">
             <label class="form-label-xsm" for="derCostF">Der Cost. F</label>
-            <input type="number" class="form-control form-control-xsm" id="derCostF"
+            <input type="number" class="form-control form-control-xsm" id="derCostF" min="0"
+                   [disabled]="loginApiService.loggedInUser === null || loginApiService.loggedInUser.factoryDepartment.dCostAccess === '0'"
                    [(ngModel)]="dcostF"
                    [ngClass]="{formDataChanged:derogationApiService.currentDerogation.dcostF !== dcostF}">
         </div>
@@ -31,12 +35,14 @@
     <div class="row  mt-1">
         <div class="col pr-1">
             <button class="btn btn-xsm btn-info" style="font-weight: bold; width: 100%"
+                    [disabled]="loginApiService.loggedInUser === undefined || loginApiService.loggedInUser.factoryDepartment.dCostAccess === '0'"
                     (click)="setValues()">
                 Set values
             </button>
         </div>
         <div class="col pl-1">
             <button class="btn btn-xsm btn-secondary" style="font-weight: bold; width: 100%"
+                    [disabled]="loginApiService.loggedInUser === undefined || loginApiService.loggedInUser.factoryDepartment.dCostAccess === '0'"
                     (click)="resetForm()">
                 Reset form
             </button>

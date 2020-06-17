@@ -2,6 +2,7 @@
 import { Department } from "../../../model/domain/Department";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DepartmentApiService } from "../../../controllers/DepartmentApiService";
+import {LoginApiService} from "../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "DepartmentEdtComponent.html",
@@ -14,7 +15,10 @@ export class DepartmentEdtComponent implements OnInit {
     department: Department;
     loaded: boolean = false;
 
-    constructor(private apiService: DepartmentApiService, activeRoute: ActivatedRoute, private  router: Router) {
+    constructor(private apiService: DepartmentApiService,
+                public loginApiService: LoginApiService,
+                activeRoute: ActivatedRoute, 
+                private  router: Router) {
         this.id = activeRoute.snapshot.params["id"];
     }
 
@@ -34,7 +38,7 @@ export class DepartmentEdtComponent implements OnInit {
     }
 
     disabled() {
-        return this.department.department === undefined || this.department.department === "";
+        return this.department.department === undefined || this.department.department === "" || this.loginApiService.loggedInUser.admin === "0";
     }
 
 

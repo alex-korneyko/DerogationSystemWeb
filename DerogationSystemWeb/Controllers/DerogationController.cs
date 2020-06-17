@@ -67,6 +67,11 @@ namespace DerogationSystemWeb.Controllers
         public IActionResult ApproveDerogation(long id, ApprovalRequestModel requestModel)
         {
             var authUser = _userService.GetUserByName(this.User.Identity.Name);
+            if (authUser != null && authUser.CanApprove == '0')
+            {
+                return BadRequest(new {message = "Action is not allowed!"});
+            }
+            
             var derogation = _derogationService.GetDerogation(id);
             if (authUser == null || derogation == null)
                 return BadRequest();
@@ -84,6 +89,11 @@ namespace DerogationSystemWeb.Controllers
         public IActionResult CancellationRequest(long id, Dictionary<string, object> reason)
         {
             var authUser = _userService.GetUserByName(this.User.Identity.Name);
+            if (authUser != null && authUser.CanApprove == '0')
+            {
+                return BadRequest(new {message = "Action is not allowed"});
+            }
+            
             var derogation = _derogationService.GetDerogation(id);
             if (authUser == null || derogation == null)
                 return BadRequest();
@@ -107,7 +117,7 @@ namespace DerogationSystemWeb.Controllers
 
             if (derogation.Owner != authUser.DerogationUser)
             {
-                return BadRequest();
+                return BadRequest(new {message = "Action is not allowed!"});
             }
 
             _derogationService.Cancellation(derogation, reason["reason"]);
@@ -118,12 +128,21 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost("setEngFi/{id}")]
         public IActionResult SetEngFi(long id, Dictionary<string, object> request)
         {
+            var authUser = _userService.GetUserByName(User.Identity.Name);
             var derogation = _derogationService.GetDerogation(id);
 
-            derogation.Ltime = int.Parse(request["ltime"].ToString() ?? "0");
-            derogation.SLT = decimal.Parse(request["slt"].ToString() ?? "0");
-            derogation.DcostP = decimal.Parse(request["dcostP"].ToString() ?? "0");
-            derogation.DcostF = decimal.Parse(request["dcostF"].ToString() ?? "0");
+            if (authUser != null && authUser.FactoryDepartment.LtimeAccess == '1')
+            {
+                derogation.Ltime = int.Parse(request["ltime"].ToString() ?? "0");
+                derogation.SLT = decimal.Parse(request["slt"].ToString() ?? "0");
+            }
+
+
+            if (authUser != null && authUser.FactoryDepartment.DCostAccess == '1')
+            {
+                derogation.DcostP = decimal.Parse(request["dcostP"].ToString() ?? "0");
+                derogation.DcostF = decimal.Parse(request["dcostF"].ToString() ?? "0");
+            }
 
             _database.SaveChanges();
 
@@ -133,6 +152,12 @@ namespace DerogationSystemWeb.Controllers
         [HttpPost("new")]
         public IActionResult NewDerogation(DerogationHeader derogation)
         {
+            var authUser = _userService.GetUserByName(User.Identity.Name);
+            if (authUser != null && authUser.CanCreate == '0')
+            {
+                return BadRequest(new {message = "Action is not allowed"});
+            }
+
             derogation.CreatedDate = DateTime.Now;
 
             derogation.DerogationItems.ForEach(dergItem =>

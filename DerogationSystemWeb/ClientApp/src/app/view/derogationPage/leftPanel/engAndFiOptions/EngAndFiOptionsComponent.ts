@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { DerogationApiService } from "../../../../controllers/DerogationApiService";
+import {LoginApiService} from "../../../../controllers/LoginApiService";
 
 @Component({
     templateUrl: "EngAndFiOptionsComponent.html",
@@ -13,7 +14,7 @@ export class EngAndFiOptionsComponent implements OnInit{
     public dcostP?: number;
     public dcostF?: number;
 
-    constructor(public derogationApiService: DerogationApiService) {}
+    constructor(public derogationApiService: DerogationApiService, public loginApiService: LoginApiService) {}
 
     ngOnInit(): void {
         this.ltime = this.derogationApiService.currentDerogation.ltime;
