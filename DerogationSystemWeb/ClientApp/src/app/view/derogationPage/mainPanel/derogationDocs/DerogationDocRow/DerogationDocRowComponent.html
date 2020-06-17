@@ -1,6 +1,11 @@
 ﻿<div class="tableRow">
     <div class="tableRowCell" style="width: 35%">
-        <a title="{{getDocName()}}" href="/api/files/file/{{derogationDoc.id}}" target="_blank" [download]="getDocName()">
+        <a *ngIf="getMimeType() !== 'image'"
+                title="{{getDocName()}}" href="/api/files/file/{{derogationDoc.id}}" target="_blank" [download]="getDocName()">
+            {{getDocName()}}
+        </a>
+        <a *ngIf="getMimeType() === 'image'"
+           title="{{getDocName()}}" href="/api/files/file/{{derogationDoc.id}}" target="_blank">
             {{getDocName()}}
         </a>
     </div>

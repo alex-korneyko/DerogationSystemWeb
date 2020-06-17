@@ -8,6 +8,7 @@ import { fromEvent, Subject } from "rxjs";
 import { mergeMap, finalize, takeUntil, first } from 'rxjs/operators';
 import { DerogationHeader } from "../../../../model/domain/DerogationHeader";
 import {FileApiService} from "../../../../controllers/FileApiService";
+import {DerogationDoc} from "../../../../model/domain/DerogationDoc";
 
 @Component({
     templateUrl: "DerogationDocsListComponent.html",
@@ -68,7 +69,8 @@ export class DerogationDocsListComponent implements OnDestroy {
                     break;
                 case HttpEventType.Response:
                     console.log('Done!', event.body);
-                    this.derogation.derogationDocs.push(...(event.body as DerogationHeader).derogationDocs);
+                    // this.derogation.derogationDocs.push(...(event.body as DerogationHeader).derogationDocs);
+                    this.addOrReplaceDergDocs(...(event.body as DerogationHeader).derogationDocs);
                     console.log(this.derogation);
                 }
             },
@@ -83,5 +85,16 @@ export class DerogationDocsListComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
+    }
+    
+    private addOrReplaceDergDocs(...derogationDocs: DerogationDoc[]): void {
+        derogationDocs.forEach(dergDoc => {
+            let index = this.derogation.derogationDocs.findIndex(curDergDoc => curDergDoc.id === dergDoc.id);
+            if (index === -1) {
+                this.derogation.derogationDocs.push(dergDoc);
+            } else {
+                this.derogation.derogationDocs.splice(index, 1, dergDoc);
+            }
+        })
     }
 }

@@ -57,9 +57,9 @@ export class DerogationApiService {
             });
     }
 
-    getDerogation(id: number, setAsCurrent: boolean, replaceInList: boolean) {
+    async getDerogation(id: number, setAsCurrent: boolean, replaceInList: boolean) {
         this.currentDerogationIsLoaded = false;
-        this.http.get(this.apiUrl + "/getOne/" + id)
+        await this.http.get(this.apiUrl + "/getOne/" + id)
             .subscribe((data: DerogationHeader) => {
                 if (setAsCurrent) {
                     this.currentDerogation = data;
