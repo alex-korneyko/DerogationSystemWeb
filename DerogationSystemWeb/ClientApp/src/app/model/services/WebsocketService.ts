@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class WebsocketService {
 
-    private hubConnection = new signalR.HubConnectionBuilder().withUrl("http://localhost:8080/interactive").build();
+    private hubConnection = new signalR.HubConnectionBuilder().withUrl("/interactive").build();
 
     get isConnected(): boolean {
         return this.hubConnection.state === signalR.HubConnectionState.Connected;

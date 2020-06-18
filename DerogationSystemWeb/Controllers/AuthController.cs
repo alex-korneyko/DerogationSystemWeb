@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DerogationSystemWeb.Controllers
@@ -21,10 +22,12 @@ namespace DerogationSystemWeb.Controllers
     [Route("api/auth")]
     public class AuthController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly ApplicationContext _context;
 
-        public AuthController(ApplicationContext context)
+        public AuthController(IConfiguration configuration, ApplicationContext context)
         {
+            _configuration = configuration;
             _context = context;
         }
 
@@ -81,12 +84,15 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest(new {error = "Username or password incorrect"});
             }
 
-            var checkLdapResult = 
-                AuxiliaryUtils.CheckLdapUser("TPVAOC", userFromDb.DerogationUser, requestModel.Password);
-
-            if (!checkLdapResult)
+            if (bool.Parse(_configuration["LDAP:UseLDAP"]))
             {
-                return BadRequest(new {message = "LDAP check error"});
+                var checkLdapResult = 
+                    AuxiliaryUtils.CheckLdapUser(_configuration["LDAP:DomainName"], userFromDb.DerogationUser, requestModel.Password);
+
+                if (!checkLdapResult)
+                {
+                    return BadRequest(new {message = "LDAP check error"});
+                }
             }
 
             return Ok(GenerateToken(userFromDb));

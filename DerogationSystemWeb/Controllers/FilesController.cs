@@ -16,7 +16,7 @@ namespace DerogationSystemWeb.Controllers
     [Route("api/files")]
     public class FilesController: Controller
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         private readonly ApplicationContext _db;
         private readonly DerogationService _derogationService;
 
@@ -100,7 +100,7 @@ namespace DerogationSystemWeb.Controllers
         public async Task<IActionResult> GetFile(long fileId)
         {
             var dergDoc = await _db.DerogationDocs.FirstOrDefaultAsync(dd => dd.Id == fileId);
-            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName);
+            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName.Trim());
 
             var fileInfo = new FileInfo(path);
 
@@ -117,7 +117,7 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest(new {message = "File not found"});
             }
 
-            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName);
+            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName.Trim());
 
             var fileInfo = new FileInfo(path);
             fileInfo.Delete();
