@@ -9,26 +9,25 @@ namespace DerogationSystemWeb.Model.Services
         {
             bool success;
 
-            using (DirectoryEntry adsEntry = new DirectoryEntry("LDAP://" + domainName, username, password))
+            using var adsEntry = new DirectoryEntry("LDAP://" + domainName, username, password);
+            using var adsSearcher = new DirectorySearcher(adsEntry)
             {
-                using (DirectorySearcher adsSearcher = new DirectorySearcher(adsEntry))
-                {
-                    adsSearcher.Filter = "(sAMAccountName=" + username + ")";
+                Filter = "(sAMAccountName=" + username + ")"
+            };
 
-                    try
-                    {
-                        SearchResult adsSearchResult = adsSearcher.FindOne();
-                        success = true;
-                    }
-                    catch
-                    {
-                        success = false;
-                    }
-                    finally
-                    {
-                        adsEntry.Close();
-                    }
-                }
+            try
+            {
+                adsSearcher.FindOne();
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                success = false;
+            }
+            finally
+            {
+                adsEntry.Close();
             }
 
             return success;

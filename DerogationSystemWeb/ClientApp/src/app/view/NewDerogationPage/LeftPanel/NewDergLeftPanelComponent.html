@@ -25,9 +25,13 @@
         <span class="badge badge-primary" style="font-weight: 600; font-size: small">Item description:</span>
         <div class="form-group mb-0">
             <textarea class="form-control p-1" rows="2" placeholder="Reason..."
-                      [(ngModel)]="derogationApiService.newItemForDerogation.reason"></textarea>
+                      [ngClass]="{validateError: derogationApiService.validateErrors.itemReason}"
+                      [(ngModel)]="derogationApiService.newItemForDerogation.reason">
+            </textarea>
             <textarea class="form-control p-1 mt-1" rows="2" placeholder="Action..."
-                      [(ngModel)]="derogationApiService.newItemForDerogation.action"></textarea>
+                      [ngClass]="{validateError: derogationApiService.validateErrors.itemAction}"
+                      [(ngModel)]="derogationApiService.newItemForDerogation.action">
+            </textarea>
         </div>
 
         <div class="mt-2 form-inline">

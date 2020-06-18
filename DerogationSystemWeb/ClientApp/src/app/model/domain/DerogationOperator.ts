@@ -5,7 +5,7 @@ export class DerogationOperator {
         public id?: number,
         public derogationId?: number,
         public stationName?: string,
-        public hc?: number,
+        public hc = 1,
         public derogationUser?: string,
         public insertedDate?: Date,
         public isNew = false

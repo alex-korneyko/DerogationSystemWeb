@@ -12,6 +12,8 @@ import { DerogationApiService } from "../../../controllers/DerogationApiService"
 })
 export class NewDergLeftPanelComponent implements OnInit{
 
+    itemsCountError = false;
+    
     constructor(
         public derogationApiService: DerogationApiService,
         public materialsApiService: MaterialsApiService,
@@ -23,6 +25,33 @@ export class NewDergLeftPanelComponent implements OnInit{
     }
 
     addDerogationItemClick() {
+        let errors = false;
+        
+        if (this.workOrderApiService.selectedWorkOrder == null 
+            || this.workOrderApiService.selectedWorkOrder.orderNo == null 
+            || this.workOrderApiService.selectedWorkOrder.orderNo === "") {
+            
+            errors = true;
+            this.derogationApiService.validateErrors.workOrderValue = true;
+            setTimeout(() => this.derogationApiService.validateErrors.workOrderValue = false, 1000);
+        }
+        
+        if (this.derogationApiService.newItemForDerogation.reason === "") {
+            console.log("Reason error!")
+            errors = true;
+            this.derogationApiService.validateErrors.itemReason = true;
+            setTimeout(() => this.derogationApiService.validateErrors.itemReason = false, 1000);
+        }
+
+        if (this.derogationApiService.newItemForDerogation.action === "") {
+            console.log("Action error!")
+            errors = true;
+            this.derogationApiService.validateErrors.itemAction = true;
+            setTimeout(() => this.derogationApiService.validateErrors.itemAction = false, 1000);
+        }
+        
+        if (errors) return;
+        
         this.derogationApiService.newItemForDerogation.workOrder = this.workOrderApiService.selectedWorkOrder.orderNo;
         this.derogationApiService.newItemForDerogation.modelName = this.workOrderApiService.selectedWorkOrder.skdPartNo;
         this.derogationApiService.newItemForDerogation.productCode =
@@ -56,6 +85,12 @@ export class NewDergLeftPanelComponent implements OnInit{
     }
 
     releaseNewDergClick() {
+        if (this.derogationApiService.newDerogation.derogationItems.length === 0) {
+            this.derogationApiService.validateErrors.derogationItemsCount = true;
+            setTimeout(() => this.derogationApiService.validateErrors.derogationItemsCount = false, 1000);
+            return;
+        }
+        
         this.derogationApiService.sendNewDerogation();
     }
 }

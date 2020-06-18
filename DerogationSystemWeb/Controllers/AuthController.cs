@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
+using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -78,6 +79,14 @@ namespace DerogationSystemWeb.Controllers
             if (userFromDb == null)
             {
                 return BadRequest(new {error = "Username or password incorrect"});
+            }
+
+            var checkLdapResult = 
+                AuxiliaryUtils.CheckLdapUser("TPVAOC", userFromDb.DerogationUser, requestModel.Password);
+
+            if (!checkLdapResult)
+            {
+                return BadRequest(new {message = "LDAP check error"});
             }
 
             return Ok(GenerateToken(userFromDb));

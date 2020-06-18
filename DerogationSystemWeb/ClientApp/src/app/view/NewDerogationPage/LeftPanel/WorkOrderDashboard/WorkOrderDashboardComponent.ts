@@ -1,5 +1,6 @@
 ﻿import { Component } from "@angular/core";
 import { WorkOrderApiService } from "../../../../controllers/WorkOrderApiService";
+import {DerogationApiService} from "../../../../controllers/DerogationApiService";
 
 @Component({
     templateUrl: "WorkOrderDashboardComponent.html",
@@ -8,5 +9,5 @@ import { WorkOrderApiService } from "../../../../controllers/WorkOrderApiService
 })
 export class WorkOrderDashboardComponent {
 
-    constructor(public workOrderApiService: WorkOrderApiService) {}
+    constructor(public workOrderApiService: WorkOrderApiService, public derogationApiService: DerogationApiService) {}
 }

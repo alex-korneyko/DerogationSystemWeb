@@ -28,6 +28,15 @@ export class DerogationApiService {
     newDerogation: DerogationHeader;
     newItemForDerogation: DerogationItem;
     itemsListForNewDerogation = new Array<DerogationItem>();
+    
+    validateErrors = {
+        derogationItemsCount: false,
+        workOrderValue: false,
+        itemReason: false,
+        itemAction: false,
+        engOperatorBoxStation: false,
+        engOperatorBoxHc: false
+    }
 
     private apiUrl = "/api/derogations";
 

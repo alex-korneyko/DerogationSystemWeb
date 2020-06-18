@@ -1,5 +1,5 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-top: 0; padding-bottom: 0">
-    <a class="navbar-brand" routerLink="/">Derogation system<span style="font-size: medium; color: red"> .alpha-3</span></a>
+    <a class="navbar-brand" routerLink="/">Derogation system<span style="font-size: medium; color: red"> .alpha-4</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,7 +10,7 @@
                 <a class="nav-link" routerLink="/derogations">Derogations</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="settingsDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dictionaries</a>
+                <a class="nav-link dropdown-toggle" href="" id="settingsDrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalogs</a>
                 <div>
                     <div class="dropdown-menu" aria-labelledby="settingsDrop">
                         <a class="dropdown-item" routerLink="/departments">Departments</a>
@@ -19,10 +19,10 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link">Settings</a>
+                <a class="nav-link disabled">Settings</a>
             </li>
             <li>
-                <a class="nav-link">About</a>
+                <a class="nav-link disabled">About</a>
             </li>
         </ul>
         <div *ngIf="loginApiService.loggedInUser == null" class="form-inline my-2 my-lg-0">

@@ -1,4 +1,6 @@
-﻿<div class="panel panel-gray" style="padding: 3px">
+﻿<div class="panel panel-gray" style="padding: 3px"
+        [ngClass]="{validateError: derogationApiService.validateErrors.workOrderValue}">
+    
     <span class="badge badge-info">Work-order</span>
 
     <div class="input-group input-group-xsm mt-1">

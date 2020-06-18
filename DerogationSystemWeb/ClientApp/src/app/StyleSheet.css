@@ -12,8 +12,29 @@ textarea {
 }
 
 .validateError {
-    border: red solid 1px;
-    background-color: lightcoral
+    /*border: red solid 1px;*/
+    /*background-color: lightcoral;*/
+    /*transition: 1s;*/
+    animation: validateErrorFrames 1s;
+}
+
+@keyframes validateErrorFrames {
+    25% {
+        border: red solid 1px;
+        background-color: lightcoral;
+    }
+    50% {
+        /*border: inherit;*/
+        background-color: inherit;
+    }
+    75% {
+        border: red solid 1px;
+        background-color: lightcoral;
+    }
+    100% {
+        /*border: inherit;*/
+        background-color: inherit;
+    }
 }
 
 .formDataChanged {

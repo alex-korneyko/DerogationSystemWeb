@@ -15,6 +15,22 @@ export class EngOperatorBoxComponent {
     constructor(public derogationApiService: DerogationApiService, public loginApiService: LoginApiService) { }
 
     addOperatorBoxItem() {
+        let error = false;
+        
+        if (this.operatorBoxItem.stationName == null || this.operatorBoxItem .stationName == "") {
+            this.derogationApiService.validateErrors.engOperatorBoxStation = true;
+            setTimeout(() => this.derogationApiService.validateErrors.engOperatorBoxStation = false, 1000);
+            error = true
+        }
+        
+        if (this.operatorBoxItem.hc < 1) {
+            this.derogationApiService.validateErrors.engOperatorBoxHc = true;
+            setTimeout(() => this.derogationApiService.validateErrors.engOperatorBoxHc = false, 1000);
+            error = true;
+        }
+        
+        if (error) return;
+        
         this.operatorBoxItem.isNew = true;
         this.operatorBoxItem.derogationId = this.derogationApiService.currentDerogation.derogationId;
         this.operatorBoxItem.derogationUser = this.loginApiService.loggedInUser.derogationUser;
