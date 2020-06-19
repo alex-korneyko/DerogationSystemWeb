@@ -30,7 +30,7 @@ export class DerogationDocRowComponent {
             return result.endsWith(".") ? result.slice(0, result.length - 1) : result;
         }
 
-        return this.derogationDoc.docName;
+        return this.derogationDoc.docName.trimRight();
     }
     
     getMimeType() {

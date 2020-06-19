@@ -27,12 +27,6 @@ namespace DerogationSystemWeb.Controllers
             _derogationService = derogationService;
         }
 
-        [HttpPost("upload")]
-        public IActionResult AddFile(IFormFile uploadFile)
-        {
-            return Ok();
-        }
-
         [HttpPost("upload/{derogationId}")]
         public async Task<IActionResult> AddFileForDerogation(long derogationId, IFormFile uploadFile)
         {
