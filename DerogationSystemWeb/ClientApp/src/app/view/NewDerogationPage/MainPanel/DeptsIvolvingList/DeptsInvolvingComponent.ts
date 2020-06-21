@@ -12,6 +12,6 @@ export class DeptsInvolvingComponent implements OnInit {
     constructor(public departmentApiService: DepartmentApiService, public loginApiService: LoginApiService) {}
 
     ngOnInit(): void {
-        this.departmentApiService.getDepartments();
+        this.departmentApiService.loadDepartments();
     }
 }

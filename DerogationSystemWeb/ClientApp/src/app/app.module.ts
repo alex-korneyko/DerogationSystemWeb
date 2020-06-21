@@ -80,7 +80,6 @@ import { DerogationDocRowComponent } from
     "./view/derogationPage/mainPanel/derogationDocs/DerogationDocRow/DerogationDocRowComponent";
 import { FileApiService } from "./controllers/FileApiService";
 
-
 const appRoutes: Routes = [
     { path: "", component: IndexPageComponent },
     { path: "static/accessDenied", component: AccessDeniedComponent},
@@ -115,7 +114,8 @@ const appRoutes: Routes = [
 })
 export class AppModule {
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, derogationApiService: DerogationApiService, departmentApiService: DepartmentApiService) {
+        
         setInterval(() => http.get("/api/auth/refreshToken").subscribe(data => {
             sessionStorage.setItem("accessToken", data["token"]);
         }), 1800000);

@@ -8,6 +8,7 @@ import { LoginApiService } from "./LoginApiService";
 import { DepartmentApiService } from "./DepartmentApiService";
 import { DerogationDepartment } from "../model/domain/DerogationDepartment";
 import { Router } from "@angular/router";
+import {WebsocketService} from "../model/services/WebsocketService";
 
 @Injectable()
 export class DerogationApiService {
@@ -40,11 +41,32 @@ export class DerogationApiService {
 
     private apiUrl = "/api/derogations";
 
-    constructor(private http: HttpClient, private loginApiService: LoginApiService, private departmentApiService: DepartmentApiService, private router: Router) {
+    constructor(
+        private http: HttpClient, 
+        private loginApiService: LoginApiService, 
+        private departmentApiService: DepartmentApiService, 
+        private router: Router,
+        private wsService: WebsocketService
+    ) {
         this.derogationRequestModel = new DerogationRequestModel();
         this.approvalRequestModel = new ApprovalRequestModel();
         this.newDerogation = new DerogationHeader();
         this.newItemForDerogation = new DerogationItem();
+
+        wsService.addHandler<DerogationHeader>("derogation", ((payload, actionType) => {
+            
+            let index = this.derogationList.findIndex(derg => derg.derogationId === payload.derogationId);
+
+            if (index > -1) {
+                this.derogationList.splice(index, 1, payload);
+            } else {
+                this.derogationList.push(payload);
+            }
+
+            if (this.currentDerogation !== null && this.currentDerogation.derogationId === payload.derogationId) {
+                this.currentDerogation = payload;
+            }
+        }))
     }
 
     async getDerogationList() {
@@ -115,6 +137,7 @@ export class DerogationApiService {
         this.http.post(this.apiUrl + "/approveDerogation/" + this.currentDerogation.derogationId, this.approvalRequestModel)
             .subscribe((data: DerogationHeader) => {
                 this.currentDerogation = data;
+                this.approvalRequestModel = new ApprovalRequestModel();
             });
     }
 
@@ -146,7 +169,6 @@ export class DerogationApiService {
         const clone = Object.assign({}, this.newItemForDerogation);
         this.newDerogation.derogationItems.push(clone);
         this.newItemForDerogation = new DerogationItem();
-        console.log(this.newDerogation);
     }
 
     sendNewDerogation() {

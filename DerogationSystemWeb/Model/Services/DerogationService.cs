@@ -242,9 +242,9 @@ namespace DerogationSystemWeb.Model.Services
         public void ChangeDergDeptStatusByUser(DerogationHeader derogation, User authUser, ApprovalRequestModel requestModel)
         {
             var derogationDepartment =
-                derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+                derogation.DerogationDepartments.FirstOrDefault(dDept => dDept.Department == authUser.Department);
 
-            derogationDepartment.Comment = requestModel.Comment;
+            derogationDepartment.Comment = requestModel.Comment ?? "N/A";
             derogationDepartment.DerogationUser = authUser.DerogationUser;
             derogationDepartment.OperationDate = DateTime.Now;
 
@@ -275,6 +275,8 @@ namespace DerogationSystemWeb.Model.Services
 
             derogationDepartment.CancellationReason = reason;
             derogationDepartment.CancellationRequest = '1';
+            derogationDepartment.DerogationUser = authUser.DerogationUser;
+            derogationDepartment.OperationDate = DateTime.Now;
 
             _db.SaveChanges();
         }

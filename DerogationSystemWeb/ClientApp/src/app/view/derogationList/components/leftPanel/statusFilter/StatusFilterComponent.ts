@@ -9,5 +9,7 @@ export class StatusFilterComponent {
 
     constructor(public derogationApiService: DerogationApiService) { }
 
-
+    changeStatus() {
+        this.derogationApiService.getDerogationList();
+    }
 }

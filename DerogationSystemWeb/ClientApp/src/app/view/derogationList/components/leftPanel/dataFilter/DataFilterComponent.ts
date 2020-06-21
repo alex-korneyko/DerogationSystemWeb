@@ -12,7 +12,7 @@ export class DataFilterComponent implements OnInit {
     constructor(public derogationApiService: DerogationApiService, public departmentApiService: DepartmentApiService) { }
 
     ngOnInit(): void {
-         this.departmentApiService.getDepartments();
+         this.departmentApiService.loadDepartments();
     }
 
 }

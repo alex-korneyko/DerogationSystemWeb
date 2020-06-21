@@ -7,6 +7,7 @@ using DerogationSystemWeb.Model.Domain;
 using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
@@ -19,13 +20,15 @@ namespace DerogationSystemWeb.Controllers
         private readonly ApplicationContext _database;
         private readonly DerogationService _derogationService;
         private readonly UserService _userService;
+        private readonly IHubContext<HubService> _hubContext;
 
         public DerogationController(ApplicationContext database, DerogationService derogationService,
-            UserService userService)
+            UserService userService, IHubContext<HubService> hubContext)
         {
             _database = database;
             _derogationService = derogationService;
             _userService = userService;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -81,6 +84,7 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest();
 
             _derogationService.ChangeDergDeptStatusByUser(derogation, authUser, requestModel);
+            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
 
             return Ok(derogation);
         }
@@ -103,6 +107,7 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest();
 
             _derogationService.CancellationRequest(derogation, authUser, reason["reason"].ToString());
+            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
 
             return Ok(derogation);
         }
@@ -121,6 +126,7 @@ namespace DerogationSystemWeb.Controllers
             }
 
             _derogationService.Cancellation(derogation, reason["reason"]);
+            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
 
             return Ok(derogation);
         }
@@ -145,6 +151,7 @@ namespace DerogationSystemWeb.Controllers
             }
 
             _database.SaveChanges();
+            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
 
             return Ok(derogation);
         }
@@ -166,6 +173,11 @@ namespace DerogationSystemWeb.Controllers
                 {
                     dergItem.ProductCode = dergItem.ProductCode.Substring(0, 30);
                 }
+
+                if (dergItem.PartNo != null) return;
+                
+                dergItem.PartNo = "N/A";
+                dergItem.PartNoDesc = "N/A";
             });
 
             var derogationDocs = new List<DerogationDoc>(derogation.DerogationDocs);
@@ -177,6 +189,8 @@ namespace DerogationSystemWeb.Controllers
             
             derogation.DerogationDocs.AddRange(derogationDocs);
             _database.SaveChanges();
+
+            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Create.ToString());
 
             return Ok(derogation);
         }

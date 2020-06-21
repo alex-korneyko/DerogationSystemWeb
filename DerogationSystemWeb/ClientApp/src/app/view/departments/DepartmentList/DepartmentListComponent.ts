@@ -3,7 +3,6 @@ import { DepartmentApiService } from "../../../controllers/DepartmentApiService"
 import { Department } from "../../../model/domain/Department";
 import { Router } from "@angular/router";
 import { HttpResponse } from "@angular/common/http";
-import { WebsocketService } from '../../../model/services/WebsocketService';
 import {LoginApiService} from "../../../controllers/LoginApiService";
 
 @Component({
@@ -12,22 +11,13 @@ import {LoginApiService} from "../../../controllers/LoginApiService";
 })
 export class DepartmentListComponent implements OnInit {
 
-    departments: Department[];
-
     constructor(
         public departmentApiService: DepartmentApiService,
         public loginApiService: LoginApiService,
-        private router: Router,
-        private wsService: WebsocketService) {
-
-        this.wsService.addHandler<Department>("department", (payload, actionType) => {
-            console.log("Department WS-handler");
-            console.log(actionType + " -> ");
-            console.log(payload);
-        });
-    }
+        private router: Router,) {}
+        
     ngOnInit(): void {
-        this.departmentApiService.getDepartments();
+        this.departmentApiService.loadDepartments();
     }
 
     addNewClick() {
@@ -39,7 +29,7 @@ export class DepartmentListComponent implements OnInit {
             if (data !== null && data["notEmpty"] !== undefined) {
                 console.log(data["notEmpty"].errors[0].errorMessage);
             }
-            this.departmentApiService.getDepartments();
+            this.departmentApiService.loadDepartments();
         });
     }
 }

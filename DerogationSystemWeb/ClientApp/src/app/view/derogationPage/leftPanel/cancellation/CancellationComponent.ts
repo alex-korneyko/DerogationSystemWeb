@@ -19,7 +19,7 @@ export class CancellationComponent {
     constructor(private derogationApiService: DerogationApiService, private loginApiService: LoginApiService) {}
 
     cancelClick() {
-        if (this.cancReason === undefined || this.cancReason.length < 3) {
+        if (this.cancReason === undefined || this.cancReason === null) {
             this.reasonValidateError = true;
             return;
         }
@@ -37,6 +37,8 @@ export class CancellationComponent {
             break;
         default:
         }
+        
+        this.cancReason = "";
     }
 
     cancellationIsAllowed() {
