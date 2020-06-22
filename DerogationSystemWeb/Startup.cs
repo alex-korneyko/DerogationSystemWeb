@@ -29,8 +29,9 @@ namespace DerogationSystemWeb
 
             services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();
-            services.AddTransient<NotificationSenderService>();
             services.AddTransient<EmailService>();
+            services.AddTransient<WebSocketService>();
+            services.AddTransient<NotificationService>();
 
             // services.AddHttpsRedirection(options => options.HttpsPort = 8443);
 
