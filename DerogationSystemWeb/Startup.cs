@@ -1,13 +1,8 @@
-using System;
-using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +30,7 @@ namespace DerogationSystemWeb
             services.AddTransient<UserService>();
             services.AddTransient<DerogationService>();
             services.AddTransient<NotificationSenderService>();
+            services.AddTransient<EmailService>();
 
             // services.AddHttpsRedirection(options => options.HttpsPort = 8443);
 

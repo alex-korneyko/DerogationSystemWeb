@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
+using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,12 @@ namespace DerogationSystemWeb.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationContext _dataBase;
+        private readonly EmailService _emailService;
 
-        public UserController(ApplicationContext dataBase)
+        public UserController(ApplicationContext dataBase, EmailService emailService)
         {
             _dataBase = dataBase;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -37,7 +41,7 @@ namespace DerogationSystemWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public async Task<IActionResult> AddUser(User user)
         {
             var authUser = _dataBase.Users.FirstOrDefault(usr => usr.DerogationUser == User.Identity.Name);
             if (authUser == null || authUser.Admin == '0')
@@ -48,8 +52,10 @@ namespace DerogationSystemWeb.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _dataBase.Users.Add(user);
-            _dataBase.SaveChanges();
+            await _dataBase.Users.AddAsync(user);
+            await _dataBase.SaveChangesAsync();
+
+            await _emailService.SendEmailAsync("oleksandr.korneiko@tpv-tech.com", "New user", "User has been added");
 
             return Ok(user);
         }
