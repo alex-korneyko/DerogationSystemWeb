@@ -1,7 +1,7 @@
 ﻿import { Injectable } from "@angular/core";
-import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from
     "@angular/common/http";
-import { Router } from "@angular/router";
+import {Router} from "@angular/router";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
@@ -10,12 +10,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     private tokenKey = "accessToken";
 
-    constructor(private router: Router, private http: HttpClient) {}
+    constructor(private router: Router) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         const authReq = req.clone({
-            headers: req.headers.set("Authorization", `Bearer ${sessionStorage.getItem(this.tokenKey)}`)
+            headers: req.headers.set("Authorization", `Bearer ${localStorage.getItem(this.tokenKey)}`)
         });
 
         return next.handle(authReq)
@@ -34,7 +34,11 @@ export class AuthInterceptor implements HttpInterceptor {
                                 break;
                                 case 401:
                                     console.log("Error 401");
-                                    this.router.navigateByUrl("/static/accessDenied");
+
+                                    if (this.router.url.substring(8, 20) !== "accessDenied") {
+                                        this.router.navigateByUrl(`/static/accessDenied?redirectUrl=${this.router.url}`);
+                                    }
+                                    
                                 break;
                             default:
                             }

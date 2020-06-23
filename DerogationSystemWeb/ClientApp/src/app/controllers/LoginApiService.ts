@@ -10,6 +10,9 @@ import { LoginRequestModel } from '../model/requestModel/LoginRequestModel';
 export class LoginApiService {
 
     public loggedInUserIsReceives: boolean;
+    
+    public isAccessDenied = false;
+    public loginRedirectUrl = "/"
 
     private apiUrl = "/api/auth";
     private tokenKey = "accessToken";
@@ -45,8 +48,16 @@ export class LoginApiService {
         this.http.post(this.apiUrl + "/token", data).subscribe((response: LoginResponseModel) => {
 
             this.setLoggedInUser = response.user;
-            sessionStorage.setItem(this.tokenKey, response.token);
-            this.router.navigateByUrl("/");
+            localStorage.setItem(this.tokenKey, response.token);
+            
+            if (this.loginRedirectUrl !== null) {
+                this.isAccessDenied = false;
+                let url = this.loginRedirectUrl;
+                this.loginRedirectUrl = null;
+                this.router.navigateByUrl(url);
+            } else {
+                this.router.navigateByUrl("/");            }
+            
 
             return this.user;
         }, err => {
@@ -58,7 +69,7 @@ export class LoginApiService {
 
     logout() {
 
-        sessionStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.tokenKey);
         this.user = null;
         this.wsService.disconnect();

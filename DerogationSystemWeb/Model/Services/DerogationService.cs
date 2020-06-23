@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DerogationSystemWeb.Controllers;
 using DerogationSystemWeb.Controllers.RequestModel;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
@@ -149,7 +147,7 @@ namespace DerogationSystemWeb.Model.Services
 
             departments.ForEach(dept =>
             {
-                if (dept.Approved == '0' && dept.MailStep < currentMinStepForApprove)
+                if (dept.Approved == '0' && dept.Rejected == '0' && dept.MailStep < currentMinStepForApprove)
                     currentMinStepForApprove = dept.MailStep;
             });
 
@@ -244,6 +242,8 @@ namespace DerogationSystemWeb.Model.Services
             var derogationDepartment =
                 derogation.DerogationDepartments.FirstOrDefault(dDept => dDept.Department == authUser.Department);
 
+            if (derogationDepartment == null) return;
+
             derogationDepartment.Comment = requestModel.Comment ?? "N/A";
             derogationDepartment.DerogationUser = authUser.DerogationUser;
             derogationDepartment.OperationDate = DateTime.Now;
@@ -272,6 +272,8 @@ namespace DerogationSystemWeb.Model.Services
         {
             var derogationDepartment =
                 derogation.DerogationDepartments.Find(dDept => dDept.Department == authUser.Department);
+            
+            if (derogationDepartment == null) return;
 
             derogationDepartment.CancellationReason = reason;
             derogationDepartment.CancellationRequest = '1';
@@ -299,6 +301,24 @@ namespace DerogationSystemWeb.Model.Services
             var isAllApprove = true;
             derogation.DerogationDepartments.ForEach(dDept => isAllApprove &= dDept.Approved == '1');
             derogation.Approved = isAllApprove ? '1' : '0';
+        }
+
+        public List<DerogationDepartment> GetDerogationDepartmentsWhichExpected(DerogationHeader derogation)
+        {
+            var result = new List<DerogationDepartment>();
+            
+            GetNextDeptsForApproval(derogation).ForEach(dept =>
+            {
+                derogation.DerogationDepartments.ForEach(dergDept =>
+                {
+                    if (dergDept.Approved == '0' && dergDept.Rejected == '0' && dergDept.CancellationRequest == '0' && dergDept.Department == dept.Department)
+                    {
+                        result.Add(dergDept);
+                    }
+                });
+            });
+
+            return result;
         }
     }
 }

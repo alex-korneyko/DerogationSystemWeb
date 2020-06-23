@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DerogationSystemWeb.Model.Domain;
-using Microsoft.AspNetCore.SignalR;
 
 namespace DerogationSystemWeb.Model.Services
 {
@@ -15,23 +14,101 @@ namespace DerogationSystemWeb.Model.Services
             _webSocketService = webSocketService;
         }
 
-        public void NewDerogationIssued(DerogationHeader derogation)
+        public async void NewDerogationIssued(DerogationHeader derogation, List<User> recipients)
         {
+            _emailService.SendEmailAsync(GenerateNewDerogationMessage(derogation, recipients));
+
+            await _webSocketService.WebSocketSendAsync(SendObjectType.Derogation, SendActionType.Create, derogation);
+        }
+        
+        public async void ApproveDerogation(DerogationHeader derogation, List<User> recipients)
+        {
+            _emailService.SendEmailAsync(GenerateDerogationNextLevelForApproveMessage(derogation, recipients));
             
+            await _webSocketService.WebSocketSendAsync(SendObjectType.Derogation, SendActionType.Update, derogation);
         }
 
-        private EmailLetter GenerateNewDerogationMessage(DerogationHeader derogationHeader)
+        public async void EngAndFlOptions(DerogationHeader derogation, List<User> recipients)
         {
-            var subject = "New derogation issued";
+            _emailService.SendEmailAsync(GenerateEngAndFlChangeMessage(derogation, recipients));
 
-            var body = "A new derogation has been issued" +
-                       "\\nAuthor: {0}, Department: {1}" +
-                       "\\n<a href=\"http://localhost:4200/derogations/derogation/{3}\">Link to Derogation</a>" +
-                       "\\nThis message was generated automatically. There is no need to respond to it." +
-                       "\\nRespectfully. Derogation system Bot.";
-            
-            return new EmailLetter(new List<User>(), subject, body);
+            await _webSocketService.WebSocketSendAsync(SendObjectType.Derogation, SendActionType.Update, derogation);
         }
+        
+        public async void DerogationCancelled(DerogationHeader derogation, List<User> recipients)
+        {
+            _emailService.SendEmailAsync(GenerateDerogationCancelMessage(derogation, recipients));
             
+            await _webSocketService.WebSocketSendAsync(SendObjectType.Derogation, SendActionType.Update, derogation);
+        }
+        
+        public async void DerogationCancelRequest(DerogationHeader derogation, User author)
+        {
+            _emailService.SendEmailAsync(GenerateCancelRequestMessage(derogation, author));
+            
+            await _webSocketService.WebSocketSendAsync(SendObjectType.Derogation, SendActionType.Update, derogation);
+        }
+
+        private static EmailLetter GenerateNewDerogationMessage(DerogationHeader derogationHeader,
+            List<User> recipients)
+        {
+            var subject = "New derogation has been issued";
+
+            var body = "New derogation has been issued" +
+                       $"</br>Author: {derogationHeader.Owner}, Department: {derogationHeader.Department}" +
+                       $"</br><a href=\"http://localhost:4200/derogations/derogation/{derogationHeader.DerogationId.ToString()}\">Derogation {derogationHeader.DerogationId}</a>" +
+                       "</br></br>This message was generated automatically. There is no need to respond to it." +
+                       "</br>Best regards. Derogation Bot.";
+
+            return new EmailLetter(recipients, subject, body);
+        }
+
+        private static EmailLetter GenerateEngAndFlChangeMessage(DerogationHeader derogation, List<User> recipients)
+        {
+            var subject = "Derogation Eng and Fl options have been changed";
+
+            var body = "Eng and Fl options have been changed" +
+                       $"</br><a href=\"http://localhost:4200/derogations/derogation/{derogation.DerogationId}\">Derogation {derogation.DerogationId}</a>" +
+                       "</br></br>This message was generated automatically. There is no need to respond to it." +
+                       "</br>Best regards. Derogation Bot.";
+            
+            return new EmailLetter(recipients, subject, body);
+        }
+
+        private static EmailLetter GenerateDerogationNextLevelForApproveMessage(DerogationHeader derogation, List<User> recipients)
+        {
+            var subject = $"The Derogation Id:{derogation.DerogationId} is awaiting your approval";
+
+            var body = $"The Derogation Id:{derogation.DerogationId} is awaiting your approval" + 
+                       $"</br><a href=\"http://localhost:4200/derogations/derogation/{derogation.DerogationId}\">Derogation {derogation.DerogationId}</a>" +
+                       "</br></br>This message was generated automatically. There is no need to respond to it." +
+                       "</br>Best regards. Derogation Bot.";
+            
+            return new EmailLetter(recipients, subject, body);
+        }
+
+        private static EmailLetter GenerateDerogationCancelMessage(DerogationHeader derogation, List<User> recipients)
+        {
+            var subject = $"Derogation Id:{derogation.DerogationId} canceled";
+
+            var body = "Status changed to \"Cancel\"" +
+                       $"</br><a href=\"http://localhost:4200/derogations/derogation/{derogation.DerogationId}\">Derogation {derogation.DerogationId}</a>" +
+                       "</br></br>This message was generated automatically. There is no need to respond to it." +
+                       "</br>Best regards. Derogation Bot.";
+            
+            return new EmailLetter(recipients, subject, body);
+        }
+        
+        private static EmailLetter GenerateCancelRequestMessage(DerogationHeader derogation, User author)
+        {
+            var subject = $"Derogation Id:{derogation.DerogationId} cancellation request";
+            
+            var body = $"{author.DerogationUser} requested a Derogation cancellation" +
+                       $"</br><a href=\"http://localhost:4200/derogations/derogation/{derogation.DerogationId}\">Derogation {derogation.DerogationId}</a>" +
+                       "</br></br>This message was generated automatically. There is no need to respond to it." +
+                       "</br>Best regards. Derogation Bot.";
+            
+            return new EmailLetter(new List<User> {derogation.Author}, subject, body);
+        }
     }
 }

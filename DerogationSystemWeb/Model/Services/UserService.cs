@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using DerogationSystemWeb.Controllers;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DerogationSystemWeb.Model.Configs;
 using DerogationSystemWeb.Model.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +20,13 @@ namespace DerogationSystemWeb.Model.Services
             return _db.Users
                 .Include(user => user.FactoryDepartment)
                 .First(usr => usr.DerogationUser == username);
+        }
+
+        public List<User> GetAll()
+        {
+            var users = _db.Users.ToList();
+
+            return users;
         }
     }
 }

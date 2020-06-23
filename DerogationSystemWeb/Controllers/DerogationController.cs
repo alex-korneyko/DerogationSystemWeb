@@ -7,7 +7,6 @@ using DerogationSystemWeb.Model.Domain;
 using DerogationSystemWeb.Model.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DerogationSystemWeb.Controllers
@@ -20,15 +19,15 @@ namespace DerogationSystemWeb.Controllers
         private readonly ApplicationContext _database;
         private readonly DerogationService _derogationService;
         private readonly UserService _userService;
-        private readonly IHubContext<HubService> _hubContext;
+        private readonly NotificationService _notificationService;
 
         public DerogationController(ApplicationContext database, DerogationService derogationService,
-            UserService userService, IHubContext<HubService> hubContext)
+            UserService userService, NotificationService notificationService)
         {
             _database = database;
             _derogationService = derogationService;
             _userService = userService;
-            _hubContext = hubContext;
+            _notificationService = notificationService;
         }
 
         [HttpGet]
@@ -84,7 +83,17 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest();
 
             _derogationService.ChangeDergDeptStatusByUser(derogation, authUser, requestModel);
-            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
+
+            var dergDeptsWhichExpected = _derogationService.GetDerogationDepartmentsWhichExpected(derogation);
+
+            var recipients = new List<User>();
+            dergDeptsWhichExpected.ForEach(dergDept =>
+            {
+                var users = _database.Users.Where(user => user.Department == dergDept.Department).ToList();
+                recipients.AddRange(users);
+            });
+
+            _notificationService.ApproveDerogation(derogation, recipients);
 
             return Ok(derogation);
         }
@@ -107,7 +116,8 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest();
 
             _derogationService.CancellationRequest(derogation, authUser, reason["reason"].ToString());
-            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
+            
+            _notificationService.DerogationCancelRequest(derogation, authUser);
 
             return Ok(derogation);
         }
@@ -126,7 +136,8 @@ namespace DerogationSystemWeb.Controllers
             }
 
             _derogationService.Cancellation(derogation, reason["reason"]);
-            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
+            
+            _notificationService.DerogationCancelled(derogation, _database.Users.Where(user => user.InMail == '1').ToList());
 
             return Ok(derogation);
         }
@@ -151,7 +162,8 @@ namespace DerogationSystemWeb.Controllers
             }
 
             _database.SaveChanges();
-            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Update);
+            _notificationService.EngAndFlOptions(derogation, _database.Users
+                .Where(user => user.InMail == '1').ToList());
 
             return Ok(derogation);
         }
@@ -190,7 +202,8 @@ namespace DerogationSystemWeb.Controllers
             derogation.DerogationDocs.AddRange(derogationDocs);
             _database.SaveChanges();
 
-            _hubContext.Clients.All.SendAsync("derogation", derogation, SendActionType.Create.ToString());
+            var recipients = _database.Users.Where(user => user.InMail == '1').ToList();
+            _notificationService.NewDerogationIssued(derogation, recipients);
 
             return Ok(derogation);
         }

@@ -117,7 +117,7 @@ export class AppModule {
     constructor(http: HttpClient, derogationApiService: DerogationApiService, departmentApiService: DepartmentApiService) {
         
         setInterval(() => http.get("/api/auth/refreshToken").subscribe(data => {
-            sessionStorage.setItem("accessToken", data["token"]);
+            localStorage.setItem("accessToken", data["token"]);
         }), 1800000);
     }
 }

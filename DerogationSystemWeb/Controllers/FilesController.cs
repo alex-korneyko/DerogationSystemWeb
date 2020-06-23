@@ -19,12 +19,14 @@ namespace DerogationSystemWeb.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationContext _db;
         private readonly DerogationService _derogationService;
+        private readonly string _path;
 
         public FilesController(IConfiguration configuration, ApplicationContext db, DerogationService derogationService)
         {
             _configuration = configuration;
             _db = db;
             _derogationService = derogationService;
+            _path = _configuration["FileStore:Upload:Path"];
         }
 
         [HttpPost("upload/{derogationId}")]
@@ -58,7 +60,8 @@ namespace DerogationSystemWeb.Controllers
             }
 
             var guidFileName = "guid." + Guid.NewGuid() + "." + uploadFile.FileName;
-            var path = Path.Combine(_configuration["FileStore:Upload:Path"], guidFileName);
+            
+            var path = Path.Combine(_path, guidFileName);
 
             await using (var fileStream = new FileStream(path, FileMode.Create))
             {
@@ -94,7 +97,7 @@ namespace DerogationSystemWeb.Controllers
         public async Task<IActionResult> GetFile(long fileId)
         {
             var dergDoc = await _db.DerogationDocs.FirstOrDefaultAsync(dd => dd.Id == fileId);
-            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName.Trim());
+            var path = Path.Combine(_path, dergDoc.DocName.Trim());
 
             var fileInfo = new FileInfo(path);
 
@@ -111,7 +114,7 @@ namespace DerogationSystemWeb.Controllers
                 return BadRequest(new {message = "File not found"});
             }
 
-            var path = Path.Combine(_configuration["FileStore:Upload:Path"], dergDoc.DocName.Trim());
+            var path = Path.Combine(_path, dergDoc.DocName.Trim());
 
             var fileInfo = new FileInfo(path);
             fileInfo.Delete();

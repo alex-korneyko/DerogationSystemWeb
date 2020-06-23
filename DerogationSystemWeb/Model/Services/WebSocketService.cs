@@ -12,7 +12,7 @@ namespace DerogationSystemWeb.Model.Services
             _hubContext = hubContext;
         }
 
-        public async Task WebSocketSend(SendObjectType sendObjectType, SendActionType sendActionType, object payload)
+        public async Task WebSocketSendAsync(SendObjectType sendObjectType, SendActionType sendActionType, object payload)
         {
             await _hubContext.Clients.All.SendAsync(sendObjectType.ToString(), payload, sendActionType);
         }

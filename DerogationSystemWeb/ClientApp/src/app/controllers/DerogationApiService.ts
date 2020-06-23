@@ -53,7 +53,7 @@ export class DerogationApiService {
         this.newDerogation = new DerogationHeader();
         this.newItemForDerogation = new DerogationItem();
 
-        wsService.addHandler<DerogationHeader>("derogation", ((payload, actionType) => {
+        wsService.addHandler<DerogationHeader>("Derogation", ((payload, actionType) => {
             
             let index = this.derogationList.findIndex(derg => derg.derogationId === payload.derogationId);
 
