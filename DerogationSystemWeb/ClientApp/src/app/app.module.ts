@@ -79,6 +79,8 @@ import { AccessDeniedComponent } from "./view/AccessDeniedPage/AccessDeniedCompo
 import { DerogationDocRowComponent } from
     "./view/derogationPage/mainPanel/derogationDocs/DerogationDocRow/DerogationDocRowComponent";
 import { FileApiService } from "./controllers/FileApiService";
+import {MainStore} from "./Store/MainStore";
+import {AboutWindowComponent} from "./view/CommonComponents/AboutWindow/AboutWindow.component";
 
 const appRoutes: Routes = [
     { path: "", component: IndexPageComponent },
@@ -106,11 +108,12 @@ const appRoutes: Routes = [
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
         WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
         WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent,
-        AccessDeniedComponent, DerogationDocRowComponent
+        AccessDeniedComponent, DerogationDocRowComponent, AboutWindowComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,
-        WorkOrderApiService, MaterialsApiService, FileApiService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
+        WorkOrderApiService, MaterialsApiService, FileApiService, MainStore,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class AppModule {
 

@@ -25,7 +25,6 @@ export class LoginApiService {
     }
 
     get loggedInUser(): User {
-        // console.log("--->>> User: ", this.user);
         return this.user; 
     }
     set setLoggedInUser(user: User) {
@@ -68,8 +67,7 @@ export class LoginApiService {
     }
 
     logout() {
-
-        localStorage.removeItem(this.tokenKey);
+        sessionStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.tokenKey);
         this.user = null;
         this.wsService.disconnect();
@@ -84,7 +82,7 @@ export class LoginApiService {
             if (user != null) {
                 this.setLoggedInUser = user;
                 this.http.get(this.apiUrl + "/refreshToken").subscribe((response: LoginResponseModel) => {
-                    sessionStorage.setItem(this.tokenKey, response.token);
+                    localStorage.setItem(this.tokenKey, response.token);
                     console.log("New token received");
                 });
             }

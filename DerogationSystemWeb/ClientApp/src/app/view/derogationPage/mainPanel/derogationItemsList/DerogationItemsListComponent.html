@@ -1,9 +1,9 @@
 ﻿<div class="panel" style="height: 213px"
-        [ngClass]="{validateError : derogationApiService.validateErrors.derogationItemsCount}">
-    
+     [ngClass]="{validateError : derogationApiService.validateErrors.derogationItemsCount}">
+
     <h5 class="mb-1"><span class="badge badge-secondary" style="background-color: dimgray">Items List</span></h5>
 
-    <div class="mb-1 mr-3 tableHeader" >
+    <div class="mb-1 mr-3 tableHeader">
         <div class="tableHeaderCell" style="width: 5%">WorkOrder</div>
         <div class="tableHeaderCell" style="width: 8%">Model name</div>
         <div class="tableHeaderCell" style="width: 8%">Product code</div>
@@ -21,9 +21,10 @@
 
     <div style="overflow-y: scroll; height: 150px"
          *ngIf="derogationApiService.currentDerogationIsLoaded">
-        <derogation-item-row *ngFor="let dergItem of dergItems"
+        <derogation-item-row *ngFor="let dergItem of dergItems; let i = index"
                              [derogationItem]="dergItem"
-                             [disableActions]="disableActions">
+                             [disableActions]="disableActions"
+                             [indexInList]="i">
 
         </derogation-item-row>
     </div>

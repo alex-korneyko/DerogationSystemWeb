@@ -2,7 +2,7 @@
 import { Router, NavigationStart } from "@angular/router";
 import { LoginRequestModel } from "../../../model/requestModel/LoginRequestModel";
 import { LoginApiService } from "../../../controllers/LoginApiService"
-
+import {MainStore} from "../../../Store/MainStore";
 
 @Component({
     templateUrl: "TopNavBarComponent.html",
@@ -15,7 +15,7 @@ export class TopNavBarComponent {
 //    user: User;
     userError: boolean;
 
-    constructor(public loginApiService: LoginApiService, private router: Router) {}
+    constructor(public loginApiService: LoginApiService, private router: Router, public mainStore: MainStore) {}
 
     login() {
         this.loginApiService.login(this.loginModel);
@@ -29,5 +29,10 @@ export class TopNavBarComponent {
 
     loginDataOnChange() {
         this.loginApiService.setLoginError = false;
+    }
+    
+    aboutClick() {
+        // @ts-ignore
+        $("#aboutWindow").modal("show");
     }
 }
