@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component } from "@angular/core";
 import { MaterialsApiService } from "../../../controllers/MaterialsApiService";
 import { MaterialRequestModel } from "../../../model/requestModel/MaterialRequestModel";
 import { WorkOrderApiService } from "../../../controllers/WorkOrderApiService";
@@ -10,19 +10,24 @@ import { DerogationApiService } from "../../../controllers/DerogationApiService"
     styleUrls: ["../../../StyleSheet.css"],
     selector: "new-derg-left-panel"
 })
-export class NewDergLeftPanelComponent implements OnInit{
+export class NewDergLeftPanelComponent {
 
     itemsCountError = false;
+    
+    reasonMaxLength = 500;
+    reasonLengthError = false;
+    
+    actionMaxLength = 500;
+    actionLengthError = false;
+    
+    focusedAreaName = "Reason";
+    charsLeft = this.reasonMaxLength;
     
     constructor(
         public derogationApiService: DerogationApiService,
         public materialsApiService: MaterialsApiService,
         public workOrderApiService: WorkOrderApiService
     ) { }
-
-    ngOnInit(): void {
-        
-    }
 
     addDerogationItemClick() {
         let errors = false;
@@ -92,5 +97,44 @@ export class NewDergLeftPanelComponent implements OnInit{
         }
         
         this.derogationApiService.sendNewDerogation();
+    }
+    
+    reasonChange() {
+        this.reasonLengthError = false;
+        if (this.derogationApiService.newItemForDerogation.reason.length > this.reasonMaxLength) {
+            this.derogationApiService.newItemForDerogation.reason =
+                this.derogationApiService.newItemForDerogation.reason.substring(0, this.reasonMaxLength);
+            this.reasonLengthError = true;
+        }
+        
+        this.charsLeft = this.reasonMaxLength - this.derogationApiService.newItemForDerogation.reason.length;
+        
+        $("#reasonTextArea").val(this.derogationApiService.newItemForDerogation.reason)
+    }
+    
+    actionChange() {
+        this.actionLengthError = false;
+        if (this.derogationApiService.newItemForDerogation.action.length > this.actionMaxLength) {
+            this.derogationApiService.newItemForDerogation.action =
+                this.derogationApiService.newItemForDerogation.action.substring(0, this.actionMaxLength);
+            this.actionLengthError = true;
+        }
+        
+        this.charsLeft = this.actionMaxLength - this.derogationApiService.newItemForDerogation.action.length;
+        
+        $("#actionTextArea").val(this.derogationApiService.newItemForDerogation.action);
+    }
+
+    receiveFocus(obj: string) {
+        switch (obj) {
+            case "reason":
+                this.focusedAreaName = "Reason";
+                this.charsLeft = this.reasonMaxLength - this.derogationApiService.newItemForDerogation.reason.length;
+                break;
+            case "action":
+                this.focusedAreaName = "Action";
+                this.charsLeft = this.actionMaxLength - this.derogationApiService.newItemForDerogation.action.length;
+                break;
+        }
     }
 }
