@@ -9,8 +9,9 @@ import { LoginApiService } from "../../../../controllers/LoginApiService";
 })
 export class CancellationComponent {
 
+    public cancReasonMaxLength = 500;
     public cancType = "cancelReq";
-    public cancReason: string;
+    public cancReason = "";
     public reasonValidateError = false;
 
     @Input()
@@ -51,5 +52,12 @@ export class CancellationComponent {
 
     txtAreaChange() {
         this.reasonValidateError = false;
+
+        if (this.cancReason.length > this.cancReasonMaxLength) {
+            this.cancReason = this.cancReason.substring(0, this.cancReasonMaxLength);
+            this.reasonValidateError = true;
+        }
+        
+        $("#commentCancTextarea").val(this.cancReason);
     }
 }

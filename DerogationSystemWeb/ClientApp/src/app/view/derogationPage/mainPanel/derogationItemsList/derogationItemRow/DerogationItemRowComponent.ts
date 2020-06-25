@@ -21,10 +21,6 @@ export class DerogationItemRowComponent {
     @Input()
     indexInList: number
 
-    actionEditClick() {
-        console.log("Edit click for " + this.indexInList);
-    }
-
     actionDeleteClick() {
         console.log("Delete click for" + this.indexInList);
         this.derogationApiService.newDerogation.derogationItems.splice(this.indexInList, 1);

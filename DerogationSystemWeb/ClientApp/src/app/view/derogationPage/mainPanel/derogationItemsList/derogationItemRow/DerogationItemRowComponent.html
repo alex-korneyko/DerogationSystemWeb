@@ -37,13 +37,10 @@
     </div>
     <div class="tableRowCell lastCell" style="width: 3%">
         <span *ngIf="!disableActions">
-            <i class="fa fa-pencil-square-o" aria-hidden="true" style="cursor: pointer; color: rgb(197, 110, 25)" title="Edit"
-               (click)="actionEditClick()"></i>
-            <i class="fa fa-times-circle ml-1" aria-hidden="true" style="cursor: pointer; color: red" title="Delete"
+            <i class="fa fa-times-circle ml-1" aria-hidden="true" style="cursor: pointer; color: red" title="Remove"
                (click)="actionDeleteClick()"></i>
         </span>
         <span *ngIf="disableActions">
-            <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: dimgray" title="Edit"></i>
             <i class="fa fa-times-circle ml-1" aria-hidden="true" style="color: dimgray" title="Delete"></i>
         </span>
     </div>

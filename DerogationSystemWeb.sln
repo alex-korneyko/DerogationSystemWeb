@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0B44C30B-25E8-4089-90D4-4E08C4F67C3C}"
 	ProjectSection(SolutionItems) = preProject
 		Add_Id_in_all_tables.sql = Add_Id_in_all_tables.sql
+		Increse_nvarchar_columns.sql = Increse_nvarchar_columns.sql
 	EndProjectSection
 EndProject
 Global

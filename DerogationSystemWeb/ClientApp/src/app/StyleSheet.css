@@ -56,6 +56,8 @@ textarea {
 
 .tableHeader {
     height: 24px;
+    margin-right: 18px;
+    margin-bottom: 1px;
     font-weight: 600;
     font-size: small;
     border-radius: 3px;
