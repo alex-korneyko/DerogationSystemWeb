@@ -1,0 +1,16 @@
+﻿<div class="card" style="border: #696969 solid 1px; margin-top: 1px">
+    <div class="card-header p-0" >
+        <h2 class="mb-0">
+            <button class="btn btn-block text-left collapsed py-0 verItem" type="button"
+                    (click)="showClick()">
+                {{item.version}} <span style="font-weight: normal">({{item.releaseDate}})</span>
+            </button>
+        </h2>
+    </div>
+
+    <div id="{{id}}" class="collapse" data-parent="#verHistory">
+        <div class="card-body">
+            <p>{{item.description}}</p>
+        </div>
+    </div>
+</div>

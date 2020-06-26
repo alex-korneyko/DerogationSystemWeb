@@ -18,8 +18,11 @@
 	  <Compile Remove="ClientApp\src\app\view\derogationPage\components\**" />
 	  <EmbeddedResource Remove="ClientApp\src\app\view\derogationPage\components\**" />
 	  <TypeScriptCompile Remove="ClientApp\src\app\view\derogationPage\components\**" />
+	  <TypeScriptCompile Include="ClientApp\src\app\model\domain\VersionHistoryItem.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\Store\MainStore.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\view\CommonComponents\AboutWindow\AboutWindow.component.ts" />
+	  <TypeScriptCompile Include="ClientApp\src\app\view\CommonComponents\VersionHistory\VersionHistory.component.ts" />
+	  <TypeScriptCompile Include="ClientApp\src\app\view\CommonComponents\VersionHistory\VersionHistoryItem\VersionHistoryItem.component.ts" />
 	</ItemGroup>
 
 	<ItemGroup>

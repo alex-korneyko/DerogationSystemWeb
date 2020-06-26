@@ -12,10 +12,11 @@
         </div>
     </div>
     
-    <div style="overflow-y: scroll; height: calc(100% - 90px)"
-         *ngIf="derogationApiService.currentDerogationIsLoaded">
-        <operator-row *ngFor="let operatorBox of derogationApiService.currentDerogation.operators"
-                      [derogationOperator]="operatorBox"></operator-row>
+    <div style="overflow-y: scroll; height: calc(100% - 90px)">
+        <div *ngIf="derogation !== null && derogation !== undefined">
+            <operator-row *ngFor="let operatorBox of derogation.operators"
+                          [derogationOperator]="operatorBox"></operator-row>
+        </div>
     </div>
     <hr class="m-1"/>
 

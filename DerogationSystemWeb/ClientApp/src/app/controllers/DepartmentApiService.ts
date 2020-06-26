@@ -44,6 +44,16 @@ export class DepartmentApiService {
         
         this.departmentsIsLoaded = false;
         this.http.get(this.apiUrl).subscribe((data: Department[]) => {
+            data.sort((d1, d2) => {
+                if (d1.mAilStep > d2.mAilStep) {
+                    return 1;
+                }
+                if (d1.mAilStep < d2.mAilStep) {
+                    return -1;
+                }                
+                return 0;
+            })
+            
             this._departments = data;
             this.deptsRequestModel = new Array<DerogationInvolvedRequestModel>();
             data.forEach(dept => this.deptsRequestModel.push(

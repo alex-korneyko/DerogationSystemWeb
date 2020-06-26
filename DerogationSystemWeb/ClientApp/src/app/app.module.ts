@@ -81,6 +81,8 @@ import { DerogationDocRowComponent } from
 import { FileApiService } from "./controllers/FileApiService";
 import {MainStore} from "./Store/MainStore";
 import {AboutWindowComponent} from "./view/CommonComponents/AboutWindow/AboutWindow.component";
+import {VersionHistoryComponent} from "./view/CommonComponents/VersionHistory/VersionHistory.component";
+import {VersionHistoryItemComponent} from "./view/CommonComponents/VersionHistory/VersionHistoryItem/VersionHistoryItem.component";
 
 const appRoutes: Routes = [
     { path: "", component: IndexPageComponent },
@@ -108,7 +110,7 @@ const appRoutes: Routes = [
         MailListRowComponent, OperatorRowComponent, IndexPageComponent, NewDerogationComponent, NewDergLeftPanelComponent,
         WorkOrderDashboardComponent, PartNumberDashboardComponent, NewDergMainPanelComponent, DeptsInvolvingComponent,
         WorkOrderListComponent, WorkOrderListRowComponent, PartNumberListComponent, PartNumberRowComponent, DeptInvolvedRowComponent,
-        AccessDeniedComponent, DerogationDocRowComponent, AboutWindowComponent
+        AccessDeniedComponent, DerogationDocRowComponent, AboutWindowComponent, VersionHistoryComponent, VersionHistoryItemComponent
     ],
     bootstrap: [MainComponent],
     providers: [LoginApiService, UserApiService, DepartmentApiService, DerogationApiService, DerogationRequestModel, WebsocketService,

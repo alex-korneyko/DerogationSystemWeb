@@ -3,10 +3,11 @@
         *ngIf="derogationApiService.currentDerogationIsLoaded"
         [dergItems]="derogationApiService.currentDerogation.derogationItems"
         [disableActions]="true"></derogation-items-list>
+    
     <involved-departments-list></involved-departments-list>
     
     <div class="row" style="height: 100%">
-        <eng-operator-box class="col-4 pr-0"></eng-operator-box>
+        <eng-operator-box class="col-4 pr-0" [derogation]="derogationApiService.currentDerogation"></eng-operator-box>
         <derogation-docs-list class="col-5 pl-2 pr-2"
                               *ngIf="derogationApiService.currentDerogationIsLoaded"
                               [derogation]="derogationApiService.currentDerogation">

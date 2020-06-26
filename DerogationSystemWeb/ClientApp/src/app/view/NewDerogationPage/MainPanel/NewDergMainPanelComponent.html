@@ -1,14 +1,19 @@
 ﻿<div class="py-3" style="height: calc(100% - 520px)">
     <derogation-items-list
-        [dergItems]="derogationApiService.newDerogation.derogationItems"
-        [disableActions]="false">
+            [dergItems]="derogationApiService.newDerogation.derogationItems"
+            [disableActions]="false">
     </derogation-items-list>
 
+    <depts-involve-box></depts-involve-box>
+
     <div class="row" style="height: 100%">
-        <depts-involve-box class="col-4 pr-0"></depts-involve-box>
+        <eng-operator-box class="col-4 pr-0"
+                          [derogation]="derogationApiService.newDerogation"></eng-operator-box>
         <derogation-docs-list class="col-5 pl-2 pr-2"
                               [derogation]="derogationApiService.newDerogation">
         </derogation-docs-list>
         <derogation-mail-list class="col-3 pl-0"></derogation-mail-list>
     </div>
+
+
 </div>

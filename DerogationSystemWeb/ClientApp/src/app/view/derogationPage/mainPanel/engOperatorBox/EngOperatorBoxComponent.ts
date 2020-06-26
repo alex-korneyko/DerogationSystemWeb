@@ -1,7 +1,8 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, Input } from "@angular/core";
 import { DerogationApiService } from '../../../../controllers/DerogationApiService';
 import { DerogationOperator } from '../../../../model/domain/DerogationOperator';
 import { LoginApiService } from '../../../../controllers/LoginApiService';
+import {DerogationHeader} from "../../../../model/domain/DerogationHeader";
 
 @Component({
     templateUrl: "EngOperatorBoxComponent.html",
@@ -11,6 +12,9 @@ import { LoginApiService } from '../../../../controllers/LoginApiService';
 export class EngOperatorBoxComponent {
 
     public operatorBoxItem = new DerogationOperator();
+    
+    @Input()
+    derogation: DerogationHeader;
 
     constructor(public derogationApiService: DerogationApiService, public loginApiService: LoginApiService) { }
 
@@ -32,11 +36,11 @@ export class EngOperatorBoxComponent {
         if (error) return;
         
         this.operatorBoxItem.isNew = true;
-        this.operatorBoxItem.derogationId = this.derogationApiService.currentDerogation.derogationId;
+        this.operatorBoxItem.derogationId = this.derogation.derogationId;
         this.operatorBoxItem.derogationUser = this.loginApiService.loggedInUser.derogationUser;
         this.operatorBoxItem.insertedDate = new Date();
         console.log(this.operatorBoxItem);
-        this.derogationApiService.currentDerogation.operators.push(this.operatorBoxItem);
+        this.derogation.operators.push(this.operatorBoxItem);
 
         this.operatorBoxItem = new DerogationOperator();
     }
