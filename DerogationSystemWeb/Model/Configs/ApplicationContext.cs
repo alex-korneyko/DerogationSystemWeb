@@ -70,7 +70,7 @@ namespace DerogationSystemWeb.Model.Configs
                 .WithMany(dHeader => dHeader.DerogationItems)
                 .HasForeignKey(dItem => dItem.DerogationId);
 
-            //--------------- DerogationItem ----------------------
+            //--------------- DerogationOperator ----------------------
             modelBuilder.Entity<DerogationOperator>().ToTable("DerogationOperators").HasKey(dOper => dOper.Id);
 
             modelBuilder.Entity<DerogationOperator>()

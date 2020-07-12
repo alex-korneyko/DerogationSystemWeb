@@ -1,0 +1,2 @@
+﻿alter table DerogationHeadersItems add WorkOrderId bigint default 0 not null;
+update DerogationHeadersItems set WorkOrderId = (select WorkOrderId from WorkOrders where dbo.DerogationHeadersItems.WorkOrder = WorkOrders.OrderNo);
