@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
@@ -15,7 +16,7 @@ namespace DerogationSystemWeb.Controllers
             _environment = environment;
         }
 
-        [HttpGet]
+        [HttpGet("testGet")]
         public IActionResult MainTest()
         {
             return Ok("Hello World!!!");
@@ -25,6 +26,12 @@ namespace DerogationSystemWeb.Controllers
         public bool IsDevelopment()
         {
             return _environment.IsDevelopment();
+        }
+
+        [HttpPost("testPost")]
+        public IActionResult PostTest(Dictionary<string, string> requestBody)
+        {
+            return Ok(requestBody);
         }
     }
 }
