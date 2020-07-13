@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerogationSystemWeb", "Dero
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0B44C30B-25E8-4089-90D4-4E08C4F67C3C}"
 	ProjectSection(SolutionItems) = preProject
-		Add_Id_in_all_tables.sql = Add_Id_in_all_tables.sql
-		Increse_nvarchar_columns.sql = Increse_nvarchar_columns.sql
-		Add_references_to_derg_item.sql = Add_references_to_derg_item.sql
+		1__Add_Id_in_all_tables.sql = 1__Add_Id_in_all_tables.sql
+		2__Increse_nvarchar_columns.sql = 2__Increse_nvarchar_columns.sql
+		3__Add_references_to_derg_item.sql = 3__Add_references_to_derg_item.sql
 	EndProjectSection
 EndProject
 Global
